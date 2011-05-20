@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page parent="parent/global">
+	<placeholder name="mainColumn">
+		<widget name="contentWidget" path="/commons/content/detail-view">
+			<title>主列内容</title>
+			<prefs>
+				<content><![CDATA[
+				主列内容详情
+				]]></content>
+			</prefs>
+		</widget>
+	</placeholder>
+	<placeholder name="rightColumn">
+		<widget name="contentWidget" path="/commons/content/detail-view">
+			<title>公告</title>
+			<prefs>
+				<content><![CDATA[
+				公告内容详情
+				]]></content>
+			</prefs>
+		</widget>
+	</placeholder>
+</page>
