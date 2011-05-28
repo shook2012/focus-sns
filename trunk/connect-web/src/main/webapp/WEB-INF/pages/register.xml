@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<page>
-	<placeholder name="mainColumn">
-		<widget name="userWidget" path="/system/user/user-register">
-			<title>用户注册</title>
-		</widget>
-	</placeholder>
-</page>

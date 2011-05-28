@@ -1,1 +1,0 @@
-${reply.enteredBy.nickname} 回复了话题 ${topic.subject}
