@@ -83,6 +83,10 @@ public class EventServiceImpl implements EventService {
 		eventDao.delete(eventId);
 	}
 	
+	public List<Event> getEventList(Date start, Date end) {
+		return eventDao.findEventList(null, start, end);
+	}
+	
 	public List<Event> getEventList(Long projectId, Date start, Date end) {
 		return eventDao.findEventList(projectId, start, end);
 	}
@@ -91,6 +95,9 @@ public class EventServiceImpl implements EventService {
 		return eventDao.findEventPage(page, projectId, start);
 	}
 
+	/**
+	 * empty implement
+	 */
 	public void notifyEvent(Event event) {}
 	
 }

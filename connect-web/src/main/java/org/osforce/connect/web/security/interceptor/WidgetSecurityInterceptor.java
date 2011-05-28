@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.entity.system.User;
-import org.osforce.connect.security.annotation.Permission;
+import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.connect.service.system.PermissionService;
 import org.osforce.spring4me.web.interceptor.WidgetInterceptorAdapter;
 import org.osforce.spring4me.web.widget.WidgetConfig;

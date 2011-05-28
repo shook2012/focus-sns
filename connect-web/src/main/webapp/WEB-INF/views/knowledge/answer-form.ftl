@@ -16,7 +16,7 @@
 		<form id="answer-form${id}" class="answer-form"
 			action="${base}/knowledge/answer/form-action" method="post">
 			<div>
-				<@spring.formTextarea path="answer.content" />
+				<@spring.formTextarea path="answer.content" attributes='class="xheditor-mini"' />
 			</div>
 			<div>
 				<button type="submit" class="button">提交</button>

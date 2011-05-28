@@ -2,6 +2,6 @@
 	${topic.modifiedBy.nickname}
 </a>
 	更新了话题
-<a href="${base}/${topic.forum.project.uniqueId}/discussion/topic/${topic.id}">
+<a href="${base}/${topic.forum.project.uniqueId}/discussion/topic/detail?topicId=${topic.id}">
 	${topic.subject}
 </a>

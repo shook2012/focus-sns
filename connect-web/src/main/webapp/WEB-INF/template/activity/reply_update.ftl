@@ -2,6 +2,6 @@
 	${reply.modifiedBy.nickname}
 </a>
 回复了话题
-<a href="${base}/${reply.topic.forum.project.uniqueId}/discussion/topic/${reply.topic.id}">
+<a href="${base}/${reply.topic.forum.project.uniqueId}/discussion/topic/detail?topicId=${reply.topic.id}">
 ${reply.topic.subject}
 </a>

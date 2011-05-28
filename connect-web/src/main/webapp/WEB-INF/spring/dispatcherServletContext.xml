@@ -29,8 +29,9 @@
 		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
 		<!-- Object aware interceptor -->
 		<bean class="org.osforce.connect.web.interceptor.ObjectExposeInteceptor"/>
-		<!-- Clear cache after action -->
+		<!-- Clear cache after action 
 		<bean class="org.osforce.connect.web.interceptor.WidgetCacheClearInterceptor"/>
+		-->
 		<!-- Widget security interceptor -->
 		<bean class="org.osforce.connect.web.security.interceptor.WidgetSecurityInterceptor"/>
 	</mvc:interceptors>
@@ -67,52 +68,23 @@
 		</property>
 		<property name="freemarkerVariables">
 			<map>
-				<entry key="security">
-					<bean class="org.osforce.connect.security.tag.freemarker.SecurityTag"/>
-				</entry>
 				<entry key="prettyTime">
 					<bean class="org.osforce.connect.web.tag.freemarker.PrettyTimeTag"/>
 				</entry>
 				<entry key="activityRender">
 					<bean class="org.osforce.connect.web.tag.freemarker.ActivityRenderTag"/>
 				</entry>
+				<entry key="security">
+					<bean class="org.osforce.connect.web.security.tag.freemarker.SecurityTag"/>
+				</entry>
 			</map>
 		</property>
 	</bean>
 
-	<!-- View Revolver Begin -->
-	<!--
-	<bean id="jspViewResolver" class="org.osforce.spring4me.web.view.ExtendsInternalResourceViewResolver">
-		<property name="viewClass" value="org.osforce.spring4me.web.view.ExtendsInternalResourceView"/>
-		<property name="order" value="2"/>
-		<property name="prefix" value="/WEB-INF/views/"/>
-		<property name="suffix" value=".jsp"/>
-		<property name="themePrefix" value="/WEB-INF/themes/"/>
-		<property name="themeSuffix" value=".ftl"/>
-	</bean>
-	 -->
-	<!--  
-	<bean id="jspViewResolver" class="org.osforce.spring4me.web.view.ExtendsInternalResourceViewResolver">
-		<property name="order" value="1"/>
-	</bean>
-	 -->
-	<!-- 
-	<bean id="ftlViewResolver" class="org.osforce.spring4me.web.view.ExtendsFreeMarkerViewResolver">
-		<property name="viewClass" value="org.osforce.spring4me.web.view.ExtendsFreeMarkerView"/>
-		<property name="contentType" value="text/html;charset=UTF-8"/>
-		<property name="order" value="1"/>
-		<property name="prefix" value="/WEB-INF/views/"/>
-		<property name="suffix" value=".ftl"/>
-		<property name="themePrefix" value="/WEB-INF/themes/"/>
-		<property name="themeSuffix" value=".ftl"/>
-	</bean>
-	-->
-	
 	<bean id="ftlViewResolver" class="org.osforce.spring4me.web.view.freemarker.ExtendsFreeMarkerViewResolver">
 		<property name="contentType" value="text/html;charset=UTF-8"/>
 		<property name="order" value="2"/>
 	</bean>
-	<!-- View Resolver End -->
 	
 	<bean id="configFactory" class="org.osforce.spring4me.web.widget.impl.DefaultConfigFactory">
 		<property name="cache" value="true"/>

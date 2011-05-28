@@ -26,13 +26,13 @@ public class ActivityDaoImpl extends AbstractDao<Activity>
 		super(Activity.class);
 	}
 	
-	static final String JPQL0 = "FROM Activity AS a WHERE a.type IN (?1) ORDER BY a.entered DESC";
+	static final String JPQL0 = "FROM Activity AS a WHERE a.type IN (?1) ORDER BY a.modified DESC";
 	public Page<Activity> findActivityPage(Page<Activity> page, List<String> activityTypes) {
 		return findPage(page, JPQL0, activityTypes);
 	}
 	
 	
-	static final String JPQL1 = "FROM Activity a WHERE a.type IN (?1) AND a.project.profile.id IN (?2) ORDER BY a.entered DESC";
+	static final String JPQL1 = "FROM Activity a WHERE a.type IN (?1) AND a.project.profile.id IN (?2) ORDER BY a.modified DESC";
 	public Page<Activity> findActivityPage(Page<Activity> page, Project project,
 			List<String> activityTypes) {
 		List<Long> ids = new ArrayList<Long>();

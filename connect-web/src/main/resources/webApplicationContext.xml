@@ -12,6 +12,8 @@
 
 	<import resource="classpath:webApplicationContext-dao.xml"/>
 	<import resource="classpath:webApplicationContext-service.xml"/>
+	<import resource="classpath:webApplicationContext-task.xml"/>
+	<import resource="classpath:webApplicationContext-social.xml"/>
 
 	<!-- 定义受环境影响的变量 -->
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">

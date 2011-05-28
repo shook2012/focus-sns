@@ -2,7 +2,7 @@
 	${answer.modifiedBy.nickname}
 </a>
 	更新了问题
-<a href="${base}/${answer.question.project.uniqueId}/knowledge/question/${answer.question.id}">
+<a href="${base}/${answer.question.project.uniqueId}/knowledge/question/detail?questionId=${answer.question.id}">
 	${answer.question.title}
 </a>
 的答案
