@@ -57,6 +57,7 @@ public class ActivityServiceImpl implements ActivityService {
 	}
 
 	public void updateActivity(Activity activity) {
+		Date now = new Date();
 		if(activity.getEnteredId()!=null) {
 			User enteredBy = userDao.get(activity.getEnteredId());
 			activity.setEnteredBy(enteredBy);
@@ -68,8 +69,11 @@ public class ActivityServiceImpl implements ActivityService {
 		if(activity.getParentId()!=null) {
 			Activity parent = activityDao.get(activity.getParentId());
 			activity.setParent(parent);
+			//
+			parent.setModified(now);
+			activityDao.update(parent);
 		}
-		Date now = new Date();
+		activity.setModified(now);
 		if(activity.getId()==null) {
 			activity.setEntered(now);
 			activityDao.save(activity);

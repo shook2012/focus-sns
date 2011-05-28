@@ -1,7 +1,7 @@
 package org.osforce.connect.web.module.system;
 
 import org.osforce.connect.entity.system.Project;
-import org.osforce.connect.security.annotation.Permission;
+import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.web.bind.annotation.RequestMapping;
 

@@ -23,6 +23,8 @@ public interface EventService {
 
 	void deleteEvent(Long eventId);
 
+	List<Event> getEventList(Date start, Date end);
+	
 	List<Event> getEventList(Long projectId, Date start, Date end);
 
 	Page<Event> getEventPage(Page<Event> page, Long projectId, Date start);

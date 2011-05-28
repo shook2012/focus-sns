@@ -105,7 +105,7 @@ $(document).ready(function(){
 	$('#${id} .comment-action').click(function(){
 		var id = $(this).attr('id');
 		$('#activity-comment-form'+id).toggle();
-		$('#comments-list'+id).toggle();
+		$('#comments-list'+id).slideToggle('slow');
 		return false;
 	});
 });

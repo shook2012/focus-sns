@@ -7,7 +7,7 @@ import javax.validation.Valid;
 import org.osforce.connect.entity.blog.PostCategory;
 import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.entity.system.ProjectFeature;
-import org.osforce.connect.security.annotation.Permission;
+import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.connect.service.blog.PostCategoryService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.spring4me.web.stereotype.Widget;

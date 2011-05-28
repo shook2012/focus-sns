@@ -58,7 +58,7 @@
 			</dependency>
 			<dependency>
 				<groupId>org.osforce</groupId>
-				<artifactId>connect-security</artifactId>
+				<artifactId>connect-task</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>

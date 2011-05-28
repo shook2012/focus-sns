@@ -15,11 +15,11 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.osforce</groupId>
-			<artifactId>connect-security</artifactId>
+			<artifactId>connect-service</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.osforce</groupId>
-			<artifactId>connect-service</artifactId>
+			<artifactId>connect-task</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.osforce</groupId>

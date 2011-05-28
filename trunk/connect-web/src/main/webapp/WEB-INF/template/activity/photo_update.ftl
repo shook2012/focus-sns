@@ -2,6 +2,6 @@
 	${photo.enteredBy.nickname}
 </a>
 更新了相册照片
-<a href="${base}/${photo.album.project.uniqueId}/gallery/photo?${}">
+<a href="${base}/${photo.album.project.uniqueId}/gallery/photo/detail?photoId?${photo.id}">
 	${teamMember.project.title}
 </a>

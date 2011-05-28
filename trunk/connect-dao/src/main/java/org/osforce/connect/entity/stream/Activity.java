@@ -46,6 +46,7 @@ public class Activity extends IdEntity {
 	private String type;
 	private String format = FORMAT_TXT;
 	private Date entered;
+	private Date modified;
 	// helper
 	private Long enteredId;
 	private Long projectId;
@@ -111,6 +112,15 @@ public class Activity extends IdEntity {
 
 	public void setEntered(Date entered) {
 		this.entered = entered;
+	}
+	
+	@Column(nullable=false)
+	public Date getModified() {
+		return modified;
+	}
+	
+	public void setModified(Date modified) {
+		this.modified = modified;
 	}
 
 	@Transient

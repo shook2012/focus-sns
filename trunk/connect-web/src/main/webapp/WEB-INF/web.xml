@@ -31,6 +31,7 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
+	<!-- 
 	<filter>
 		<filter-name>WidgetCachingFilter</filter-name>
 		<filter-class>org.osforce.spring4me.web.cache.WidgetCachingFilter</filter-class>
@@ -48,6 +49,7 @@
     	<url-pattern>/*</url-pattern>
     	<dispatcher>INCLUDE</dispatcher>
   	</filter-mapping>
+  	 -->
 
 	<!-- Handles all requests into the application -->
 	<servlet>
