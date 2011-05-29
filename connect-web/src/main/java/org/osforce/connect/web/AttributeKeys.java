@@ -167,7 +167,7 @@ public  abstract  class AttributeKeys {
 	public static final String FOLDER_TREE_KEY_READABLE = "folderTree";
 	public static final String FOLDER_LIST_KEY_READABLE = "folders";
 	
-	public static final String FILE_ITEM_KEY = "_" + File.class.getName();
-	public static final String FILE_ITEM_KEY_READABLE = "fileItem";
-	public static final String FILE_ITEM_LIST_KEY_READABLE = "fileItems";
+	public static final String FILE_KEY = "_" + File.class.getName();
+	public static final String FILE_KEY_READABLE = "file";
+	public static final String FILE_LIST_KEY_READABLE = "files";
 }

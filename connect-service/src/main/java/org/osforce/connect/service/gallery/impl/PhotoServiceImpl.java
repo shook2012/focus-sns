@@ -1,6 +1,7 @@
 package org.osforce.connect.service.gallery.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.osforce.connect.dao.commons.AttachmentDao;
 import org.osforce.connect.dao.gallery.AlbumDao;
@@ -93,6 +94,10 @@ public class PhotoServiceImpl implements PhotoService {
 
 	public void deletePhoto(Long photoId) {
 		photoDao.delete(photoId);
+	}
+	
+	public List<Photo> getPhotoList(Long albumId) {
+		return photoDao.findPhotoList(albumId);
 	}
 	
 	public Page<Photo> getPhotoPage(Page<Photo> page, Long albumId) {

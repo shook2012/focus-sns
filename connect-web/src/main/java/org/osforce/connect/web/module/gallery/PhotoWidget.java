@@ -1,12 +1,14 @@
 package org.osforce.connect.web.module.gallery;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang.math.NumberUtils;
 import org.osforce.connect.entity.commons.Attachment;
 import org.osforce.connect.entity.gallery.Album;
 import org.osforce.connect.entity.gallery.Photo;
@@ -28,6 +30,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -66,19 +69,26 @@ public class PhotoWidget {
 	@RequestMapping("/list-view")
 	@Permission({"photo-view"})
 	public String doListView(@RequestParam Long albumId, 
-			@RequestParam(required=false) Long photoId,
 			Page<Photo> page, Model model) {
-		if(albumId!=null) {
-			page = photoService.getPhotoPage(page, albumId);
-			model.addAttribute(AttributeKeys.PAGE_KEY_READABLE, page);
-			//
-			Photo photo = page.getResult().isEmpty() ? null:page.getResult().get(0);
-			if(photoId!=null) {
-				photo = photoService.getPhoto(photoId);
-			}
-			model.addAttribute(AttributeKeys.PHOTO_KEY_READABLE, photo);
-		}
+		page = photoService.getPhotoPage(page, albumId);
+		model.addAttribute(AttributeKeys.PAGE_KEY_READABLE, page);
 		return "gallery/photo-list";
+	}
+	
+	@RequestMapping("/detail-view")
+	@Permission({"photo-view"})
+	public String doDetailView(@RequestParam(required=false) Long albumId, 
+			@RequestParam(required=false) Long photoId, Model model) {
+		Photo photo = null;
+		if(albumId!=null) {
+			List<Photo> photos = photoService.getPhotoList(albumId);
+			photo = photos.get(0);
+		}
+		if(photoId!=null) {
+			photo = photoService.getPhoto(photoId);
+		}
+		model.addAttribute(AttributeKeys.PHOTO_KEY_READABLE, photo);
+		return "gallery/photo-detail";
 	}
 	
 	@RequestMapping("/form-view")
@@ -92,47 +102,95 @@ public class PhotoWidget {
 			photo.setAlbumId(albumId);
 			photo.setEnteredId(user.getId());
 			photo.setModifiedId(user.getId());
-			model.addAttribute(AttributeKeys.PHOTO_KEY_READABLE, photo);
-			//
-			List<Album> albums = albumService.getAlbumList(project.getId());
-			Map<String, String> albumOptions = new HashMap<String, String>();
-			for(Album album : albums) {
-				albumOptions.put(album.getId().toString(), album.getName());
+			if(photoId!=null) {
+				photo = photoService.getPhoto(photoId);
 			}
-			model.addAttribute(AttributeKeys.ALBUM_LIST_KEY_READABLE, albums);
-			model.addAttribute("albumOptions", albumOptions);
+			model.addAttribute(AttributeKeys.PHOTO_KEY_READABLE, photo);
 		}
+		//
+		List<Album> albums = albumService.getAlbumList(project.getId());
+		Map<String, String> albumOptions = new HashMap<String, String>();
+		for(Album album : albums) {
+			albumOptions.put(album.getId().toString(), album.getName());
+		}
+		model.addAttribute(AttributeKeys.ALBUM_LIST_KEY_READABLE, albums);
+		model.addAttribute("albumOptions", albumOptions);
 		return "gallery/photo-form";
 	}
 	
 	@RequestMapping(value="/form-action", method=RequestMethod.POST)
 	@Permission(value={"photo-add", "photo-edit"}, userRequired=true, projectRequired=true)
-	public String doActionForm(
+	public String doFormAction(
 			@RequestParam MultipartFile file,
-			@ModelAttribute @Valid Photo photo, 
-			BindingResult result, Model model, Project project) throws IOException {
+			@ModelAttribute @Valid Photo photo, BindingResult result, 
+			Model model, Project project, WebRequest request) throws IOException {
 		if(result.hasErrors()) {
 			model.addAttribute(AttributeKeys.SHOW_ERRORS_KEY_READABLE, true);
 			model.addAttribute(AttributeKeys.FEATURE_CODE_KEY_READABLE, ProjectFeature.FEATURE_GALLERY);
 			return "page:/gallery/photo-form";
 		}
 		//
-		Attachment attachment = new Attachment();
-		attachment.setContentType(file.getContentType());
-		attachment.setFileName(file.getOriginalFilename());
-		attachment.setSize(file.getSize());
-		attachment.setBytes(file.getBytes());
-		attachmentService.createAttachment(attachment);
-		AttachmentUtil.write(attachment);
+		if(file.getSize()>0) {
+			Attachment attachment = AttachmentUtil.parse(file);
+			attachmentService.createAttachment(attachment);
+			AttachmentUtil.write(attachment);
+			//
+			if(photo.getRealFileId()!=null) {
+				Attachment needDelete = attachmentService.getAttachment(photo.getRealFileId());
+				AttachmentUtil.delete(needDelete);
+				attachmentService.deleteAttachment(photo.getRealFileId());
+			}
+			photo.setRealFileId(attachment.getId());
+		}
 		//
-		photo.setRealFile(attachment);
 		if(photo.getId()==null) {
 			photoService.createPhoto(photo);
 		} else {
 			photoService.updatePhoto(photo);
 		}
-		return String.format("redirect:/%s/gallery/photo/form?photoId=%s", 
-				project.getUniqueId(), photo.getId());
+		//
+		syncSessionPhotoList(photo, request, false);
+		return String.format("redirect:/%s/gallery/photo/form?albumId=%s", 
+				project.getUniqueId(), photo.getAlbumId());
+	}
+	
+	@RequestMapping(value="/delete-action", method=RequestMethod.GET)
+	@Permission(value={"photo-edit"}, userRequired=true)
+	public String doDeleteAction(@RequestParam Long photoId, WebRequest request) {
+		Photo photo = photoService.getPhoto(photoId);
+		String uniqueId = photo.getAlbum().getProject().getUniqueId();
+		Long albumId = photo.getAlbumId();
+		// delete from session
+		syncSessionPhotoList(photo, request, true);
+		// delete from database
+		AttachmentUtil.delete(photo.getRealFile());
+		attachmentService.deleteAttachment(photo.getRealFileId());
+		photoService.deletePhoto(photoId);
+		return String.format("redirect:/%s/gallery/photo/form?albumId=%s", uniqueId, albumId);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void syncSessionPhotoList(Photo photo, WebRequest request, Boolean reverse) {
+		List<Photo> photos = (List<Photo>) request.getAttribute(
+				AttributeKeys.PHOTO_LIST_KEY_READABLE, WebRequest.SCOPE_SESSION);
+		if(photos==null) {
+			photos = new ArrayList<Photo>();
+		}
+		if(!reverse) {
+			for(Photo p : photos) {
+				if(NumberUtils.compare(p.getId(), photo.getId())==0) {
+					photos.remove(p);
+				} 
+			}
+			photos.add(0, photo);
+		} else {
+			for(Photo p : photos) {
+				if(NumberUtils.compare(p.getId(), photo.getId())==0) {
+					photos.remove(p);
+				} 
+			}
+		}
+		request.setAttribute(AttributeKeys.PHOTO_LIST_KEY_READABLE, photos, WebRequest.SCOPE_SESSION);
 	}
 	
 }

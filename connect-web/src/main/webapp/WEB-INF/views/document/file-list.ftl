@@ -13,13 +13,13 @@
 			</#list>
 		</p>
 		</#if>
-		<#if fileItems?size == 0 >
+		<#if files?size == 0 >
 		<div class="notice">当前目录无文档可显示!</div>
 		<#else>
 		<table width="100%">
 			<thead>
 				<tr>
-					<th>选择(<a href="#">全选</a>)</th>
+					<th>ID</th>
 					<th>文档名</th>
 					<th>上传日期</th>
 					<th>修改日期</th>
@@ -27,14 +27,30 @@
 				</tr>
 			</thead>
 			<tbody>
-			<#list fileItems as fileItem>
+			<#list files as file>
 				<tr>
-					<td><input type="checkbox"/></td>
-					<td>${fileItem.realFile.fileName}</td>
-					<td>${fileItem.entered}</td>
-					<td>${fileItem.modified}</td>
+					<td>${file.id}</td>
 					<td>
-						<a href="${base}/document/file/download-action?fileId=${fileItem.id}" target="_blank">下载</a>
+						<#if file.name??>
+						${file.name}
+						<#else>
+						${file.realFile.fileName}
+						</#if>
+					</td>
+					<td>${file.entered!''}</td>
+					<td>${file.modified}</td>
+					<td>
+						<@security code="file-edit">
+						<a href="${base}/${project.uniqueId}/document/file/form?fileId=${file.id}">编辑</a>
+						</@security>
+						<@security code="file-edit">  
+						|
+						<a href="${base}/document/file/delete-action?fileId=${file.id}">删除</a>
+						</@security>
+						<@security code="file-download">
+						|
+						<a href="${base}/commons/attachment/download?id=${file.realFileId}" target="_blank">下载</a>
+						</@security>
 					</td>
 				</tr>
 			</#list>

@@ -15,10 +15,10 @@ $.fn.AdubyTree = function(config ) {
 		config		:$.extend({
 			url				: null,//remote url for ajax data
 			id				: '-1',//root id
-			datatype		: "json",//return the data type from remote url,datatype json¡¢xml£¬default is json
-			type			: "POST",//remote data method type ,GET¡¢POST£¬default is GET
+			datatype		: "json",//return the data type from remote url,datatype jsonï¿½ï¿½xmlï¿½ï¿½default is json
+			type			: "POST",//remote data method type ,GETï¿½ï¿½POSTï¿½ï¿½default is GET
 			cookie			: true,//allow cookie set for current
-			treeType        : "extend",//three tree type simple¡¢strengthen¡¢extend
+			treeType        : "extend",//three tree type simpleï¿½ï¿½strengthenï¿½ï¿½extend
 			checkboxes		: false,//true is use checkbox,false is not
 			checkboxPos     :"before",//checkbox position before or after
 			selected		: null,

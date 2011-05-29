@@ -1,5 +1,7 @@
 package org.osforce.connect.dao.gallery;
 
+import java.util.List;
+
 import org.osforce.connect.entity.gallery.Photo;
 import org.osforce.spring4me.dao.BaseDao;
 import org.osforce.spring4me.dao.Page;
@@ -13,6 +15,13 @@ import org.osforce.spring4me.dao.Page;
  */
 public interface PhotoDao extends BaseDao<Photo> {
 
+	/**
+	 * Find photo list order by entered DESC
+	 * @param albumId
+	 * @return
+	 */
+	List<Photo> findPhotoList(Long albumId);
+	
 	/**
 	 * Find photo order by entered DESC
 	 * @param page

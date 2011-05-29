@@ -71,4 +71,5 @@ public class ProfileWidget {
 		profileService.updateProfile(profile);
 		return String.format("redirect:/%s/profile", profile.getProject().getUniqueId());
 	}
+	
 }

@@ -36,7 +36,7 @@
 		<property name="persistenceXmlLocation" value="/META-INF/persistence.xml"/>
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-				<property name="showSql" value="false"/>
+				<property name="showSql" value="true"/>
 				<property name="generateDdl" value="true"/>
 				<property name="database">
 					<util:constant static-field="${jpa.dialect}"/>
@@ -46,11 +46,15 @@
 		<property name="jpaProperties">
 			<props>
 				<prop key="hibernate.ejb.naming_strategy">org.osforce.connect.entity.support.PrefixImprovedNamingStrategy</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<prop key="hibernate.cache.use_query_cache">true</prop>
 				<prop key="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.EhCacheRegionFactory</prop>
-				<prop key="hibernate.cache.provider_configuration_file_resource_path">/cache/ehcache-hibernate.xml</prop>
+				<prop key="net.sf.ehcache.configurationResourceName">/cache/ehcache-hibernate.xml</prop>
+				 <!--
 				<prop key="hibernate.search.default.directory_provider">org.hibernate.search.store.FSDirectoryProvider</prop>
 				<prop key="hibernate.search.default.indexBase">${user.home}/.connect/indexes</prop>
 				<prop key="hibernate.search.analyzer">org.apache.lucene.analysis.cn.ChineseAnalyzer</prop>
+				-->
 			</props>
 		</property>
 	</bean>

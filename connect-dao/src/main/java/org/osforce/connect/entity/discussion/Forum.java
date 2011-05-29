@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -149,7 +150,7 @@ public class Forum extends IdEntity {
 		this.modifiedId = modifiedId;
 	}
 
-	@Transient
+	@OneToMany(mappedBy="forum", fetch=FetchType.LAZY)
 	public List<Topic> getTopics() {
 		return topics;
 	}
