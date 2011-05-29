@@ -13,12 +13,12 @@
 			<div class="slideshow">
 			<#if album.photos?? && album.photos?size gt 0>
 				<#list album.photos as photo>
-					<a href="${base}/${project.uniqueId}/gallery/photos?albumId=${album.id}" title="${photo.name}">
-						<img src="${base}/photo/download/${photo.realFile.id}/150x150"/>
+					<a href="${base}/${project.uniqueId}/gallery/photo/detail?albumId=${album.id}&photoId=${photo.id}" title="${photo.name!''}">
+						<img src="${base}/commons/attachment/download/${photo.realFile.id}/150x150"/>
 					</a>	
 				</#list>
 			<#else>
-				<a href="${base}/${project.uniqueId}/gallery/photo/form?albumId=${album.id}" title="${album.name}">
+				<a <@security code="photo-add|photo-edit">href="${base}/${project.uniqueId}/gallery/photo/form?albumId=${album.id}"</@security> title="${album.name}">
 					<img src="${base}/static/images/nophoto.jpg" width="150" height="150"/>	
 				</a>
 			</#if>
@@ -29,3 +29,9 @@
 		<br class="clear" />
 	</div>
 </div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('.slideshow').cycle();
+});
+</script>

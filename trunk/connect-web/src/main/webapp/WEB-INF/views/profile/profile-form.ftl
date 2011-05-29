@@ -9,21 +9,6 @@
 	</div>
 	</#if>
 	<div class="body">
-		<form class="logo-form" action="${base}/profile/profile/logo-action" method="post">
-			<div>
-			<#if profile.logo??>
-				<img class="thumbnail" src="${base}/logo/download/${profile.logo.id}/75x75"/>			
-			<#else>
-				<img class="thumbnail" src="${base}/themes/${theme}/stock/${project.category.code}.png"/>
-			</#if>
-			</div>
-			<div>
-				<input type="file" id="select-file${id}" name="file">
-				<input type="hidden" name="forward" value="/profile/logo"/>
-				<input type="hidden" name="profileId" value="${profile.id}"/>
-			</div>
-		</form>
-
 		<@spring.bind "profile" />
 		<form class="profile-form" action="${base}/profile/profile/form-action" method="post">
 			<div>
@@ -80,23 +65,5 @@ $('#addRow${id}').click(function(){
 	var blankRow = $('#blankRow${id}').clone();
 	$(blankRow).attr('id', '').appendTo('#profile-attributes${id}');
 	return false;
-});
-</script>
-
-<script type="text/javascript">
-$(document).ready(function(){
-	$('#select-file${id}').change(function(){
-		$('#logo-form${id}').ajaxSubmit({
-			dataType: 'json',
-			beforeSubmit: function(formData, $form){
-				$form.find('input[type=file]').busy({
-					img: '${base}/static/images/loading.gif'
-				});
-			},
-			success: function(profile){
-				window.location.reload();
-			}
-		});
-	});
 });
 </script>

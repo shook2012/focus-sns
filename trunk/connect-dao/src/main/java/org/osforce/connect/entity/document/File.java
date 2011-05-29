@@ -31,7 +31,8 @@ public class File extends IdEntity {
 
 	public static final String NAME = File.class.getSimpleName();
 
-	private String displayName;
+	private String name;
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date entered;
 	private Date modified;
 	private Boolean enabled;
@@ -50,15 +51,14 @@ public class File extends IdEntity {
 	public File() {
 	}
 
-	public String getDisplayName() {
-		return displayName;
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public void setDisplayName(String displayName) {
-		this.displayName = displayName;
-	}
-
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	public Date getEntered() {
 		return entered;
 	}
@@ -67,7 +67,6 @@ public class File extends IdEntity {
 		this.entered = entered;
 	}
 
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	public Date getModified() {
 		return modified;
 	}

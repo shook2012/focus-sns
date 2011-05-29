@@ -227,6 +227,18 @@ table.calendar tbody tr td a {
 	border: 1px solid #ccc;
 	background-color: #eee;
 }
+/* photo widget */
+.photos-list {
+}
+.photos-list li {
+	display: inline;
+}
+.photos-list .current {
+	background-color: #DDF0F8;
+}
+.photos-list li:hover img {
+	background-color: #EEE;
+}
 /* forum widget */
 .forum-form #description {
 	width: 300px;

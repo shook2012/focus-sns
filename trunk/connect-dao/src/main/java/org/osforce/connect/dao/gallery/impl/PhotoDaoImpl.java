@@ -1,5 +1,7 @@
 package org.osforce.connect.dao.gallery.impl;
 
+import java.util.List;
+
 import org.osforce.connect.dao.gallery.PhotoDao;
 import org.osforce.connect.entity.gallery.Photo;
 import org.osforce.spring4me.dao.AbstractDao;
@@ -22,8 +24,13 @@ public class PhotoDaoImpl extends AbstractDao<Photo>
 	}
 	
 	static final String JPQL0 = "FROM Photo AS p WHERE p.album.id = ?1 ORDER BY p.entered";
+	public List<Photo> findPhotoList(Long albumId) {
+		return findList(JPQL0, albumId);
+	}
+	
+	static final String JPQL1 = "FROM Photo AS p WHERE p.album.id = ?1 ORDER BY p.entered";
 	public Page<Photo> findPhotoPage(Page<Photo> page, Long albumId) {
-		return findPage(page, JPQL0, albumId);
+		return findPage(page, JPQL1, albumId);
 	}
 	
 }

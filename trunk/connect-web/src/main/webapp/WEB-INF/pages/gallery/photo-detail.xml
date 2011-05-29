@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page parent="parent/global">
+	<placeholder name="leftColumn">
+		<widget name="menuWidget" path="/system/menu/custom-menu">
+			<prefs>
+				<menuPath>gallery/menu</menuPath>
+				<userRequired>true</userRequired>
+			</prefs>
+		</widget>
+	</placeholder>
+	<placeholder name="mainColumn">
+		<widget name="photoWidget" path="/gallery/photo/detail-view">
+			<title>相片浏览</title>
+		</widget>
+		<widget name="commentWidget" path="/commons/comment/list-view">
+			<title>评论</title>
+			<prefs>
+				<paramName>photoId</paramName>
+				<entity>Photo</entity>
+			</prefs>
+		</widget>
+	</placeholder>
+	<placeholder name="rightColumn">
+		<widget name="photoWidget" path="/gallery/photo/list-view">
+			<title>相片列表</title>
+			<prefs>
+				<pageSize>10</pageSize>
+			</prefs>
+		</widget>
+	</placeholder>
+</page>

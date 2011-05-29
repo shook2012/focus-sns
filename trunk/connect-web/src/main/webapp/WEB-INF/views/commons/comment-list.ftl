@@ -14,7 +14,7 @@
 		<#list comments as comment>
 			<li>
 				<span class="span-2">
-					<a href="${base}/profile/${comment.enteredBy.project.uniqueId}" title="${comment.enteredBy.project.title}">
+					<a href="${base}/${comment.enteredBy.project.uniqueId}/profile" title="${comment.enteredBy.project.title}">
 					<#if comment.enteredBy.project.profile.logo??>
 						<img class="thumbnail" src="${base}/logo/download/${comment.enteredBy.project.profile.logo.id}/40x40"/>
 					<#else>

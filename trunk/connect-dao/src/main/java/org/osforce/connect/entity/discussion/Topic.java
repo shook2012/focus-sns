@@ -1,6 +1,8 @@
 package org.osforce.connect.entity.discussion;
 
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
@@ -8,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -52,6 +56,7 @@ public class Topic extends IdEntity {
 	private Reply answer;
 	private User enteredBy;
 	private User modifiedBy;
+	private List<Reply> replies = Collections.emptyList();
 	
 	public Topic() {
 	}
@@ -226,6 +231,16 @@ public class Topic extends IdEntity {
 	
 	public void setAnswer(Reply answer) {
 		this.answer = answer;
+	}
+	
+	@OneToMany(mappedBy="topic", fetch=FetchType.LAZY)
+	@OrderBy("entered ASC")
+	public List<Reply> getReplies() {
+		return replies;
+	}
+	
+	public void setReplies(List<Reply> replies) {
+		this.replies = replies;
 	}
 	
 }

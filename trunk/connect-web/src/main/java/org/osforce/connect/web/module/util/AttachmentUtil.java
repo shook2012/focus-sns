@@ -10,6 +10,7 @@ import org.apache.commons.lang.time.DateFormatUtils;
 import org.osforce.connect.Application;
 import org.osforce.connect.entity.commons.Attachment;
 import org.osforce.spring4me.commons.image.ImageUtil;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 
@@ -40,6 +41,24 @@ public final class AttachmentUtil {
 		FileUtils.writeByteArrayToFile(targetFile, attachment.getBytes());
 	}
 	
+	public static Attachment parse(MultipartFile file) throws IOException {
+		Attachment attachment = new Attachment();
+		attachment.setContentType(file.getContentType());
+		attachment.setFileName(file.getOriginalFilename());
+		attachment.setSize(file.getSize());
+		attachment.setBytes(file.getBytes());
+		return attachment;
+	}
+	
+	public static void delete(Attachment attachment) {
+		File targetFile = getTargetFile(attachment);
+		if(StringUtils.isNotBlank(attachment.getDimension())) {
+			File thumnailFile = getThumnailFile(attachment);
+			FileUtils.deleteQuietly(thumnailFile);
+		}
+		FileUtils.deleteQuietly(targetFile);
+	}
+	
 	private static File getThumnailFile(Attachment attachment) {
 		StringBuffer pathBuffer = new StringBuffer(basePath);
 		pathBuffer.append("/" + DateFormatUtils.format(attachment.getEntered(), "yyyy"));
@@ -55,5 +74,5 @@ public final class AttachmentUtil {
 		String name =  attachment.getName() + "_" + attachment.getId() + attachment.getSuffix();
 		return new File(pathBuffer.toString(), name);
 	}
-	
+
 }

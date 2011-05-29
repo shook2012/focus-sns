@@ -1,5 +1,7 @@
 package org.osforce.connect.service.gallery;
 
+import java.util.List;
+
 import org.osforce.connect.entity.gallery.Photo;
 import org.osforce.spring4me.dao.Page;
 
@@ -19,6 +21,9 @@ public interface PhotoService {
 	void updatePhoto(Photo photo);
 	
 	void deletePhoto(Long photoId);
+	
+	List<Photo> getPhotoList(Long albumId);
 
 	Page<Photo> getPhotoPage(Page<Photo> page, Long albumId);
+
 }
