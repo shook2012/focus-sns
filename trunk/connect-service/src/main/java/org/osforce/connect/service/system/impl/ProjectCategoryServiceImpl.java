@@ -43,8 +43,8 @@ public class ProjectCategoryServiceImpl implements ProjectCategoryService {
 		return projectCategoryDao.get(categoryId);
 	}
 	
-	public ProjectCategory getProjectCategory(Long siteId, String categoryCode) {
-		return projectCategoryDao.findProjectCategory(siteId, categoryCode);
+	public ProjectCategory getProjectCategory(Site site, String categoryCode) {
+		return projectCategoryDao.findProjectCategory(site.getId(), categoryCode);
 	}
 
 	public void createProjectCategory(ProjectCategory projectCategory) {

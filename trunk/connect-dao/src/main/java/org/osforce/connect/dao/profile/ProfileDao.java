@@ -1,6 +1,7 @@
 package org.osforce.connect.dao.profile;
 
 import org.osforce.connect.entity.profile.Profile;
+import org.osforce.connect.entity.system.User;
 import org.osforce.spring4me.dao.BaseDao;
 import org.osforce.spring4me.dao.Page;
 
@@ -35,7 +36,7 @@ public interface ProfileDao extends BaseDao<Profile> {
 	 * @param userId
 	 * @return
 	 */
-	Page<Profile> findProfilePage(Page<Profile> page, Long categoryId, Long userId);
+	Page<Profile> findProfilePage(Page<Profile> page, User user, Long categoryId);
 
 
 

@@ -51,6 +51,7 @@ public  abstract  class AttributeKeys {
 	public static final String APPLICATION_KEY_READABLE = "application";
 	public static final String SHOW_ERRORS_KEY_READABLE = "showErrors";
 	public static final String REQUEST_PATH_KEY_READABLE = "requestPath";
+	public static final String REMEMBER_ME_KEY = "_rememberMe_";
 	
 	public static final String SITE_KEY = "_" + Site.class.getName();
 	public static final String SITE_KEY_READABLE = "site";

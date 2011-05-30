@@ -1,5 +1,7 @@
 package org.osforce.connect.web.module.message;
 
+import java.util.Collections;
+
 import javax.validation.Valid;
 
 import org.osforce.connect.entity.message.Message;
@@ -17,7 +19,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
 /**
@@ -84,19 +88,16 @@ public class MessageWidget {
 	}
 	
 	@RequestMapping("/form-view")
-	@Permission(value={"message-add", "message-edit"}, userRequired=true, projectRequired=true)
 	public String doFormView(@RequestParam Long toId, 
 			@RequestParam(required=false) Long messageId, 
-			@RequestParam Long fromId, Project project, User user, Model model,
+			@RequestParam Long fromId, User user, Model model,
 			@ModelAttribute @Valid Message message, BindingResult result, Boolean showErrors) {
 		if(!showErrors) {
 			message.setEnteredBy(user);
 			if(fromId!=null) {
 				Project from = projectService.getProject(fromId);
 				message.setFrom(from);
-			} else {
-				message.setFrom(project);
-			}
+			} 
 			if(toId!=null) {
 				Project to = projectService.getProject(toId);
 				message.setTo(to);
@@ -110,6 +111,21 @@ public class MessageWidget {
 			model.addAttribute(AttributeKeys.MESSAGE_KEY_READABLE, message);
 		}
 		return "message/message-form";
+	}
+	
+	@RequestMapping(value="/form-action", method=RequestMethod.POST)
+	public @ResponseBody Object doFormAction(@ModelAttribute @Valid Message message, 
+			BindingResult result, Model model) {
+		if(result.hasErrors()) {
+			return Collections.singletonMap("error", result.getAllErrors().size());
+		}
+		//
+		if(message.getId()==null) {
+			messageService.createMessage(message);
+		} else {
+			messageService.updateMessage(message);
+		}
+		return Collections.singletonMap("id", message.getId());
 	}
 	
 }
