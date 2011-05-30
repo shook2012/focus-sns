@@ -3,6 +3,7 @@ package org.osforce.connect.service.system;
 import java.util.List;
 
 import org.osforce.connect.entity.system.ProjectCategory;
+import org.osforce.connect.entity.system.Site;
 import org.osforce.spring4me.dao.Page;
 
 /**
@@ -16,7 +17,7 @@ public interface ProjectCategoryService {
 
 	ProjectCategory getProjectCategory(Long categoryId);
 	
-	ProjectCategory getProjectCategory(Long siteId, String categoryCode);
+	ProjectCategory getProjectCategory(Site site, String categoryCode);
 	
 	void createProjectCategory(ProjectCategory category);
 	

@@ -103,8 +103,8 @@ public class ProfileServiceImpl implements ProfileService {
 		return profileDao.findProfilePage(page, categoryId);
 	}
 	
-	public Page<Profile> getProfilePage(Page<Profile> page, Long categoryId, Long userId) {
-		return profileDao.findProfilePage(page, categoryId, userId);
+	public Page<Profile> getProfilePage(Page<Profile> page, User user, Long categoryId) {
+		return profileDao.findProfilePage(page, user, categoryId);
 	}
 	
 }

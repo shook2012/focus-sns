@@ -32,7 +32,6 @@ public interface ProfileService {
 
 	Page<Profile> getProfilePage(Page<Profile> page, Long categoryId);
 
-	Page<Profile> getProfilePage(Page<Profile> page,
-			Long categoryId, Long userId);
+	Page<Profile> getProfilePage(Page<Profile> page, User user, Long categoryId);
 
 }

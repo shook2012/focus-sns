@@ -2,9 +2,12 @@ package org.osforce.connect.web.module.system;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.commons.lang.SystemUtils;
 import org.osforce.connect.entity.commons.Template;
 import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.entity.system.ProjectCategory;
@@ -18,6 +21,7 @@ import org.osforce.connect.service.system.RoleService;
 import org.osforce.connect.service.system.UserService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.module.util.ModuleUtil;
+import org.osforce.spring4me.commons.cipher.CipherUtil;
 import org.osforce.spring4me.dao.Page;
 import org.osforce.spring4me.web.bind.annotation.Pref;
 import org.osforce.spring4me.web.stereotype.Widget;
@@ -41,6 +45,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/system/user")
 public class UserWidget {
 
+	private static final String KEY_FILE = SystemUtils.USER_HOME + "/.connect/key";
+	
 	private RoleService roleService;
 	private UserService userService;
 	private TemplateService templateService;
@@ -88,13 +94,19 @@ public class UserWidget {
 	
 	@RequestMapping(value="/login-action", method=RequestMethod.POST)
 	public String doLoginAction(@Valid LoginBean loginBean, BindingResult result, 
-			Model model, HttpSession session) {
+			Model model, HttpSession session, HttpServletResponse response) throws Exception {
 		User user = userService.loginUser(loginBean.getUsername(), loginBean.getPassword());
 		if(result.hasErrors() || user==null) {
 			model.addAttribute(AttributeKeys.SHOW_ERRORS_KEY_READABLE, true);
 			return "page:/login";
 		}
 		//
+		if(loginBean.getRememberMe()) {
+			String username = CipherUtil.encrypt(user.getUsername(), KEY_FILE);
+			Cookie cookie = new Cookie(AttributeKeys.REMEMBER_ME_KEY, username);
+			cookie.setPath("/connect");
+			response.addCookie(cookie);
+		}
 		session.setAttribute(AttributeKeys.USER_ID_KEY, user.getId());
 		return String.format("redirect:/%s/profile", user.getProject().getUniqueId());
 	}
@@ -109,7 +121,7 @@ public class UserWidget {
 	public String doRegisterView(@Pref("people-features") String templateCode,
 			@Pref("people") String categoryCode, Site site, HttpSession session,
 			@ModelAttribute @Valid RegisterBean registerBean, BindingResult result, Model model) {
-		ProjectCategory category = categoryService.getProjectCategory(site.getId(), categoryCode);
+		ProjectCategory category = categoryService.getProjectCategory(site, categoryCode);
 		//
 		Template template = templateService.getTemplate(category.getId(), templateCode);
 		List<ProjectFeature> modules = ModuleUtil.parseToModules(template.getContent());

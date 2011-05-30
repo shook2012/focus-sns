@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.NotBlank;
 import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.entity.system.User;
 import org.osforce.spring4me.entity.IdEntity;
@@ -33,8 +34,9 @@ public class Message extends IdEntity {
 	
 	public static final String BOX_IN = "inbox";
 	public static final String BOX_SENT = "sentbox";
-
+	@NotBlank
 	private String subject;
+	@NotBlank
 	private String content;
 	private Date entered;
 	private Boolean read = false;

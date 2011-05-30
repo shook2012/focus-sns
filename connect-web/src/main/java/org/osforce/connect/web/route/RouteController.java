@@ -21,12 +21,12 @@ public class RouteController {
 	//  ----------------------------------------------- Custom Pages ------------------------------------------------   //
 	@RequestMapping(value={"/", "/home"}, method=RequestMethod.GET)
 	public String route0() {
-		return "page:/home";
+		return "page:/dashboards?path=/home";
 	}
 	
 	@RequestMapping(value={"/login"}, method=RequestMethod.GET)
 	public String route10() {
-		return "page:/login";
+		return "page:/dashboards?path=/login";
 	}
 	
 	@RequestMapping(value={"/logout"}, method=RequestMethod.GET)
@@ -36,7 +36,26 @@ public class RouteController {
 	
 	@RequestMapping(value={"/{categoryCode}"}, method=RequestMethod.GET)
 	public String route90(@PathVariable String categoryCode) {
-		return "page:/" + categoryCode;
+		return String.format("page:/dashboards?path=/%s", categoryCode);
+	}
+	
+	@RequestMapping(value={"/{categoryCode}/{mode}"}, method=RequestMethod.GET)
+	public String route91(@PathVariable String categoryCode,
+			@PathVariable String mode, WebRequest request) {
+		request.setAttribute("mode", mode, WebRequest.SCOPE_REQUEST);
+		return String.format("page:/dashboards?path=/%s", categoryCode);
+	}
+	
+	@RequestMapping(value={"/app/user/login"}, method=RequestMethod.GET)
+	public String route98(WebRequest request) {
+		request.setAttribute("popup", Boolean.TRUE, WebRequest.SCOPE_REQUEST);
+		return "page:/apps/login-form";
+	}
+	
+	@RequestMapping(value={"/app/message/form"}, method=RequestMethod.GET)
+	public String route99(WebRequest request) {
+		request.setAttribute("popup", Boolean.TRUE, WebRequest.SCOPE_REQUEST);
+		return "page:/apps/message-form";
 	}
 	//  ----------------------------------------------- Custom Pages ------------------------------------------------   //
 	

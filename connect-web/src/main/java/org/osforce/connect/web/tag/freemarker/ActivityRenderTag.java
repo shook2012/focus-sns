@@ -34,9 +34,7 @@ import org.osforce.connect.service.knowledge.AnswerService;
 import org.osforce.connect.service.knowledge.QuestionService;
 import org.osforce.connect.service.profile.ProfileService;
 import org.osforce.connect.service.team.MemberService;
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.springframework.util.Assert;
 
@@ -56,16 +54,23 @@ import freemarker.template.TemplateModel;
  * @create May 20, 2011 - 2:55:56 PM
  * <a href="http://www.opensourceforce.org">开源力量</a>
  */
-public class ActivityRenderTag implements TemplateDirectiveModel, ApplicationContextAware {
+public class ActivityRenderTag implements TemplateDirectiveModel {
 
-	private ApplicationContext appContext;
+	@Autowired private ProfileService profileService;
+	@Autowired private PostService postService;
+	@Autowired private ForumService forumService;
+	@Autowired private TopicService topicService;
+	@Autowired private ReplyService replyService;
+	@Autowired private MemberService memberService;
+	@Autowired private EventService eventService;
+	@Autowired private AlbumService albumService;
+	@Autowired private PhotoService photoService;
+	@Autowired private QuestionService questionService;
+	@Autowired private AnswerService answerService;
+	@Autowired private FileService fileService;
+	@Autowired private FolderService folderService;
 	
 	public ActivityRenderTag() {
-	}
-	
-	public void setApplicationContext(ApplicationContext applicationContext)
-			throws BeansException {
-		this.appContext = applicationContext;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -100,55 +105,42 @@ public class ActivityRenderTag implements TemplateDirectiveModel, ApplicationCon
 	private Map<Object, Object> createModel(Activity activity) {
 		Map<Object, Object> model = new HashMap<Object, Object>();
 		if(StringUtils.equals(Profile.NAME, activity.getEntity())) {
-			ProfileService profileService = appContext.getBean(ProfileService.class);
 			Profile profile = profileService.getProfile(activity.getLinkedId());
 			model.put("profile", profile);
 		} else if(StringUtils.equals(Post.NAME, activity.getEntity())) {
-			PostService postService = appContext.getBean(PostService.class);
 			Post blogPost = postService.getPost(activity.getLinkedId());
 			model.put("post", blogPost);
 		} else if(StringUtils.equals(Forum.NAME, activity.getEntity())){
-			ForumService forumService = appContext.getBean(ForumService.class);
 			Forum forum = forumService.getForum(activity.getLinkedId());
 			model.put("forum", forum);
 		} else if(StringUtils.equals(Topic.NAME, activity.getEntity())) {
-			TopicService topicService = appContext.getBean(TopicService.class);
 			Topic topic = topicService.getTopic(activity.getLinkedId());
 			model.put("topic", topic);
 		} else if(StringUtils.equals(Reply.NAME, activity.getEntity())) {
-			ReplyService replyService = appContext.getBean(ReplyService.class);
 			Reply reply = replyService.getReply(activity.getLinkedId());
 			model.put("reply", reply);
 		} else if(StringUtils.equals(TeamMember.NAME, activity.getEntity())) {
-			MemberService memberService = appContext.getBean(MemberService.class);
 			TeamMember teamMember = memberService.getMember(activity.getLinkedId());
 			model.put("teamMember", teamMember);
 		} else if(StringUtils.equals(Event.NAME, activity.getEntity())) {
-			EventService eventService = appContext.getBean(EventService.class);
 			Event event = eventService.getEvent(activity.getLinkedId());
 			model.put("event", event);
 		} else if(StringUtils.equals(Album.NAME, activity.getEntity())) {
-			AlbumService albumService = appContext.getBean(AlbumService.class);
 			Album album = albumService.getAlbum(activity.getLinkedId());
 			model.put("album", album);
 		} else if(StringUtils.equals(Photo.NAME, activity.getEntity())) {
-			PhotoService photoService = appContext.getBean(PhotoService.class);
 			Photo photo = photoService.getPhoto(activity.getLinkedId());
 			model.put("photo", photo);
 		} else if(StringUtils.equals(Question.NAME, activity.getEntity())) {
-			QuestionService questionService = appContext.getBean(QuestionService.class);
 			Question question = questionService.getQuestion(activity.getLinkedId());
 			model.put("question", question);
 		} else if(StringUtils.equals(Answer.NAME, activity.getEntity())) {
-			AnswerService answerService = appContext.getBean(AnswerService.class);
 			Answer answer = answerService.getAnswer(activity.getLinkedId());
 			model.put("answer", answer);
 		} else if(StringUtils.equals(File.NAME, activity.getEntity())) {
-			FileService fileItemService = appContext.getBean(FileService.class);
-			File fileItem = fileItemService.getFile(activity.getLinkedId());
-			model.put("post", fileItem);
+			File file = fileService.getFile(activity.getLinkedId());
+			model.put("file", file);
 		} else if(StringUtils.equals(Folder.NAME, activity.getEntity())) {
-			FolderService folderService = appContext.getBean(FolderService.class);
 			Folder folder = folderService.getFolder(activity.getLinkedId());
 			model.put("folder", folder);
 		}

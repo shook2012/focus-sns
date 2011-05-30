@@ -29,6 +29,8 @@
 		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
 		<!-- Object aware interceptor -->
 		<bean class="org.osforce.connect.web.interceptor.ObjectExposeInteceptor"/>
+		<!-- Remember Me Interceptor -->
+		<bean class="org.osforce.connect.web.interceptor.RememberMeInterceptor"/>
 		<!-- Clear cache after action 
 		<bean class="org.osforce.connect.web.interceptor.WidgetCacheClearInterceptor"/>
 		-->
@@ -73,6 +75,9 @@
 		</property>
 		<property name="freemarkerVariables">
 			<map>
+				<entry key="entity">
+					<bean class="org.osforce.connect.web.tag.freemarker.EntityTag"/>
+				</entry>
 				<entry key="prettyTime">
 					<bean class="org.osforce.connect.web.tag.freemarker.PrettyTimeTag"/>
 				</entry>
