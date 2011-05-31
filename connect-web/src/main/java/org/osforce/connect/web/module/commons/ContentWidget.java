@@ -1,6 +1,6 @@
 package org.osforce.connect.web.module.commons;
 
-import org.osforce.spring4me.web.bind.annotation.Pref;
+import org.osforce.spring4me.web.bind.annotation.PrefParam;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +20,7 @@ public class ContentWidget {
 	}
 	
 	@RequestMapping("/detail-view")
-	public String doDetailView(@Pref String content, Model model) {
+	public String doDetailView(@PrefParam String content, Model model) {
 		model.addAttribute("content", content);
 		return "commons/content-detail";	
 	}

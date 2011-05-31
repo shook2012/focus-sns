@@ -5,7 +5,12 @@
 	</div>
 	</#if>
 	<div class="body">
-		ID ${widgetConfig.id}
-		${content}
+		<ul class="actions">
+			<#list menuitems as item>
+			<li>
+				<a href="<@freemarkerRender template=item[0] />">${item[1]}</a>
+			</li>
+			</#list>
+		</ul>
 	</div>
 </div>

@@ -21,7 +21,7 @@ import org.osforce.connect.service.system.ProjectService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.spring4me.dao.Page;
-import org.osforce.spring4me.web.bind.annotation.Pref;
+import org.osforce.spring4me.web.bind.annotation.PrefParam;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -76,7 +76,7 @@ public class PostWidget {
 	}
 	
 	@RequestMapping("/top-view")
-	@Permission({"post-detail-view"})
+	@Permission({"post-view"})
 	public String doTopView(Page<Statistic> page, Project project, Model model) {
 		page = statisticService.getTopStatisticPage(page, project, Post.NAME);
 		if(page.getResult().isEmpty()) {
@@ -91,8 +91,8 @@ public class PostWidget {
 	}
 	
 	@RequestMapping("/recent-view")
-	@Permission({"post-detail-view"})
-	public String doRecentView(@Pref String uniqueId, @Pref String categoryLabel,
+	@Permission({"post-view"})
+	public String doRecentView(@PrefParam String uniqueId, @PrefParam String categoryLabel,
 			Page<Post> page, Project project, Model model) {
 		if(StringUtils.isNotBlank(uniqueId)) {
 			Project tmp = projectService.getProject(uniqueId);
@@ -121,7 +121,7 @@ public class PostWidget {
 	}
 	
 	@RequestMapping("/list-view")
-	@Permission({"post-detail-view"})
+	@Permission({"post-view"})
 	public String doListView(@RequestParam(required=false) Long categoryId, 
 			Project project, Page<Post> page,  Model model) {
 		page = postService.getPostPage(page, project.getId(), categoryId);
@@ -140,7 +140,7 @@ public class PostWidget {
 	}
 	
 	@RequestMapping("/detail-view")
-	@Permission({"post-detail-view"})
+	@Permission({"post-view"})
 	public String doDetailView(@RequestParam Long postId, User user, Model model) {
 		Post post = postService.viewPost(postId);
 		model.addAttribute(AttributeKeys.BLOG_POST_KEY_READABLE, post);
@@ -148,7 +148,7 @@ public class PostWidget {
 	}
 	
 	@RequestMapping("/form-view")
-	@Permission(value={"post-detail-add","post-detail-edit"}, userRequired=true, projectRequired=true)
+	@Permission(value={"post-add","post-edit"}, userRequired=true, projectRequired=true)
 	public String doFormView(@RequestParam(required=false) Long postId,
 			@ModelAttribute @Valid Post post, BindingResult result,
 			User user, Project project, Model model, Boolean showErrors) {
@@ -172,7 +172,7 @@ public class PostWidget {
 	}
 	
 	@RequestMapping("/form-action")
-	@Permission(value={"post-detail-add","post-detail-edit"}, userRequired=true)
+	@Permission(value={"post-add","post-edit"}, userRequired=true)
 	public String doFormAction(@ModelAttribute @Valid Post post, 
 			BindingResult result, Model model) {
 		if(result.hasErrors()) {

@@ -20,7 +20,7 @@ import org.osforce.connect.service.team.MemberService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.spring4me.dao.Page;
-import org.osforce.spring4me.web.bind.annotation.Pref;
+import org.osforce.spring4me.web.bind.annotation.PrefParam;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -121,7 +121,7 @@ public class MemberWidget {
 		return "team/member-list";
 	}
 	// TODO need role code support
-	public String doShowView(@Pref String uniqueId, @Pref String roleCode,
+	public String doShowView(@PrefParam String uniqueId, @PrefParam String roleCode,
 			Page<TeamMember> page, Model model) {
 		if(StringUtils.isNotBlank(uniqueId)) {
 			Project project = projectService.getProject(uniqueId);

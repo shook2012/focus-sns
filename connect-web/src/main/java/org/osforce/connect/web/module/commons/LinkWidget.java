@@ -1,9 +1,13 @@
 package org.osforce.connect.web.module.commons;
 
+import java.util.Collections;
+
+import org.osforce.connect.entity.commons.Link;
 import org.osforce.connect.service.commons.LinkService;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 
@@ -26,6 +30,10 @@ public class LinkWidget {
 		this.linkService = linkService;
 	}
 	
-	
+	@RequestMapping(value="/create")
+	public @ResponseBody Object create(Link link) {
+		linkService.createLink(link);
+		return Collections.singletonMap("id", link.getId());
+	}
 	
 }

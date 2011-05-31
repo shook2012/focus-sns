@@ -21,8 +21,8 @@ import freemarker.template.Configuration;
  */
 @Task
 public class EventNotifyEmailTask extends AbstractEmailTask {
-	private static final String TEMPLATE_EVENT_NOTIFY_SUBJECT = "email/event_notify_subject"; 
-	private static final String TEMPLATE_EVENT_NOTIFY_CONTENT = "email/event_notify_content";
+	private static final String TEMPLATE_EVENT_NOTIFY_SUBJECT = "email/event_notify_subject.ftl"; 
+	private static final String TEMPLATE_EVENT_NOTIFY_CONTENT = "email/event_notify_content.ftl";
 	
 	private Configuration configuration;
 	private EventService eventService;

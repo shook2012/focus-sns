@@ -14,7 +14,7 @@ import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.entity.system.User;
 import org.osforce.connect.service.commons.CommentService;
 import org.osforce.connect.web.AttributeKeys;
-import org.osforce.spring4me.web.bind.annotation.Pref;
+import org.osforce.spring4me.web.bind.annotation.PrefParam;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -43,8 +43,8 @@ public class CommentWidget {
 	}
 	
 	@RequestMapping("/list-view")
-	public String doListView(@Pref String paramName, 
-			@Pref String entity, @ModelAttribute @Valid Comment comment, BindingResult result,
+	public String doListView(@PrefParam String paramName, 
+			@PrefParam String entity, @ModelAttribute @Valid Comment comment, BindingResult result,
 			 User user, Project project, Model model, Boolean showErrors, WebRequest request) {
 		if(!showErrors) {
 			Long linkedId = NumberUtils.createLong(request.getParameter(paramName));

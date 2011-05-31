@@ -12,7 +12,7 @@ import org.osforce.connect.service.system.ProjectService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.spring4me.dao.Page;
-import org.osforce.spring4me.web.bind.annotation.Pref;
+import org.osforce.spring4me.web.bind.annotation.PrefParam;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -53,7 +53,7 @@ public class MessageWidget {
 	
 	@RequestMapping("/list-view")
 	@Permission({"message-view"})
-	public String doListView(@Pref String  box, 
+	public String doListView(@PrefParam String  box, 
 			Page<Message> page, User user, Project project, Model model) {
 		page = messageService.getMessagePage(page, project, box);
 		model.addAttribute(AttributeKeys.PAGE_KEY_READABLE, page);

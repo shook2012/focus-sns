@@ -19,7 +19,7 @@
 		<repository>
 			<id>osforce</id>
 			<name>Open Source Force</name>
-			<url>http://www.opensourceforce.org/nexus/content/groups/public/</url>
+			<url>http://www.opensourceforce.org:8081/nexus/content/groups/public/</url>
 		</repository>
 	</repositories>
 

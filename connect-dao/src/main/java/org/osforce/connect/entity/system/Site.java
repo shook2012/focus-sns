@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.validator.constraints.NotBlank;
@@ -25,7 +26,6 @@ import org.osforce.spring4me.entity.IdEntity;
 @Cacheable
 public class Site extends IdEntity {
 	private static final long serialVersionUID = 2417731008556633617L;
-
 	@NotBlank
 	private String title;
 	private String description;
@@ -34,6 +34,7 @@ public class Site extends IdEntity {
 	private String domain;
 	@NotBlank
 	private String contextPath;
+	@NotNull
 	private Integer port;
 	private Boolean ssl = false;
 	private Boolean enabled = false;

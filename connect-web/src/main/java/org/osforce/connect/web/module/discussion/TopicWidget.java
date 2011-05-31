@@ -19,7 +19,7 @@ import org.osforce.connect.service.discussion.TopicService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.spring4me.dao.Page;
-import org.osforce.spring4me.web.bind.annotation.Pref;
+import org.osforce.spring4me.web.bind.annotation.PrefParam;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -64,7 +64,7 @@ public class TopicWidget {
 	
 	@RequestMapping("/top-view")
 	@Permission({"category-view"})
-	public String doTopView(@Pref String categoryCode, Project project,
+	public String doTopView(@PrefParam String categoryCode, Project project,
 			Page<Statistic> page, Site site, Model model) {
 		page = statisticService.getTopStatisticPage(page, project, Topic.NAME);
 		if(page.getResult().isEmpty()) {

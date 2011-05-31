@@ -2,7 +2,7 @@
 <pages>
 	<page parent="parent/global" path="/home">
 		<placeholder name="mainColumn">
-			<widget name="contentWidget" path="/commons/content/detail-view">
+			<widget name="contentWidget" path="/commons/content/detail-view" cache="60">
 				<title>主列内容</title>
 				<prefs>
 					<content><![CDATA[
@@ -24,6 +24,16 @@
 	</page>
 
 	<page parent="parent/global" path="/people">
+		<placeholder name="leftColumn">
+			<widget name="menuWidget" path="/system/menu/custom-menu">
+				<prefs>
+					<userRequired>true</userRequired>
+					<items><![CDATA[
+					${base}/people/all=所有成员
+					]]></items>
+				</prefs>
+			</widget>
+		</placeholder>
 		<placeholder name="mainColumn">
 			<widget name="profileWidget" path="/profile/profile/list-view">
 				<title>成员列表</title>
@@ -33,14 +43,7 @@
 			</widget>
 		</placeholder>
 		<placeholder name="rightColumn">
-			<widget name="contentWidget" path="/commons/content/detail-view">
-				<title>公告</title>
-				<prefs>
-					<content><![CDATA[
-				公告内容详情
-				]]></content>
-				</prefs>
-			</widget>
+			
 		</placeholder>
 	</page>
 
@@ -56,6 +59,10 @@
 		<placeholder name="mainColumn">
 			<widget name="userWidget" path="/system/user/register-view">
 				<title>用户注册</title>
+				<prefs>
+					<categoryCode>people</categoryCode>
+					<templateCode>people-features</templateCode>
+				</prefs>
 			</widget>
 		</placeholder>
 	</page>

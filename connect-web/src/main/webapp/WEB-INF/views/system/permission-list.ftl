@@ -7,6 +7,9 @@
 	</div>
 	</#if>
 	<div class="body">
+		<#if roles?size == 0 >
+		<div class="notice">请先为当前分类添加角色！</div>
+		<#else>
 		<form class="permission-form" action="${base}/system/permission/form-action" method="post">
 		<div>
 			<span>当前分类：</span>
@@ -61,6 +64,7 @@
 			</#if>
 		</table>
 		</form>
+		</#if>
 	</div>
 </div>
 

@@ -22,9 +22,10 @@
 				<@spring.showErrors separator="<br/>" classOrStyle="error"/>
 			</div>
 			<div>
-				<label for="port">端口</label>
+				<label for="port">端口 <span class="required">*</span></label>
 				<br/>
 				<@spring.formInput path="site.port"/>
+				<@spring.showErrors separator="<br/>" classOrStyle="error"/>
 			</div>
 			<div>
 				<label for="ssl">SSL</label>

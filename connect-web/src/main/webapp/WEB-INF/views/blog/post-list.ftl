@@ -7,9 +7,9 @@
 	</div>
 	</#if>
 	<div class="body">
-	<#if page.result?size == 0>
+		<#if page.result?size == 0>
 		<div class="notice">当前无博文可显示!</div>
-	<#else>
+		<#else>
 		<ul class="posts-list">
 			<#list page.result as post>
 			<li>
@@ -32,6 +32,6 @@
 		</ul>
 		<br/>
 		<div id="pagination${id}" class="right"></div>
-	</#if>
+		</#if>
 	</div>
 </div>

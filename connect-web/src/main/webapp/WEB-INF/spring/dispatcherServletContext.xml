@@ -27,13 +27,12 @@
 		</bean>
 		<!-- Changes the locale when a 'locale' request parameter is sent; e.g. /?locale=de -->
 		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
-		<!-- Object aware interceptor -->
-		<bean class="org.osforce.connect.web.interceptor.ObjectExposeInteceptor"/>
+		<!-- Object expose interceptor -->
+		<bean class="org.osforce.connect.web.interceptor.ObjectExposeInterceptor"/>
 		<!-- Remember Me Interceptor -->
 		<bean class="org.osforce.connect.web.interceptor.RememberMeInterceptor"/>
-		<!-- Clear cache after action 
-		<bean class="org.osforce.connect.web.interceptor.WidgetCacheClearInterceptor"/>
-		-->
+		<!-- Object not found interceptor -->
+		<bean class="org.osforce.connect.web.interceptor.ObjectNotFoundInterceptor" />
 		<!-- Widget security interceptor -->
 		<bean class="org.osforce.connect.web.security.interceptor.WidgetSecurityInterceptor"/>
 	</mvc:interceptors>
@@ -84,6 +83,9 @@
 				<entry key="activityRender">
 					<bean class="org.osforce.connect.web.tag.freemarker.ActivityRenderTag"/>
 				</entry>
+				<entry key="freemarkerRender">
+					<bean class="org.osforce.connect.web.tag.freemarker.FreemarkerRenderTag"/>
+				</entry>
 				<entry key="security">
 					<bean class="org.osforce.connect.web.security.tag.freemarker.SecurityTag"/>
 				</entry>
@@ -97,7 +99,7 @@
 	</bean>
 	
 	<bean id="configFactory" class="org.osforce.spring4me.web.widget.impl.DefaultConfigFactory">
-		<property name="cache" value="false"/>
+		<property name="cache" value="true"/>
 		<property name="configParser">
 			<bean class="org.osforce.spring4me.web.widget.impl.XmlConfigParser"/>
 		</property>
