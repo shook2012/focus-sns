@@ -27,9 +27,9 @@
 .profiles-top .profile-body {
 	margin-left: 60px;
 }
-.profiles-list li.profile,
-.profiles-recent li.profile,
-.profiles-top li.profile {
+.profiles-list li,
+.profiles-recent li,
+.profiles-top li {
 	margin-bottom: 5px;
 }
 .profile-form textarea.shortDescription{

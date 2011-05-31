@@ -9,7 +9,7 @@
 			<li>
 				<a href="${base}">
 					<span>主页<span>
-				<a>
+				</a>
 			</li>
 			<#if menuitems?? && menuitems?size gt 0>
 			<#list menuitems as menuitem>

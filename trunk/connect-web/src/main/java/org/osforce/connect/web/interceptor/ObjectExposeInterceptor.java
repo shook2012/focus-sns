@@ -23,14 +23,14 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
  * @create May 18, 2011 - 2:22:31 PM
  * <a href="http://www.opensourceforce.org">开源力量</a>
  */
-public class ObjectExposeInteceptor extends HandlerInterceptorAdapter {
+public class ObjectExposeInterceptor extends HandlerInterceptorAdapter {
 
 	private SiteService siteService;
 	private UserService userService;
 	private ProjectService projectService;
 	private MemberService memberService;
 	
-	public ObjectExposeInteceptor() {
+	public ObjectExposeInterceptor() {
 	}
 	
 	@Autowired

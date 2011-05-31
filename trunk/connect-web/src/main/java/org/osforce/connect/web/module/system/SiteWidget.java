@@ -61,7 +61,7 @@ public class SiteWidget {
 	}
 	
 	@RequestMapping(value="/form-action", method=RequestMethod.POST)
-	public String doFormAction(@Valid Site site, BindingResult result) {
+	public String doFormAction(@ModelAttribute @Valid Site site, BindingResult result) {
 		if(result.hasErrors()) {
 			return "page:/system/site-form";
 		}

@@ -26,7 +26,7 @@
 						<ul class="top right">
 							<@entity entity="Profile" exist="no" project=profile.project user=user>
 							<li>
-								<a class="concernAction" href="${base}/process/commons/link?fromId=${user.project.id}&toId=${profile.id}&entity=Profile">添加关注</a>
+								<a class="concernAction" href="${base}/commons/link/create?fromId=${user.project.id}&toId=${profile.id}&entity=Profile">添加关注</a>
 							</li>
 							</@entity>
 							<li>

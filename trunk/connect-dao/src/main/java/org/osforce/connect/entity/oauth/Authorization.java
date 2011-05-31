@@ -36,11 +36,11 @@ public class Authorization extends IdEntity {
 	public Authorization() {
 	}
 
-	public Authorization(String target, String token, String secret, User user) {
+	public Authorization(String target, String token, String secret, Long userId) {
 		this.target = target;
 		this.token = token;
 		this.secret = secret;
-		this.user = user;
+		this.userId = userId;
 	}
 
 	@Column(nullable=false)

@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 
 import org.osforce.connect.entity.oauth.Authorization;
 import org.osforce.connect.entity.system.Site;
-import org.osforce.connect.entity.system.User;
 import org.osforce.connect.service.oauth.AuthorizationService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.spring4me.social.api.service.ApiService;
@@ -38,7 +37,7 @@ import org.springframework.web.context.request.WebRequest;
  *  <a href="http://www.opensourceforce.org">开源力量</a>
  */
 @Controller
-@RequestMapping("oauth")
+@RequestMapping("/oauth")
 public class OAuthController implements ApplicationContextAware {
 
 	private Map<Token, OAuthService> oAuthServices = new HashMap<Token, OAuthService>();
@@ -61,22 +60,22 @@ public class OAuthController implements ApplicationContextAware {
 		this.appContext = applicationContext;
 	}
 
-	@RequestMapping(value="authorized", method=RequestMethod.GET)
+	@RequestMapping(value="/authorized", method=RequestMethod.GET)
     public @ResponseBody Map<String, Object> isAuthorized(
     		@RequestParam String target, HttpSession session) {
-		User user = (User) session.getAttribute(AttributeKeys.USER_ID_KEY);
-		Authorization authorization = authorizationService.getAuthorization(target, user.getId());
+		Long userId = (Long) session.getAttribute(AttributeKeys.USER_ID_KEY);
+		Authorization authorization = authorizationService.getAuthorization(target, userId);
 		//
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("authorized", authorization!=null);
     	return model;
     }
 
-	@RequestMapping(value="authorizationUrl", method=RequestMethod.GET)
+	@RequestMapping(value="/authorizationUrl", method=RequestMethod.GET)
 	public @ResponseBody Map<String, Object> getAuthUrl(
 			@RequestParam String target, WebRequest request) {
 		Site site = (Site) request.getAttribute(AttributeKeys.SITE_KEY, WebRequest.SCOPE_REQUEST);
-		String callback = site.getHomeURL()+ "/process/oauth/callback/" + target;
+		String callback = site.getHomeURL()+ "/oauth/callback/" + target;
 		String beanId = target + ApiService.class.getSimpleName();
 		ApiService apiService = appContext.getBean(beanId, ApiService.class);
 		OAuthService oAuthService = apiService.getOAuthService(callback);
@@ -89,10 +88,10 @@ public class OAuthController implements ApplicationContextAware {
 		return model;
 	}
 
-	@RequestMapping(value="callback/{target}")
+	@RequestMapping(value="/callback/{target}")
 	public ResponseEntity<String> callback(@PathVariable String target,
 			@RequestParam String oauth_token, @RequestParam String oauth_verifier, HttpSession session) {
-		User user = (User) session.getAttribute(AttributeKeys.USER_ID_KEY);
+		Long userId = (Long) session.getAttribute(AttributeKeys.USER_ID_KEY);
 		Token requestToken = requestTokens.get(oauth_token);
 		Verifier verifier = new Verifier(oauth_verifier);
 		OAuthService oAuthService = oAuthServices.get(requestToken);
@@ -101,7 +100,7 @@ public class OAuthController implements ApplicationContextAware {
 										target,
 										accessToken.getToken(),
 										accessToken.getSecret(),
-										user);
+										userId);
 		authorizationService.createAuthorization(authorization);
 		requestTokens.remove(oauth_token);
 		oAuthServices.remove(requestToken);

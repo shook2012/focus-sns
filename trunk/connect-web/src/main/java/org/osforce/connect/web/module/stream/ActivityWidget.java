@@ -14,7 +14,7 @@ import org.osforce.connect.service.stream.ActivityService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.spring4me.dao.Page;
-import org.osforce.spring4me.web.bind.annotation.Pref;
+import org.osforce.spring4me.web.bind.annotation.PrefParam;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -46,7 +46,7 @@ public class ActivityWidget {
 	
 	@RequestMapping("/list-view")
 	@Permission(value={"activity-view"}, projectRequired=true)
-	public String doListView(@Pref String activityTypes, 
+	public String doListView(@PrefParam String activityTypes, 
 			Page<Activity> page, Project project, Model model) {
 		List<String> types = Arrays.asList(StringUtils.split(activityTypes, ","));
 		page = activityService.getActivityPage(page, project, types);
@@ -56,8 +56,8 @@ public class ActivityWidget {
 	
 	@RequestMapping("/form-view")
 	@Permission(value={"activity-add", "activity-edit"}, userRequired=true, projectRequired=true)
-	public String doFormView(@Pref String activityType, User user, 
-			@Pref("false") Boolean showToolbar, Project project, Model model,
+	public String doFormView(@PrefParam String activityType, User user, 
+			@PrefParam("false") Boolean showToolbar, Project project, Model model,
 			@ModelAttribute @Valid Activity activity, BindingResult result) {
 		activity.setType(activityType);
 		activity.setEnteredBy(user);

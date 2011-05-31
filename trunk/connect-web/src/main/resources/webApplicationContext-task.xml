@@ -28,7 +28,7 @@
 	
 	<!-- Freemarker Configuration -->
 	<bean class="org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean">
-   		<property name="templateLoaderPath" value="/WEB-INF/template"/>
+   		<property name="templateLoaderPath" value="/WEB-INF/template/"/>
    		<property name="defaultEncoding" value="UTF-8"/>
 	</bean>
 

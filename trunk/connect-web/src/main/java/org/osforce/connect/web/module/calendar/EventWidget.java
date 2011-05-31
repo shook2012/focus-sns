@@ -48,7 +48,7 @@ public class EventWidget {
 	}
 
 	@RequestMapping("/recent-view")
-	@Permission({"event-detail-view"})
+	@Permission({"event-view"})
 	public String doRecentView(Page<Event> page, Project project, Model model) {
 		page = eventService.getEventPage(page, project.getId(), new Date());
 		if(page.getResult().isEmpty()) {
@@ -59,7 +59,7 @@ public class EventWidget {
 	}
 	
 	@RequestMapping("/list-view")
-	@Permission({"event-detail-view"})
+	@Permission({"event-view"})
 	public String doListView(@RequestParam(required=false) String date, 
 			Project project, Model model) throws ParseException {
 		Date d = new Date();
@@ -86,7 +86,7 @@ public class EventWidget {
 	}
 	
 	@RequestMapping("/detail-view")
-	@Permission({"event-detail-view"})
+	@Permission({"event-view"})
 	public String doDetailView(@RequestParam Long eventId, Model model) {
 		Event event = eventService.getEvent(eventId);
 		model.addAttribute(AttributeKeys.EVENT_KEY_READABLE, event);
@@ -118,7 +118,7 @@ public class EventWidget {
 	}
 	
 	@RequestMapping(value="/form-action", method=RequestMethod.POST)
-	@Permission(value={"event-detail-add", "event-detail-edit"}, userRequired=true)
+	@Permission(value={"event-add", "event-edit"}, userRequired=true)
 	public String doFormAction(@ModelAttribute @Valid Event event, 
 			BindingResult result, Model model) {
 		if(result.hasErrors()) {

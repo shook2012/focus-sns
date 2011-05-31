@@ -12,7 +12,7 @@ import org.hibernate.cfg.ImprovedNamingStrategy;
 public class PrefixImprovedNamingStrategy extends ImprovedNamingStrategy {
 	private static final long serialVersionUID = 3097086534970692039L;
 	
-	private String tablePrefix = "e2_";
+	private String tablePrefix = "osf_";
 	private String columnPrefix = "_";
 	
 	public PrefixImprovedNamingStrategy() {

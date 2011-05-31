@@ -14,7 +14,7 @@ import org.osforce.connect.service.system.ProjectCategoryService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.spring4me.dao.Page;
-import org.osforce.spring4me.web.bind.annotation.Pref;
+import org.osforce.spring4me.web.bind.annotation.PrefParam;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -52,7 +52,7 @@ public class ProfileWidget {
 	}
 	
 	@RequestMapping("/list-view")
-	public String doListView(@Pref String categoryCode, 
+	public String doListView(@PrefParam String categoryCode, 
 		Page<Profile> page, User user, Site site, Model model, WebRequest request) {
 		String mode = (String) request.getAttribute("mode", WebRequest.SCOPE_REQUEST);
 		ProjectCategory category = categoryService.getProjectCategory(site, categoryCode);

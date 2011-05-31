@@ -29,7 +29,7 @@ public class Link extends IdEntity {
 	private String title;
 	private Long toId;
 	private String entity;
-	private Boolean enabled = false;
+	private Boolean enabled = true;
 	// helper
 	private Long fromId;
 	private Object linkedEntity;

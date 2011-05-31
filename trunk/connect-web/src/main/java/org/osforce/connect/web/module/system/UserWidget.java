@@ -23,7 +23,7 @@ import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.module.util.ModuleUtil;
 import org.osforce.spring4me.commons.cipher.CipherUtil;
 import org.osforce.spring4me.dao.Page;
-import org.osforce.spring4me.web.bind.annotation.Pref;
+import org.osforce.spring4me.web.bind.annotation.PrefParam;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.WebRequest;
 
 /**
  * 
@@ -118,9 +119,10 @@ public class UserWidget {
 	}
 	
 	@RequestMapping("/register-view")
-	public String doRegisterView(@Pref("people-features") String templateCode,
-			@Pref("people") String categoryCode, Site site, HttpSession session,
-			@ModelAttribute @Valid RegisterBean registerBean, BindingResult result, Model model) {
+	public String doRegisterView(
+			@PrefParam String categoryCode, @PrefParam String templateCode,
+			@ModelAttribute @Valid RegisterBean registerBean, BindingResult result, 
+			Site site, Model model, WebRequest request) {
 		ProjectCategory category = categoryService.getProjectCategory(site, categoryCode);
 		//
 		Template template = templateService.getTemplate(category.getId(), templateCode);
@@ -135,14 +137,14 @@ public class UserWidget {
 			Role role = roleService.getRole(feature.getRoleCode(), category.getId());
 			feature.setRole(role);
 		}
-		session.setAttribute(AttributeKeys.PROJECT_KEY, project);
+		request.setAttribute(AttributeKeys.PROJECT_KEY, project, WebRequest.SCOPE_SESSION);
 		model.addAttribute(AttributeKeys.USER_KEY_READABLE, registerBean);
 		return "system/user-register";
 	}
 	
 	@RequestMapping(value="/register-action", method=RequestMethod.POST)
 	public String doRegisterAction(@ModelAttribute @Valid RegisterBean registerBean, 
-			BindingResult result, Model model, HttpSession session) {
+			BindingResult result, Model model, WebRequest request) {
 		User user = userService.getUser(registerBean.getUsername());
 		// FIXME
 		if(user!=null) {
@@ -153,10 +155,10 @@ public class UserWidget {
 			return "page:/register";
 		}
 		//
-		Project project = (Project) session.getAttribute(AttributeKeys.PROJECT_KEY);
+		Project project = (Project) request.getAttribute(AttributeKeys.PROJECT_KEY, WebRequest.SCOPE_SESSION);
 		userService.registerUser(registerBean.getUser(), project);
 		// remove project from session
-		session.removeAttribute(AttributeKeys.PROJECT_KEY);
+		request.removeAttribute(AttributeKeys.PROJECT_KEY, WebRequest.SCOPE_REQUEST);
 		return "redirect:/";
 	}
 	
