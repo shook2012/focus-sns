@@ -1,0 +1,17 @@
+<div id="${widgetConfig.id}" class="widget">
+	<#if widgetConfig.title??>
+	<div class="head">
+		<h3>${widgetConfig.title}</h3>
+	</div>
+	</#if>
+	<div class="body">
+		<ul class="actions">
+			<li>
+				<a href="${base}/${project.uniqueId}/document/file/form<#if RequestParameters.folderId??>?folderId=${RequestParameters.folderId}</#if>">上传文档</a>
+			</li>
+			<li class="last">
+				<a href="${base}/${project.uniqueId}/document/folder/form">添加目录</a>
+			</li>
+		</ul>
+	</div>
+</div>

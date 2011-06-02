@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page parent="parent/global">
+	<placeholder name="mainColumn">
+		<widget name="profileWidget" path="/profile/profile/detail-view"/>
+		<widget name="activityWidget" path="/stream/activity/form-view">
+			<title>微薄</title>
+			<prefs>
+				<activityType>user-input</activityType>
+			</prefs>
+		</widget>
+		<widget name="activityWidget" path="/stream/activity/list-view">
+			<title>最新动态</title>
+			<prefs>
+				<pageSize>20</pageSize>
+				<activityTypes>user-input,Profile,Question,Answer,Event,Album,Photo,BlogPost,Forum,Topic,Reply,FileItem,Folder</activityTypes>
+			</prefs>
+		</widget>
+	</placeholder>
+	<placeholder name="rightColumn">
+		<widget name="menuWidget" path="/system/menu/custom-menu">
+			<prefs>
+				<menuPath>profile/menu</menuPath>
+				<userRequired>true</userRequired>
+			</prefs>
+		</widget>
+	</placeholder>
+</page>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page parent="parent/global">
+	<placeholder name="leftColumn">
+		<widget name="menuWidget" path="/system/menu/custom-menu">
+			<prefs>
+				<menuPath>knowledge/menu</menuPath>
+				<userRequired>true</userRequired>
+			</prefs>
+		</widget>
+	</placeholder>
+	<placeholder name="mainColumn">
+		<widget name="questionWidget" path="/knowledge/question/detail-view">
+			<title>问题</title>
+		</widget>
+		<widget name="answerWidget" path="/knowledge/answer/form-view">
+			<title>回答</title>
+		</widget>
+		<widget name="answerWidget" path="/knowledge/answer/list-view">
+			<title>答案</title>
+		</widget>
+	</placeholder>
+</page>
