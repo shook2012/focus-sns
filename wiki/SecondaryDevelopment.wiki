@@ -1,0 +1,1 @@
+FocusSNS 构建于另一个开源项目 [http://code.google.com/p/spring4me/ Spring4Me]之上，关于 FocusSNS 的二次开发，请参考 [http://code.google.com/p/spring4me/ Spring4Me] 的相关文档
