@@ -2,8 +2,6 @@ FocusSNS 使用Maven作为项目构建工具，其工程结构如下：
 {{{
 connect
   |
-  +---connect-parent
-  |
   +---connect-dao
   |
   +---connect-service
