@@ -99,7 +99,7 @@ public class UserWidget {
 		User user = userService.loginUser(loginBean.getUsername(), loginBean.getPassword());
 		if(result.hasErrors() || user==null) {
 			model.addAttribute(AttributeKeys.SHOW_ERRORS_KEY_READABLE, true);
-			return "page:/login";
+			return "page:/dashboards?path=/login";
 		}
 		//
 		if(loginBean.getRememberMe()) {
@@ -152,7 +152,7 @@ public class UserWidget {
 		}
 		if(result.hasErrors()) {
 			model.addAttribute(AttributeKeys.SHOW_ERRORS_KEY_READABLE, true);
-			return "page:/register";
+			return "page:/dashboards?path=/register";
 		}
 		//
 		Project project = (Project) request.getAttribute(AttributeKeys.PROJECT_KEY, WebRequest.SCOPE_SESSION);

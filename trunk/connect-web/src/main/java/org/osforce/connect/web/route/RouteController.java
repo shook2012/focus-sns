@@ -357,8 +357,19 @@ public class RouteController {
 				uniqueId, WebRequest.SCOPE_REQUEST);
 		webRequest.setAttribute(AttributeKeys.FEATURE_CODE_KEY_READABLE, 
 				ProjectFeature.FEATURE_ADMIN, WebRequest.SCOPE_REQUEST);
-		return "page:/admin/admin-welcome";
+		return "page:/admin/welcome";
 	}
+	
+	@RequestMapping(value={"/{uniqueId}/admin/{target}/form"}, method=RequestMethod.GET)
+	public String route281(@PathVariable String uniqueId, 
+			@PathVariable String target, WebRequest webRequest) {
+		webRequest.setAttribute(AttributeKeys.PROJECT_UNIQUE_KEY_READABLE, 
+				uniqueId, WebRequest.SCOPE_REQUEST);
+		webRequest.setAttribute(AttributeKeys.FEATURE_CODE_KEY_READABLE, 
+				ProjectFeature.FEATURE_ADMIN, WebRequest.SCOPE_REQUEST);
+		return String.format("page:/admin/%s-form", target);
+	}
+	
 	//  ---------------------------------------------- Admin Module -------------------------------------------------  //
 	
 }

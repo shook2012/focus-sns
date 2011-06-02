@@ -99,7 +99,7 @@
 	</bean>
 	
 	<bean id="configFactory" class="org.osforce.spring4me.web.widget.impl.DefaultConfigFactory">
-		<property name="cache" value="true"/>
+		<property name="cache" value="false"/>
 		<property name="configParser">
 			<bean class="org.osforce.spring4me.web.widget.impl.XmlConfigParser"/>
 		</property>

@@ -16,6 +16,7 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.osforce.connect.entity.profile.Profile;
 import org.osforce.spring4me.entity.IdEntity;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -32,10 +33,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Cacheable
 public class Project extends IdEntity {
 	private static final long serialVersionUID = -8971421207588403404L;
-
 	public static final String NAME = Project.class.getSimpleName();
-
+	@NotBlank
 	private String uniqueId;
+	@NotBlank
 	private String title;
 	private Date entered;
 	private Date modified;

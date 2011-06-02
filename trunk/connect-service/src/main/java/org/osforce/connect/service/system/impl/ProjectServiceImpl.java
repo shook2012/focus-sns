@@ -2,6 +2,7 @@ package org.osforce.connect.service.system.impl;
 
 import java.util.Date;
 
+import org.apache.commons.lang.math.NumberUtils;
 import org.osforce.connect.dao.system.ProjectCategoryDao;
 import org.osforce.connect.dao.system.ProjectDao;
 import org.osforce.connect.dao.system.UserDao;
@@ -85,12 +86,25 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 		Date now = new Date();
 		project.setModified(now);
+		// validate uniqueId
+		validateUniqueId(project);
+		//
 		if(project.getId()==null) {
 			project.setEntered(now);
 			projectDao.save(project);
 		} else {
 			projectDao.update(project);
 		}
+	}
+
+	private void validateUniqueId(Project project) {
+		String uniqueId = project.getUniqueId();
+		Project persisted = projectDao.findProject(uniqueId);
+		if(persisted!=null && NumberUtils.compare(project.getId(), persisted.getId())==0) {
+			Long count = projectDao.countProjects();
+			uniqueId += "-" + ++count;
+		}
+		project.setUniqueId(uniqueId);
 	}
 
 	public void deleteProject(Long projectId) {

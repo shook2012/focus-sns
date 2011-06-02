@@ -118,8 +118,6 @@ public class UserServiceImpl implements UserService {
 		userDao.save(user);
 		// create project
 		String uniqueId = cleanEmail(user.getEmail());
-		Long count = projectDao.countProjects();
-		uniqueId =  uniqueId + "-" + ++count;
 		project.setTitle(user.getNickname());
 		project.setUniqueId(uniqueId);
 		project.setModified(now);
