@@ -22,7 +22,7 @@ social.sina.apiSecret=608ef03b66fd0e3ab304977662773b12
 #tencent
 social.tencent.apiKey=ef745e81ba594d1dbd8b2fc4c0f11acd
 social.tencent.apiSecret=fe901cbd71ba3a9a48789ea839229e90
-social.tencent.clientip=192.168.0.112
+social.tencent.clientip=127.0.0.1
 }}}
 
 === 数据库及方言配置 ===
