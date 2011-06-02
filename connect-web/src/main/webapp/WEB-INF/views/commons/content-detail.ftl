@@ -5,7 +5,6 @@
 	</div>
 	</#if>
 	<div class="body">
-		ID ${widgetConfig.id}
 		${content}
 	</div>
 </div>
