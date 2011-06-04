@@ -1,3 +1,3 @@
 开发者文档初稿已经完成，后期会跟着 [http://code.google.com/p/focus-sns/ FocusSNS] 的脚步逐步完善。
 
-如果看了有不明白的地方，可以通过 QQ 群讨论，群号： 144832020
+如果看了有不明白的地方，可以通过[http://code.google.com/p/focus-sns/issues/list Issues]或QQ群讨论，QQ群号： 144832020
