@@ -1,9 +1,12 @@
 package org.osforce.connect.service.commons.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.osforce.connect.dao.commons.TagDao;
+import org.osforce.connect.dao.system.UserDao;
 import org.osforce.connect.entity.commons.Tag;
+import org.osforce.connect.entity.system.User;
 import org.osforce.connect.service.commons.TagService;
 import org.osforce.spring4me.dao.Page;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class TagServiceImpl implements TagService {
 
 	private TagDao tagDao;
+	private UserDao userDao;
 	
 	public TagServiceImpl() {
 	}
@@ -31,16 +35,16 @@ public class TagServiceImpl implements TagService {
 		this.tagDao = tagDao;
 	}
 	
+	@Autowired
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
+	}
+	
 	public Tag getTag(Long tagId) {
 		return tagDao.get(tagId);
 	}
 	
 	public Tag getTag(String name, Long linkedId, String entity) {
-		/*QueryAppender appender = new QueryAppender()
-				.equal("tag.name", name)
-				.equal("tag.linkedId", linkedId)
-				.equal("tag.entity", entity);
-		return tagDao.findUnique(appender);*/
 		return null;
 	}
 
@@ -49,7 +53,14 @@ public class TagServiceImpl implements TagService {
 	}
 
 	public void updateTag(Tag tag) {
+		if(tag.getUserId()!=null) {
+			User user = userDao.get(tag.getUserId());
+			tag.setUser(user);
+		}
+		//
+		Date now = new Date();
 		if(tag.getId()==null) {
+			tag.setEntered(now);
 			tagDao.save(tag);
 		} else {
 			tagDao.update(tag);
@@ -66,15 +77,10 @@ public class TagServiceImpl implements TagService {
 	}
 	
 	public List<Tag> getTagList(Long linkedId, String entity) {
-	/*	QueryAppender appender = new QueryAppender()
-				.equal("tag.linkedId", linkedId)
-				.equal("tag.entity", entity);
-		return tagDao.find(appender);*/
-		return null;
+		return tagDao.findTagList(linkedId, entity);
 	}
 	
-	public Page<Tag> getTagPage(Page<Tag> page) {
-		//return tagDao.findPage(page, new QueryAppender());
-		return null;
+	public Page<Tag> getTagPage(Page<Tag> page, String startWith) {
+		return tagDao.findTagPage(page, startWith);
 	}
 }

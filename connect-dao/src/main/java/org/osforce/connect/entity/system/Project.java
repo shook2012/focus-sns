@@ -20,6 +20,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.osforce.connect.entity.profile.Profile;
 import org.osforce.spring4me.entity.IdEntity;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 /**
  *
@@ -38,6 +39,7 @@ public class Project extends IdEntity {
 	private String uniqueId;
 	@NotBlank
 	private String title;
+	@DateTimeFormat(iso=ISO.DATE_TIME)
 	private Date entered;
 	private Date modified;
 	private Boolean publish = true;
@@ -82,7 +84,6 @@ public class Project extends IdEntity {
 	}
 
 	@Column(nullable=false)
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	public Date getEntered() {
 		return entered;
 	}
@@ -92,7 +93,6 @@ public class Project extends IdEntity {
 	}
 
 	@Column(nullable=false)
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	public Date getModified() {
 		return modified;
 	}

@@ -1,16 +1,29 @@
 <div id="${widgetConfig.id}" class="widget">
-	<#if widgetConfig.title??>
-	<div class="head">
-		<h3>${widgetConfig.title}</h3>
+	<div class="question-head">
+		<#if question.enteredBy.project.profile.logo??>
+				<img class="top left thumbnail" src="${base}/logo/download/${question.enteredBy.project.profile.logo.id}/40x40"/>
+			<#else>
+				<img class="top left thumbnail" src="${base}/themes/${theme}/stock/${question.enteredBy.project.category.code}.png" width="40px" height="40px"/>
+			</#if>
+			<div>
+				<h3>${question.title}</h3>
+				<div>
+					<span class="right">
+						<@security code="question-edit">
+						<a href="${base}/${project.uniqueId}/knowledge/question/form?questionId=${question.id}">编辑</a>
+						</@security>
+					</span>
+				
+					<a href="${base}/${question.enteredBy.project.uniqueId}/profile">${question.enteredBy.nickname}</a>
+					发表于
+					<@prettyTime date=question.entered />
+					(${question.entered?string('yyyy/M/d HH:mm')})
+					<a>收藏 (0)</a>
+				</div>
+			</div>
+			<br class="clear" />
 	</div>
-	</#if>
-	<div class="body">
-		<div class="question">
-			<h4>${question.title}</h4>
-			<p>${question.content}</p>
-			<p>
-			${question.entered?string('yyyy/M/d')}|<a href="${base}/${question.enteredBy.project.uniqueId}/profile">${question.enteredBy.nickname}</a>
-			</p>
-		</div>
+	<div class="body question-body">
+		<p>${question.content}</p>
 	</div>
 </div>

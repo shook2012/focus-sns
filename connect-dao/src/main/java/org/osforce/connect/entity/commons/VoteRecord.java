@@ -16,43 +16,44 @@ import org.osforce.spring4me.entity.IdEntity;
 
 /**
  * 
- * @author gavin
- * @since 1.0.0
- * @create Mar 9, 2011 - 9:12:10 AM <a
- *         href="http://www.opensourceforce.org">开源力量</a>
+ * @author <a href="mailto:haozhonghu@hotmail.com">gavin</a>
+ * @since 1.1.1
+ * @create Jun 3, 2011 - 9:36:04 AM
+ * <a href="http://www.opensourceforce.org">开源力量</a>
  */
 @Entity
-@Table(name = "tags")
+@Table(name="vote_records")
 @Cacheable
-public class Tag extends IdEntity {
-	private static final long serialVersionUID = -2365317233401737395L;
-
-	private String name;
+public class VoteRecord extends IdEntity {
+	private static final long serialVersionUID = 619838059137057058L;
+	public static final String CODE_USEFUL = "useful";
+	public static final String CODE_USELESS = "useless";
+	//
+	private String code;
 	private Long linkedId;
 	private String entity;
 	private Date entered;
-	//
-	private User user;
 	// helper
 	private Long userId;
-	private Object linkedEntity;
-
-	public Tag() {
+	// refer
+	private User user;
+	
+	public VoteRecord() {
 	}
 	
-	public Tag(String name, Long linkedId, String entity) {
-		this.name = name;
+	public VoteRecord(String code, Long linkedId, String entity) {
+		this.code = code;
 		this.linkedId = linkedId;
 		this.entity = entity;
 	}
 
 	@Column(nullable=false)
-	public String getName() {
-		return name;
+	public String getCode() {
+		return code;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	@Column(nullable=false)
@@ -72,11 +73,11 @@ public class Tag extends IdEntity {
 	public void setEntity(String entity) {
 		this.entity = entity;
 	}
-	
+
 	public Date getEntered() {
 		return entered;
 	}
-	
+
 	public void setEntered(Date entered) {
 		this.entered = entered;
 	}
@@ -93,22 +94,14 @@ public class Tag extends IdEntity {
 		this.userId = userId;
 	}
 
-	@Transient
-	public Object getLinkedEntity() {
-		return linkedEntity;
-	}
-	
-	public void setLinkedEntity(Object linkedEntity) {
-		this.linkedEntity = linkedEntity;
-	}
-	
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	@JoinColumn(name="user_id")
 	public User getUser() {
 		return user;
 	}
-	
+
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
 }

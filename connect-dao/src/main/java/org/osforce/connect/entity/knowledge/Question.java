@@ -17,10 +17,12 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
+import org.osforce.connect.entity.commons.Tag;
 import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.entity.system.User;
 import org.osforce.spring4me.entity.IdEntity;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 /**
  * 
@@ -40,6 +42,7 @@ public class Question extends IdEntity {
 	private String title;
 	@NotBlank
 	private String content;
+	@DateTimeFormat(iso=ISO.DATE_TIME)
 	private Date entered;
 	private Date modified;
 	// helper
@@ -48,6 +51,7 @@ public class Question extends IdEntity {
 	private Long projectId;
 	private Long answerId;
 	private Long views;
+	private List<Tag> tags;
 	// refer
 	private User enteredBy;
 	private User modifiedBy;
@@ -77,7 +81,6 @@ public class Question extends IdEntity {
 		this.content = content;
 	}
 	
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	public Date getEntered() {
 		return entered;
 	}
@@ -86,7 +89,6 @@ public class Question extends IdEntity {
 		this.entered = entered;
 	}
 	
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	public Date getModified() {
 		return modified;
 	}
@@ -150,6 +152,15 @@ public class Question extends IdEntity {
 	
 	public void setViews(Long views) {
 		this.views = views;
+	}
+	
+	@Transient
+	public List<Tag> getTags() {
+		return tags;
+	}
+	
+	public void setTags(List<Tag> tags) {
+		this.tags = tags;
 	}
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)

@@ -53,6 +53,7 @@
 		<class>org.osforce.connect.entity.commons.Template</class>
 		<class>org.osforce.connect.entity.commons.Keyword</class>
 		<class>org.osforce.connect.entity.commons.Tag</class>
+		<class>org.osforce.connect.entity.commons.VoteRecord</class>
 		
 		<properties>
 			<!-- stream -->  
@@ -114,6 +115,8 @@
 			<property name="hibernate.ejb.classcache.org.osforce.connect.entity.commons.Link" value="read-write"/>
 			<property name="hibernate.ejb.classcache.org.osforce.connect.entity.commons.Statistic" value="read-write"/>
 			<property name="hibernate.ejb.classcache.org.osforce.connect.entity.commons.Template" value="read-write"/>
+			<property name="hibernate.ejb.classcache.org.osforce.connect.entity.commons.Tag" value="read-write"/>
+			<property name="hibernate.ejb.classcache.org.osforce.connect.entity.commons.VoteRecord" value="read-write"/>
 		</properties>
 	</persistence-unit>
 </persistence>

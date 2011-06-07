@@ -19,6 +19,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.osforce.connect.entity.system.User;
 import org.osforce.spring4me.entity.IdEntity;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 /**
  * 
@@ -38,7 +39,7 @@ public class Topic extends IdEntity {
 	private String subject;
 	@NotBlank
 	private String content;
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@DateTimeFormat(iso=ISO.DATE_TIME)
 	private Date entered;
 	private Date modified;
 	private Boolean enabled = true;

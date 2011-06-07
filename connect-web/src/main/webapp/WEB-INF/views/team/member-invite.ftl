@@ -30,7 +30,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$('#query${id}').autocomplete({
-		serviceUrl:'${base}/team/member/auto',
+		serviceUrl:'${base}/team/member/auto-action',
 	    minChars:2,
 	    delimiter: /(,|;)\s*/, // regex or character
 	    maxHeight:400,

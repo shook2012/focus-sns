@@ -163,7 +163,7 @@ public class MemberWidget {
 		return String.format("redirect:/%s/team", project.getUniqueId());
 	}
 	
-	@RequestMapping(value="/auto", method=RequestMethod.GET)
+	@RequestMapping(value="/auto-action", method=RequestMethod.GET)
 	public @ResponseBody Map<String, Object> autoComplete(
 			@RequestParam String query) {
 		Page<User> page = new Page<User>(10);
