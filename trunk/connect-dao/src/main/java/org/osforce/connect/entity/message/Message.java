@@ -18,6 +18,7 @@ import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.entity.system.User;
 import org.osforce.spring4me.entity.IdEntity;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 /**
  * 
@@ -38,6 +39,7 @@ public class Message extends IdEntity {
 	private String subject;
 	@NotBlank
 	private String content;
+	@DateTimeFormat(iso=ISO.DATE_TIME)
 	private Date entered;
 	private Boolean read = false;
 	// helper
@@ -79,7 +81,6 @@ public class Message extends IdEntity {
 	}
 
 	@Column(nullable=false)
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	public Date getEntered() {
 		return entered;
 	}

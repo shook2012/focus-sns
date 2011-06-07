@@ -20,6 +20,7 @@ import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.entity.system.User;
 import org.osforce.spring4me.entity.IdEntity;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 /**
  * 
@@ -36,7 +37,7 @@ public class Folder extends IdEntity {
 	public static  final String NAME = Folder.class.getSimpleName();
 	@NotBlank
 	private String name;
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@DateTimeFormat(iso=ISO.DATE_TIME)
 	private Date entered;
 	private Date modified;
 	private Boolean enabled = false;

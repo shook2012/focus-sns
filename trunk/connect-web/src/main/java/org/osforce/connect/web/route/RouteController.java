@@ -140,6 +140,16 @@ public class RouteController {
 				ProjectFeature.FEATURE_KNOWLEDGE, WebRequest.SCOPE_REQUEST);
 		return String.format("page:/knowledge/question-%s", mode);
 	}
+	
+	@RequestMapping(value={"/{uniqueId}/knowledge/answer/{mode}"}, method=RequestMethod.GET)
+	public String route142(@PathVariable String uniqueId, 
+			@PathVariable String mode, WebRequest webRequest) {
+		webRequest.setAttribute(AttributeKeys.PROJECT_UNIQUE_KEY_READABLE, 
+				uniqueId, WebRequest.SCOPE_REQUEST);
+		webRequest.setAttribute(AttributeKeys.FEATURE_CODE_KEY_READABLE, 
+				ProjectFeature.FEATURE_KNOWLEDGE, WebRequest.SCOPE_REQUEST);
+		return String.format("page:/knowledge/answer-%s", mode);
+	}
 	//  ------------------------------------------- Knowledge Module ---------------------------------------------  //
 	
 	//  -------------------------------------------- Calendar Module -----------------------------------------------  //

@@ -10,10 +10,10 @@
 	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
-	<import resource="classpath:webApplicationContext-dao.xml"/>
-	<import resource="classpath:webApplicationContext-service.xml"/>
-	<import resource="classpath:webApplicationContext-task.xml"/>
-	<import resource="classpath:webApplicationContext-social.xml"/>
+	<import resource="classpath:applicationContext-social.xml"/>
+	<import resource="classpath:applicationContext-dao.xml"/>
+	<import resource="classpath:applicationContext-service.xml"/>
+	<import resource="classpath:applicationContext-task.xml"/>
 
 	<!-- 定义受环境影响的变量 -->
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">

@@ -86,4 +86,9 @@ public class AnswerServiceImpl implements AnswerService {
 		return answerDao.findAnswerPage(page, questionId);
 	}
 	
+	public Page<Answer> getAnswerPage(Page<Answer> page, Long questionId,
+			String answerOrder) {
+		return answerDao.findAnswerPage(page, questionId, answerOrder);
+	}
+	
 }

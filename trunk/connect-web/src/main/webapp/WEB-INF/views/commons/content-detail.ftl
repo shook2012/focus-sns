@@ -5,6 +5,6 @@
 	</div>
 	</#if>
 	<div class="body">
-		${content}
+		${content!''}
 	</div>
 </div>

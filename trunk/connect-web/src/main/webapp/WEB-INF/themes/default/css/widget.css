@@ -124,24 +124,49 @@
 	margin-bottom: 3em;
 }
 /* question widget */
-.questions-list li,
-.questions-recent li {
-	padding-left: 18px;
-	padding-bottom: 2px;
-	margin-bottom: 5px;
-	line-height: 16px;
-	background: url("../icons/help_16x16.png") no-repeat;
-	border-bottom: 1px dashed #DDD;
+.questions-list li {
+	margin: 5px 0;
+	padding: 5px 0;
+	border-bottom: 1px dashed #CCC;
 }
-.questions-list li.last
-.questions-recent li.last {
-	/*border-bottom: none;*/
+.questions-list li .answers,
+.questions-list li .views {
+	padding: 5px 10px;
+	text-align: center;
+	background-color: #DDD;
 }
-.question .title {
+.counts {
+	font-size: large;	
 }
-#question-form textarea {
+.questions-list li .title {
+	font-size: large;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+.question-form textarea {
 	width: 450px;
 	height: 150px;
+}
+.question-head {
+	border-bottom: 1px solid black;
+}
+.question-head img {
+	margin-right: 10px;
+}
+.question-head h3 {
+	margin-bottom: 10px;	
+}
+.question-body {
+	padding-top: 10px;
+}
+.question-body .question-content {
+	margin-left:  60px;
+}
+/* answer widget */
+.answers-list li {
+	padding-bottom: 5px;
+	margin-bottom: 10px;
+	border-bottom: 1px dashed #DDD;	
 }
 /* event widget */
 .events-list .calendar {
@@ -320,6 +345,16 @@ table.calendar tbody tr td a {
 	margin-right: 5px;
 	margin-bottom: 5px;
 }
+/* tag widget */
+.tags-list li {
+	display:inline;
+	margin: 0 5px;
+	padding: 5px;
+	border-right: 1px solid #DDD;
+	border-bottom: 1px solid #DDD;
+	background-color: #F6F6F6;
+}
+
 /* project widget */
 .project {
 	padding-left: 1em;

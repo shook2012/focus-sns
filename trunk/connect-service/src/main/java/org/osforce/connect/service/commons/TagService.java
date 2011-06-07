@@ -28,5 +28,5 @@ public interface TagService {
 	
 	List<Tag> getTagList(Long linkedId, String entity);
 
-	Page<Tag> getTagPage(Page<Tag> page);
+	Page<Tag> getTagPage(Page<Tag> page, String startWith);
 }

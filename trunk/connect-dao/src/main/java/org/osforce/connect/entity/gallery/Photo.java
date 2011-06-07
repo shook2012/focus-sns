@@ -14,6 +14,7 @@ import org.osforce.connect.entity.commons.Attachment;
 import org.osforce.connect.entity.system.User;
 import org.osforce.spring4me.entity.IdEntity;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 /**
  *
@@ -31,6 +32,7 @@ public class Photo extends IdEntity {
 	public static final String NAME = Photo.class.getSimpleName();
 
 	private String name;
+	@DateTimeFormat(iso=ISO.DATE_TIME)
 	private Date entered;
 	private Date modified;
 	// helper
@@ -55,7 +57,6 @@ public class Photo extends IdEntity {
 		this.name = name;
 	}
 
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	public Date getEntered() {
 		return entered;
 	}
@@ -64,7 +65,6 @@ public class Photo extends IdEntity {
 		this.entered = entered;
 	}
 
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	public Date getModified() {
 		return modified;
 	}

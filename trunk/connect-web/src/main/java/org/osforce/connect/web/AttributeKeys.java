@@ -1,5 +1,7 @@
 package org.osforce.connect.web;
 
+import javax.servlet.jsp.tagext.Tag;
+
 import org.osforce.connect.entity.blog.PostCategory;
 import org.osforce.connect.entity.blog.Post;
 import org.osforce.connect.entity.calendar.Event;
@@ -51,7 +53,12 @@ public  abstract  class AttributeKeys {
 	public static final String APPLICATION_KEY_READABLE = "application";
 	public static final String SHOW_ERRORS_KEY_READABLE = "showErrors";
 	public static final String REQUEST_PATH_KEY_READABLE = "requestPath";
+	public static final String QUERY_STRING_KEY_READABLE = "queryString";
 	public static final String REMEMBER_ME_KEY = "_rememberMe_";
+	
+	public static final String TAG_KEY = "_" + Tag.class.getName();
+	public static final String TAG_KEY_READABLE = "tag";
+	public static final String TAG_LIST_KEY_READABLE = "tags";
 	
 	public static final String SITE_KEY = "_" + Site.class.getName();
 	public static final String SITE_KEY_READABLE = "site";

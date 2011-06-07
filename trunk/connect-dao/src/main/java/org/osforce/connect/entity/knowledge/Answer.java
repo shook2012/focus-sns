@@ -17,6 +17,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.osforce.connect.entity.system.User;
 import org.osforce.spring4me.entity.IdEntity;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 /**
  *
@@ -34,12 +35,15 @@ public class Answer extends IdEntity {
 	public static final String NAME = Answer.class.getSimpleName();
 	@NotBlank
 	private String content;
+	@DateTimeFormat(iso=ISO.DATE_TIME)
 	private Date entered;
 	private Date modified;
 	// helper
 	private Long enteredId;
 	private Long modifiedId;
 	private Long questionId;
+	private Long useful;
+	private Long useless;
 	// refer
 	private User enteredBy;
 	private User modifiedBy;
@@ -58,7 +62,6 @@ public class Answer extends IdEntity {
 		this.content = content;
 	}
 
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	public Date getEntered() {
 		return entered;
 	}
@@ -67,7 +70,6 @@ public class Answer extends IdEntity {
 		this.entered = entered;
 	}
 
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	public Date getModified() {
 		return modified;
 	}
@@ -110,6 +112,24 @@ public class Answer extends IdEntity {
 
 	public void setQuestionId(Long questionId) {
 		this.questionId = questionId;
+	}
+	
+	@Transient
+	public Long getUseful() {
+		return useful;
+	}
+	
+	public void setUseful(Long useful) {
+		this.useful = useful;
+	}
+	
+	@Transient
+	public Long getUseless() {
+		return useless;
+	}
+	
+	public void setUseless(Long useless) {
+		this.useless = useless;
 	}
 
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)

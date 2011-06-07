@@ -59,6 +59,8 @@ public class ObjectExposeInterceptor extends HandlerInterceptorAdapter {
 		//
 		exposeContextPath(request);
 		//
+		exposeQueryString(request);
+		//
 		exposeRequestPath(request);
 		//
 		exposeSite(request);
@@ -78,7 +80,11 @@ public class ObjectExposeInterceptor extends HandlerInterceptorAdapter {
 		request.setAttribute(AttributeKeys.BASE_KEY_READABLE, request.getContextPath());
 	}
 	
-	public void exposeRequestPath(HttpServletRequest request) {
+	protected void exposeQueryString(HttpServletRequest request) {
+		request.setAttribute(AttributeKeys.QUERY_STRING_KEY_READABLE, request.getQueryString());
+	}
+	
+	protected void exposeRequestPath(HttpServletRequest request) {
 		request.setAttribute(AttributeKeys.REQUEST_PATH_KEY_READABLE, request.getRequestURI());
 	}
 	

@@ -29,6 +29,27 @@
 				</#if>
 			</div>
 			<div>
+				<label>Tags</label>
+				<br/>
+				<#if question.tags??>
+				<ul class="tags-list">
+				<#list question.tags as tag>
+					<li>
+						<a> ${tag.name} </a>
+						<a class="deleteAction" href="${base}/commons/tag/delete-action?tagId=${tag.id}"> x </a></span>
+					</li>
+				</#list>
+				</ul>
+				<br />
+				</#if>
+				<#list 1..9 as x>
+				<input name="tags" class="tag-input" />
+				<#if x%3==0>
+				<br />
+				</#if>
+				</#list> 
+			</div>
+			<div>
 				<button type="submit" class="button">提交</button>
 				<@spring.formHiddenInput path="question.id" />
 				<@spring.formHiddenInput path="question.enteredId" />
@@ -40,3 +61,24 @@
 		</form:form>
 	</div>
 </div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.tag-input').each(function(){
+		$(this).autocomplete({
+			serviceUrl:'${base}/commons/tag/auto-action',
+		    minChars:2,
+		    delimiter: /(,|;)\s*/, // regex or character
+		    maxHeight:400,
+		    width:170,
+		    zIndex: 9999,
+		    deferRequestBy: 0, //miliseconds
+		    params: { uniqueId:"${project.uniqueId}" }, //aditional parameters
+		    noCache: false, //default is false, set to true to disable caching
+		    // callback function:
+		    onSelect: function(value, data){
+		    }
+		});	
+	});
+});
+</script>

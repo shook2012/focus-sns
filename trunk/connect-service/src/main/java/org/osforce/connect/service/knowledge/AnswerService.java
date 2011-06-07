@@ -21,4 +21,7 @@ public interface AnswerService {
 	void deleteAnswer(Long answerId);
 
 	Page<Answer> getAnswerPage(Page<Answer> page, Long questionId);
+
+	Page<Answer> getAnswerPage(Page<Answer> page, Long questionId,
+			String answerOrder);
 }

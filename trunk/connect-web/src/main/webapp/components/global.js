@@ -9,6 +9,21 @@ var settings = {
 }
 
 $(document).ready(function(){
+	$('.ajaxAction').click(function(){
+		var url = $(this).attr('href');
+		$.get(url, function(data){
+			window.location.reload();
+		});
+		return false;
+	});
+	//
+	$('.deleteAction').click(function(){
+		var url = $(this).attr('href');
+		$.get(url, function(data){
+			window.location.reload();
+		});
+		return false;
+	});
 	//
 	$('.loginAction').click(function(){
 		var url = $(this).attr('href');
