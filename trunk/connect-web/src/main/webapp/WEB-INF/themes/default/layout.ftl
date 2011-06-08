@@ -36,6 +36,10 @@
 
     <link rel="stylesheet" type="text/css" href="${base}/static/components/jquery-simplemodal/jquery.simplemodal.css"/>
     <script type="text/javascript" src="${base}/static/components/jquery-simplemodal/jquery.simplemodal.min.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="${base}/static/components/jquery-fancybox/jquery.fancybox-1.3.4.css"/>
+    <script type="text/javascript" src="${base}/static/components/jquery-fancybox/jquery.fancybox-1.3.4.js"></script>
+    <script type="text/javascript" src="${base}/static/components/jquery-fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="${base}/static/components/jquery-aqLayer/jquery.aqLayer.css"/>
     <script type="text/javascript" src="${base}/static/components/jquery-aqLayer/jquery.aqLayer.min.js"></script>

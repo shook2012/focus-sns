@@ -6,6 +6,7 @@ import java.util.Map;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
+import org.osforce.connect.entity.commons.VoteRecord;
 import org.osforce.connect.entity.knowledge.Answer;
 import org.osforce.connect.entity.knowledge.Question;
 import org.osforce.spring4me.task.Task;
@@ -31,6 +32,7 @@ public class KnowledgeAspect {
 	private Task questionActivityStreamTask;
 	private Task answerActivityStreamTask;
 	private Task answerCreateEmailTask;
+	private Task answerVoteCountTask;
 
 	public KnowledgeAspect() {
 	}
@@ -58,12 +60,19 @@ public class KnowledgeAspect {
 	public void setAnswerCreateEmailTask(Task answerCreateEmailTask) {
 		this.answerCreateEmailTask = answerCreateEmailTask;
 	}
+	
+	@Autowired
+	@Qualifier("answerVoteCountTask")
+	public void setAnswerVoteCountTask(Task answerVoteCountTask) {
+		this.answerVoteCountTask = answerVoteCountTask;
+	}
 
 	@AfterReturning("execution(* org.osforce.connect.service.knowledge.QuestionService.viewQuestion(..))")
 	public void viewQuestion(JoinPoint jp) {
 		Long questionId = (Long) jp.getArgs()[0];
 		Map<Object, Object> context = new HashMap<Object, Object>();
 		context.put("questionId", questionId);
+		//
 		questionViewCountTask.doAsyncTask(context);
 	}
 
@@ -87,6 +96,16 @@ public class KnowledgeAspect {
 		answerActivityStreamTask.doAsyncTask(context);
 		//
 		answerCreateEmailTask.doAsyncTask(context);
+	}
+	
+	@AfterReturning("execution(* org.osforce.connect.service.commons.VoteRecordService.createVoteRecord(..)) ||" 
+			+ "execution(* org.osforce.connect.service.commons.VoteRecordService.updateVoteRecord(..))")
+	public void updateVoteRecord(JoinPoint jp) {
+		VoteRecord voteRecord = (VoteRecord) jp.getArgs()[0];
+		Map<Object, Object> context = new HashMap<Object, Object>();
+		context.put("answerId", voteRecord.getLinkedId());
+		//
+		answerVoteCountTask.doAsyncTask(context);
 	}
 
 }

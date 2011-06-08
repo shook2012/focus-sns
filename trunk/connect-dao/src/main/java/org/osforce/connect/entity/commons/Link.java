@@ -1,5 +1,7 @@
 package org.osforce.connect.entity.commons;
 
+import java.util.Date;
+
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,12 +25,16 @@ import org.osforce.spring4me.entity.IdEntity;
 @Table(name="links")
 @Cacheable
 public class Link extends IdEntity {
-
 	private static final long serialVersionUID = -5877643416053375175L;
-
+	
+	public static final String TYPE_FAVORITE = "favorite";
+	public static final String TYPE_FOCUS = "focus";
+	
 	private String title;
+	private String type = TYPE_FOCUS;
 	private Long toId;
 	private String entity;
+	private Date entered;
 	private Boolean enabled = true;
 	// helper
 	private Long fromId;
@@ -63,6 +69,14 @@ public class Link extends IdEntity {
 	public void setToId(Long toId) {
 		this.toId = toId;
 	}
+	
+	public String getType() {
+		return type;
+	}
+	
+	public void setType(String type) {
+		this.type = type;
+	}
 
 	@Column(nullable=false)
 	public String getEntity() {
@@ -71,6 +85,14 @@ public class Link extends IdEntity {
 	
 	public void setEntity(String entity) {
 		this.entity = entity;
+	}
+	
+	public Date getEntered() {
+		return entered;
+	}
+	
+	public void setEntered(Date entered) {
+		this.entered = entered;
 	}
 	
 	@Transient

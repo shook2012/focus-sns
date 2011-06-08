@@ -412,10 +412,16 @@
 			</activation>
 			<properties>
 				<jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
-				<jdbc.url>jdbc:mysql://localhost/connect?useUnicode=true&amp;characterEncoding=utf-8</jdbc.url>
-				<jpa.dialect>org.springframework.orm.jpa.vendor.Database.MYSQL</jpa.dialect>
+				<jdbc.url>jdbc:mysql://localhost/connect?useUnicode=true&amp;characterEncoding=utf-8
+				</jdbc.url>
+				<jpa.dialect>org.springframework.orm.jpa.vendor.Database.MYSQL
+				</jpa.dialect>
 			</properties>
 			<dependencies>
+				<dependency>
+					<groupId>commons-dbcp</groupId>
+					<artifactId>commons-dbcp</artifactId>
+				</dependency>
 				<dependency>
 					<groupId>mysql</groupId>
 					<artifactId>mysql-connector-java</artifactId>
@@ -433,7 +439,8 @@
 			<properties>
 				<jdbc.driver>org.postgresql.Driver</jdbc.driver>
 				<jdbc.url>jdbc:postgresql://localhost:5432/connect</jdbc.url>
-				<jpa.dialect>org.springframework.orm.jpa.vendor.Database.POSTGRESQL</jpa.dialect>
+				<jpa.dialect>org.springframework.orm.jpa.vendor.Database.POSTGRESQL
+				</jpa.dialect>
 			</properties>
 			<dependencies>
 				<dependency>
@@ -451,6 +458,12 @@
 				<filtering>true</filtering>
 			</resource>
 		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>true</filtering>
+			</testResource>
+		</testResources>
 
 		<plugins>
 			<plugin>
@@ -486,6 +499,16 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.8.1</version>
+				<configuration>
+					<includes>
+						<include>**/*Tests.java</include>
+					</includes>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

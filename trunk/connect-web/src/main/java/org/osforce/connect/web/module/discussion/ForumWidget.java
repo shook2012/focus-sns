@@ -65,7 +65,7 @@ public class ForumWidget {
 		for(Forum forum : forums) {
 			page = topicService.getTopicPage(page, forum.getId());
 			for(Topic topic : page.getResult()) {
-				Statistic statistic = statisticService.getStatistic(topic.getId(), Topic.NAME);
+				Statistic statistic = statisticService.getStatistic(Statistic.TYPE_VIEW, topic.getId(), Topic.NAME);
 				if(statistic!=null) {
 					topic.setViews(statistic.getCount());
 				}

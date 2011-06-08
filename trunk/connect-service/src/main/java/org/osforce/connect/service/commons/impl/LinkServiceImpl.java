@@ -1,5 +1,7 @@
 package org.osforce.connect.service.commons.impl;
 
+import java.util.Date;
+
 import org.osforce.connect.dao.commons.LinkDao;
 import org.osforce.connect.dao.system.ProjectDao;
 import org.osforce.connect.entity.commons.Link;
@@ -54,7 +56,10 @@ public class LinkServiceImpl implements LinkService {
 			Project from = projectDao.get(link.getFromId());
 			link.setFrom(from);
 		}
+		//
+		Date now = new Date();
 		if(link.getId()==null) {
+			link.setEntered(now);
 			linkDao.save(link);
 		} else {
 			linkDao.update(link);
@@ -63,6 +68,10 @@ public class LinkServiceImpl implements LinkService {
 
 	public void deleteLink(Long linkId) {
 		linkDao.delete(linkId);
+	}
+	
+	public Long countLinks(String type, Long toId, String entity) {
+		return linkDao.countLinks(type, toId, entity);
 	}
 
 	public Page<Link> getLinkPage(Page<Link> page, Long fromId, Long toId,

@@ -48,6 +48,7 @@ public class AnswerCreateEmailTask extends AbstractEmailTask {
 		Answer answer = answerService.getAnswer(answerId);
 		context.put("question", answer.getQuestion());
 		context.put("answer", answer);
+		context.put("site", answer.getQuestion().getProject().getCategory().getSite());
 		helper.addTo(answer.getQuestion().getEnteredBy().getEmail(),
 				answer.getQuestion().getEnteredBy().getNickname());
 		//

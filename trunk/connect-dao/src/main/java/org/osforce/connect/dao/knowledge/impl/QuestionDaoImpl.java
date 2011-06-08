@@ -1,5 +1,6 @@
 package org.osforce.connect.dao.knowledge.impl;
 
+import org.apache.commons.lang.StringUtils;
 import org.osforce.connect.dao.knowledge.QuestionDao;
 import org.osforce.connect.entity.knowledge.Question;
 import org.osforce.spring4me.dao.AbstractDao;
@@ -21,12 +22,26 @@ public class QuestionDaoImpl extends AbstractDao<Question>
 		super(Question.class);
 	}
 	
-	static final String JPQL0 = "FROM Question AS q %s ORDER BY q.entered DESC";
+	static final String JPQL0 = "FROM Question AS q %s";
 	public Page<Question> findQuestionPage(Page<Question> page, Long projectId) {
 		if(projectId!=null) {
 			return findPage(page, String.format(JPQL0, "WHERE q.project.id = ?1"), projectId);
 		} else {
 			return findPage(page, String.format(JPQL0, ""));
+		}
+	}
+
+	public Page<Question> findQuestionPage(Page<Question> page,
+			Long projectId, String orderFactor) {
+		if(StringUtils.equals("view", orderFactor)) {
+			page.desc("q.views");
+			return findQuestionPage(page, projectId);
+		} else if (StringUtils.equals("answer", orderFactor)) {
+			page.desc("q.answersSize");
+			return findQuestionPage(page, projectId);
+		} else {
+			page.desc("q.modified");
+			return findQuestionPage(page, projectId);
 		}
 	}
 	

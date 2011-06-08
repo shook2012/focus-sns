@@ -51,7 +51,7 @@
 					<form id="activity-comment-form${activity.id}" class="activity-comment-form"
 						action="${base}/stream/activity/form-action" method="post" style="display:none">
 					<#if !user??>
-						<div class="notice">添加评论，请先 <a href="${base}/app/login/form" class="loginAction">登录</a></div>					
+						<div class="notice">添加评论，请先 <a href="${base}/app/user/login" class="popupAction">登录</a></div>					
 					<#else>
 						<div>
 							<textarea name="description"></textarea>
@@ -77,7 +77,7 @@
 			</#list>
 		</ul>
 		<#if page.totalPages gt 1>
-		<div id="pagination${id}" class="right"><div>
+		<div id="pagination${id}" class="right"></div>
 		</#if>
 	</#if>
 	</div>

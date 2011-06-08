@@ -26,6 +26,10 @@ public class Statistic extends IdEntity {
 
 	private static final long serialVersionUID = 5152544874427530115L;
 	
+	public static final String TYPE_VIEW = "view";
+	public static final String TYPE_VOTE = "vote";
+	
+	private String type;
 	private Long linkedId;
 	private String entity;
 	private Long count = 0L;
@@ -38,9 +42,19 @@ public class Statistic extends IdEntity {
 	public Statistic() {
 	}
 	
-	public Statistic(Long linkedId, String entity) {
+	public Statistic(String type, Long linkedId, String entity) {
+		this.type = type;
 		this.linkedId = linkedId;
 		this.entity = entity;
+	}
+	
+	@Column(nullable=false)
+	public String getType() {
+		return type;
+	}
+	
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 	@Column(nullable=false)
@@ -61,8 +75,9 @@ public class Statistic extends IdEntity {
 	}
 
 	@Transient
-	public void countAdd() {
+	public Long countAdd() {
 		this.count += 1;
+		return count;
 	}
 	
 	public Long getCount() {

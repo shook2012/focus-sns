@@ -47,6 +47,7 @@ public class MemberApproveEmailTask extends AbstractEmailTask {
 		Long memberId = (Long) context.get("memberId");
 		TeamMember member = memberService.getMember(memberId);
 		context.put("member", member);
+		context.put("site", member.getProject().getCategory().getSite());
 		helper.addTo(member.getUser().getEmail(), member.getUser().getNickname());
 		//
 		String subject = FreeMarkerTemplateUtils.processTemplateIntoString(

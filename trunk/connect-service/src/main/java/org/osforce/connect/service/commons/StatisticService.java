@@ -22,7 +22,7 @@ public interface StatisticService {
 
 	void deleteStatistic(Long statisticId);
 
-	Statistic getStatistic(Long linkedId, String entity);
+	Statistic getStatistic(String type, Long linkedId, String entity);
 
 	Page<Statistic> getTopStatisticPage(Page<Statistic> page,
 			ProjectCategory category, String entity);

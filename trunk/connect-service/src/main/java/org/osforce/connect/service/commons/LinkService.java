@@ -22,6 +22,8 @@ public interface LinkService {
 	
 	void deleteLink(Long linkId);
 	
+	Long countLinks(String type, Long toId, String entity);
+	
 	Page<Link> getLinkPage(Page<Link> page, Long fromId, Long toId, String entity);
 
 }

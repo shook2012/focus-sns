@@ -48,6 +48,7 @@ public class MemberRequestEmailTask extends AbstractEmailTask {
 		Long memberId = (Long) context.get("memberId");
 		TeamMember member = memberService.getMember(memberId);
 		context.put("member", member);
+		context.put("site", member.getProject().getCategory().getSite());
 		if(StringUtils.equals(member.getStatus(), TeamMember.STATUS_NEED_ACCEPT)) {
 			helper.addTo(member.getUser().getEmail(),
 					member.getUser().getNickname());

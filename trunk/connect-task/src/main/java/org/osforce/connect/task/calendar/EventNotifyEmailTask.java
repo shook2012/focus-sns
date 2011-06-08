@@ -47,7 +47,7 @@ public class EventNotifyEmailTask extends AbstractEmailTask {
 		Event event = eventService.getEvent(eventId);
 		context.put("event", event);
 		context.put("site", event.getProject().getCategory().getSite());
-		
+		//
 		String subject = FreeMarkerTemplateUtils.processTemplateIntoString(
 				configuration.getTemplate(TEMPLATE_EVENT_NOTIFY_SUBJECT), context); 
 		String content = FreeMarkerTemplateUtils.processTemplateIntoString(

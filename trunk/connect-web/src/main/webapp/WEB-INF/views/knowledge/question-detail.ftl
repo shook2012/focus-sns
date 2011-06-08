@@ -18,7 +18,11 @@
 					发表于
 					<@prettyTime date=question.entered />
 					(${question.entered?string('yyyy/M/d HH:mm')})
-					<a>收藏 (0)</a>
+					<#if user??>
+					<a class="ajaxAction" href="${base}/commons/link/favorite?fromId=${user.project.id}&toId=${question.id}&entity=Question">收藏 (${question.favorite})</a>
+					<#else>
+					<a class="popupAction" href="${base}/app/user/login">收藏 (${question.favorite})</a>
+					</#if>
 				</div>
 			</div>
 			<br class="clear" />

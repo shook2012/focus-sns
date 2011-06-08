@@ -86,7 +86,7 @@ public class TopicWidget {
 			return "commons/blank";
 		}
 		for(Topic topic : page.getResult()) {
-			Statistic statistic = statisticService.getStatistic(topic.getId(), Topic.NAME);
+			Statistic statistic = statisticService.getStatistic(Statistic.TYPE_VIEW, topic.getId(), Topic.NAME);
 			if(statistic!=null) {
 				topic.setViews(statistic.getCount());
 			}
@@ -101,7 +101,7 @@ public class TopicWidget {
 			Page<Topic> page,  Model model) {
 		page = topicService.getTopicPage(page, forumId);
 		for(Topic topic : page.getResult()) {
-			Statistic statistic = statisticService.getStatistic(topic.getId(), Topic.NAME);
+			Statistic statistic = statisticService.getStatistic(Statistic.TYPE_VIEW, topic.getId(), Topic.NAME);
 			if(statistic!=null) {
 				topic.setViews(statistic.getCount());
 			}

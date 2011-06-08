@@ -2,6 +2,7 @@ package org.osforce.connect.service.system.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang.math.NumberUtils;
 import org.osforce.connect.dao.system.ProjectCategoryDao;
 import org.osforce.connect.dao.system.RoleDao;
 import org.osforce.connect.entity.system.ProjectCategory;
@@ -45,13 +46,15 @@ public class RoleServiceImpl implements RoleService {
 	}
 	
 	public Role getRole(Long categoryId, Integer roleLevel) {
-		/*QueryAppender appender = new QueryAppender();
-		appender.equal("role.category.id", categoryId)
-				.lessThanOrEqual("role.level", roleLevel)
-				.desc("role.level");
-		List<Role> roles = roleDao.find(appender);
-		return roles.get(0);*/
-		return null;
+		List<Role> roles = roleDao.findRoleList(null, categoryId);
+		Role tmp = null;
+		for(Role role : roles) {
+			if(tmp==null || (role.getLevel()>roleLevel && 
+					NumberUtils.compare(role.getLevel(), tmp.getLevel())>0)) {
+				tmp = role;
+			}
+		}
+		return tmp;
 	}
 	
 	public Role getRole(String code, Long categoryId) {

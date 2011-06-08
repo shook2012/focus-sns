@@ -34,7 +34,7 @@
 	<!-- entity manager factory -->
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
-		<property name="persistenceXmlLocation" value="/META-INF/persistence.xml"/>
+		<property name="persistenceXmlLocation" value="classpath:/META-INF/persistence.xml"/>
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 				<property name="showSql" value="false"/>
@@ -50,7 +50,7 @@
 				<prop key="hibernate.cache.use_second_level_cache">true</prop>
 				<prop key="hibernate.cache.use_query_cache">true</prop>
 				<prop key="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.EhCacheRegionFactory</prop>
-				<prop key="net.sf.ehcache.configurationResourceName">/cache/ehcache-hibernate.xml</prop>
+				<prop key="net.sf.ehcache.configurationResourceName">/ehcache-hibernate.xml</prop>
 				 <!--
 				<prop key="hibernate.search.default.directory_provider">org.hibernate.search.store.FSDirectoryProvider</prop>
 				<prop key="hibernate.search.default.indexBase">${user.home}/.connect/indexes</prop>

@@ -15,7 +15,7 @@ public interface SiteService {
 	Site getSite(Long siteId);
 	
 	Site getSite(String domain);
-
+	
 	void createSite(Site site);
 	
 	void updateSite(Site site);

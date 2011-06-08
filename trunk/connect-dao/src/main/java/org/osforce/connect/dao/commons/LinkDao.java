@@ -33,4 +33,13 @@ public interface LinkDao extends BaseDao<Link> {
 	 */
 	Page<Link> findLinkPage(Page<Link> page, Long fromId, Long toId, String entity);
 
+	/**
+	 * Count links by type toId and entity
+	 * @param type
+	 * @param linkedId
+	 * @param entity
+	 * @return
+	 */
+	Long countLinks(String type, Long toId, String entity);
+
 }

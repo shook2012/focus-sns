@@ -22,15 +22,15 @@
 				</a>
 				<div class="profile-body">
 					<div class="profile-content">
-						<#if user??>
+						<#if user?? && user.project.profile.id != profile.id>
 						<ul class="top right">
 							<@entity entity="Profile" exist="no" project=profile.project user=user>
 							<li>
-								<a class="concernAction" href="${base}/commons/link/create?fromId=${user.project.id}&toId=${profile.id}&entity=Profile">添加关注</a>
+								<a class="ajaxAction" href="${base}/commons/link/focus?fromId=${user.project.id}&toId=${profile.id}&entity=Profile">添加关注</a>
 							</li>
 							</@entity>
 							<li>
-								<a id="${profile.project.uniqueId}" class="leaveMessageAction" href="${base}/app/message/form?fromId=${user.project.id}&toId=${profile.project.id}&uniqueId=${profile.project.uniqueId}">发送消息</a>
+								<a  class="popupAction" href="${base}/app/message/form?fromId=${user.project.id}&toId=${profile.project.id}&uniqueId=${profile.project.uniqueId}">发送消息</a>
 							</li>
 						</ul>
 						</#if>
