@@ -1,4 +1,4 @@
-package org.osforce.connect.web.module.commons;
+package org.osforce.connect.web.module.list;
 
 import java.util.Collections;
 
@@ -30,8 +30,14 @@ public class LinkWidget {
 		this.linkService = linkService;
 	}
 	
-	@RequestMapping(value="/create")
-	public @ResponseBody Object create(Link link) {
+	@RequestMapping(value="/focus")
+	public @ResponseBody Object focus(Link link) {
+		linkService.createLink(link);
+		return Collections.singletonMap("id", link.getId());
+	}
+	
+	@RequestMapping(value="/favorite")
+	public @ResponseBody Object favorite(Link link) {
 		linkService.createLink(link);
 		return Collections.singletonMap("id", link.getId());
 	}
