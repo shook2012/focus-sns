@@ -38,12 +38,13 @@ public class Answer extends IdEntity {
 	@DateTimeFormat(iso=ISO.DATE_TIME)
 	private Date entered;
 	private Date modified;
+	private Long votes;
+	private Long useful;
+	private Long useless;
 	// helper
 	private Long enteredId;
 	private Long modifiedId;
 	private Long questionId;
-	private Long useful;
-	private Long useless;
 	// refer
 	private User enteredBy;
 	private User modifiedBy;
@@ -76,6 +77,30 @@ public class Answer extends IdEntity {
 
 	public void setModified(Date modified) {
 		this.modified = modified;
+	}
+	
+	public Long getVotes() {
+		return votes;
+	}
+	
+	public void setVotes(Long votes) {
+		this.votes = votes;
+	}
+	
+	public Long getUseful() {
+		return useful;
+	}
+	
+	public void setUseful(Long useful) {
+		this.useful = useful;
+	}
+	
+	public Long getUseless() {
+		return useless;
+	}
+	
+	public void setUseless(Long useless) {
+		this.useless = useless;
 	}
 
 	@Transient
@@ -114,24 +139,6 @@ public class Answer extends IdEntity {
 		this.questionId = questionId;
 	}
 	
-	@Transient
-	public Long getUseful() {
-		return useful;
-	}
-	
-	public void setUseful(Long useful) {
-		this.useful = useful;
-	}
-	
-	@Transient
-	public Long getUseless() {
-		return useless;
-	}
-	
-	public void setUseless(Long useless) {
-		this.useless = useless;
-	}
-
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	@JoinColumn(name="entered_by_id")
 	public User getEnteredBy() {

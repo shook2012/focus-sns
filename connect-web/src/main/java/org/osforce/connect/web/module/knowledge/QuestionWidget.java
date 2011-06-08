@@ -5,12 +5,14 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.apache.commons.lang.StringUtils;
+import org.osforce.connect.entity.commons.Link;
 import org.osforce.connect.entity.commons.Statistic;
 import org.osforce.connect.entity.commons.Tag;
 import org.osforce.connect.entity.knowledge.Question;
 import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.entity.system.ProjectFeature;
 import org.osforce.connect.entity.system.User;
+import org.osforce.connect.service.commons.LinkService;
 import org.osforce.connect.service.commons.StatisticService;
 import org.osforce.connect.service.commons.TagService;
 import org.osforce.connect.service.knowledge.QuestionService;
@@ -39,6 +41,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class QuestionWidget {
 
 	private TagService tagService;
+	private LinkService linkService;
 	private StatisticService statisticService;
 	private QuestionService questionService;
 	
@@ -48,6 +51,11 @@ public class QuestionWidget {
 	@Autowired
 	public void setTagService(TagService tagService) {
 		this.tagService = tagService;
+	}
+	
+	@Autowired
+	public void setLinkService(LinkService linkService) {
+		this.linkService = linkService;
 	}
 	
 	@Autowired
@@ -64,7 +72,7 @@ public class QuestionWidget {
 	@Permission({"question-view"})
 	public String doRecentView(Page<Question> page, 
 			Project project, Model model) {
-		page = questionService.getQuestionPage(page, project.getId());
+		page = questionService.getQuestionPage(page, project);
 		if(page.getResult().isEmpty()) {
 			return "commons/blank";
 		}
@@ -76,16 +84,16 @@ public class QuestionWidget {
 	@Permission({"question-view"})
 	public String doListView(@SessionParam String questionOrder,
 			Page<Question> page, Project project, Model model) {
-		page = questionService.getQuestionPage(page, project.getId());
+		page = questionService.getQuestionPage(page, project, questionOrder);
 		for(Question question : page.getResult()) {
 			// views count
-			Statistic statistic = statisticService.getStatistic(question.getId(), Question.NAME);
+			Statistic statistic = statisticService.getStatistic(Statistic.TYPE_VIEW, question.getId(), Question.NAME);
 			question.setViews(statistic!=null ? statistic.getCount() : 0);
 			// tags
 			List<Tag> tags = tagService.getTagList(question.getId(), Question.NAME);
-			question.setTags(tags);
-			model.addAttribute(AttributeKeys.PAGE_KEY_READABLE, page);
+			question.setTagList(tags);
 		}
+		model.addAttribute(AttributeKeys.PAGE_KEY_READABLE, page);
 		return "knowledge/question-list";
 	}
 	
@@ -95,6 +103,8 @@ public class QuestionWidget {
 			Long questionId, User user, Model model) {
 		if(questionId!=null) {
 			Question question = questionService.viewQuestion(questionId);
+			Long favorite = linkService.countLinks(Link.TYPE_FAVORITE, questionId, Question.NAME);
+			question.setFavorite(favorite);
 			model.addAttribute(AttributeKeys.QUESTION_KEY_READABLE, question);
 			return "knowledge/question-detail";
 		}
@@ -115,7 +125,7 @@ public class QuestionWidget {
 				question = questionService.getQuestion(questionId);
 				// tags 
 				List<Tag> tags = tagService.getTagList(questionId, Question.NAME);
-				question.setTags(tags);
+				question.setTagList(tags);
 			}
 			model.addAttribute(AttributeKeys.QUESTION_KEY_READABLE, question);
 		} 

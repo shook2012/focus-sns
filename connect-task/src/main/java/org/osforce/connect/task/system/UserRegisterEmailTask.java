@@ -58,6 +58,7 @@ public class UserRegisterEmailTask extends AbstractEmailTask {
 		Project project = projectService.getProject(projectId);
 		context.put("user", user);
 		context.put("project", project);
+		context.put("site", project.getCategory().getSite());
 		helper.addTo(user.getEmail(), user.getNickname());
 		//
 		String subject = FreeMarkerTemplateUtils.processTemplateIntoString(

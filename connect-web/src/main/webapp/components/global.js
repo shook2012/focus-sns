@@ -17,41 +17,7 @@ $(document).ready(function(){
 		return false;
 	});
 	//
-	$('.deleteAction').click(function(){
-		var url = $(this).attr('href');
-		$.get(url, function(data){
-			window.location.reload();
-		});
-		return false;
-	});
-	//
-	$('.loginAction').click(function(){
-		var url = $(this).attr('href');
-		openModalWindow(url);
-		return false;
-	});
-	//
-	$('.addMemberAction').click(function(){
-		var url = $(this).attr('href');
-		$.get(url,function(){
-			window.location.reload();
-		});
-		return false;
-	});
-	//
-	$('.concernAction').click(function(){
-		var url = $(this).attr('href');
-		$.get(url,function(){
-			window.location.reload();
-		});
-		return false;
-	});
-	//
-	$('.leaveMessageAction').click(function(){
-		var url = $(this).attr('href');
-		openModalWindow(url);
-		return false;
-	});
+	$('.popupAction').fancybox();
 });
 
 function showModalWindow(url, options) {

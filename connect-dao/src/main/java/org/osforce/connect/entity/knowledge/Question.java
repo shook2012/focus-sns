@@ -45,13 +45,16 @@ public class Question extends IdEntity {
 	@DateTimeFormat(iso=ISO.DATE_TIME)
 	private Date entered;
 	private Date modified;
+	private Long views;
+	private Long votes;
+	private Integer answersSize;
 	// helper
 	private Long enteredId;
 	private Long modifiedId;
 	private Long projectId;
 	private Long answerId;
-	private Long views;
-	private List<Tag> tags;
+	private Long favorite;
+	private List<Tag> tagList;
 	// refer
 	private User enteredBy;
 	private User modifiedBy;
@@ -95,6 +98,33 @@ public class Question extends IdEntity {
 	
 	public void setModified(Date modified) {
 		this.modified = modified;
+	}
+	
+	public Long getViews() {
+		return views;
+	}
+	
+	public void setViews(Long views) {
+		this.views = views;
+	}
+	
+	public Long getVotes() {
+		return votes;
+	}
+	
+	public void setVotes(Long votes) {
+		this.votes = votes;
+	}
+	
+	public Integer getAnswersSize() {
+		if(answersSize==null && answers!=null) {
+			this.answersSize = answers.size();
+		}
+		return answersSize;
+	}
+	
+	public void setAnswersSize(Integer answersSize) {
+		this.answersSize = answersSize;
 	}
 	
 	@Transient
@@ -146,21 +176,21 @@ public class Question extends IdEntity {
 	}
 	
 	@Transient
-	public Long getViews() {
-		return views;
+	public Long getFavorite() {
+		return favorite;
 	}
 	
-	public void setViews(Long views) {
-		this.views = views;
+	public void setFavorite(Long favorite) {
+		this.favorite = favorite;
 	}
 	
 	@Transient
-	public List<Tag> getTags() {
-		return tags;
+	public List<Tag> getTagList() {
+		return tagList;
 	}
 	
-	public void setTags(List<Tag> tags) {
-		this.tags = tags;
+	public void setTagList(List<Tag> tags) {
+		this.tagList = tags;
 	}
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)

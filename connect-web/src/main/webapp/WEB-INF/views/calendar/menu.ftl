@@ -1,3 +1,4 @@
+<@security code="event-add">
 <div id="${widgetConfig.id}" class="widget">
 	<#if widgetConfig.title??>
 	<div class="head">
@@ -14,3 +15,4 @@
 		</ul>
 	</div>
 </div>
+</@security>

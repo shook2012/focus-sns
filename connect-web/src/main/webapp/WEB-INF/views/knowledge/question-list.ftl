@@ -5,7 +5,6 @@
 		<h3>${widgetConfig.title}</h3>
 		<div class="tabs">
 			<a <#if !Session.questionOrder?? || Session.questionOrder=='date'>class="current"</#if> href="${base}/${project.uniqueId}/knowledge/question/list?questionOrder=date"> 最近</a>
-			<a <#if Session.questionOrder?? && Session.questionOrder=='vote'>class="current"</#if> href="${base}/${project.uniqueId}/knowledge/question/list?questionOrder=vote"> 投票</a>
 			<a <#if Session.questionOrder?? && Session.questionOrder=='answer'>class="current"</#if> href="${base}/${project.uniqueId}/knowledge/question/list?questionOrder=answer"> 回答</a>
 			<a <#if Session.questionOrder?? && Session.questionOrder=='view'>class="current"</#if> href="${base}/${project.uniqueId}/knowledge/question/list?questionOrder=view"> 浏览</a>
 		</div>

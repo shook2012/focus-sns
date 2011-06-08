@@ -2,6 +2,7 @@ package org.osforce.connect.service.knowledge.impl;
 
 import java.util.Date;
 
+import org.apache.commons.lang.StringUtils;
 import org.osforce.connect.dao.knowledge.AnswerDao;
 import org.osforce.connect.dao.knowledge.QuestionDao;
 import org.osforce.connect.dao.system.UserDao;
@@ -88,7 +89,12 @@ public class AnswerServiceImpl implements AnswerService {
 	
 	public Page<Answer> getAnswerPage(Page<Answer> page, Long questionId,
 			String answerOrder) {
-		return answerDao.findAnswerPage(page, questionId, answerOrder);
+		if(StringUtils.equals("vote", answerOrder)) {
+			page.desc("a.votes");
+		} else {
+			page.desc("a.modified");
+		}
+		return answerDao.findAnswerPage(page, questionId);
 	}
 	
 }

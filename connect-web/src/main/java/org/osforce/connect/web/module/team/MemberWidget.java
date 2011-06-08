@@ -152,7 +152,7 @@ public class MemberWidget {
 		String[] emailsArray = StringUtils.split(emails, "\n");
 		for(String email : emailsArray) {
 			User tmp = userService.getUser(StringUtils.trim(email));
-			if(tmp!=null && !StringUtils.equals(user.getEmail(), email)) {
+			if(tmp!=null && NumberUtils.compare(tmp.getId(), user.getId())!=0) {
 				Role defaultRole = roleService.getRole(project.getCategoryId(), 50);
 				TeamMember member = new TeamMember(project, tmp, defaultRole);
 				member.setStatus(TeamMember.STATUS_NEED_ACCEPT);

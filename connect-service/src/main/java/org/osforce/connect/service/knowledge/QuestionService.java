@@ -1,6 +1,7 @@
 package org.osforce.connect.service.knowledge;
 
 import org.osforce.connect.entity.knowledge.Question;
+import org.osforce.connect.entity.system.Project;
 import org.osforce.spring4me.dao.Page;
 
 /**
@@ -12,6 +13,13 @@ import org.osforce.spring4me.dao.Page;
  */
 public interface QuestionService {
 
+	/**
+	 * Intercept by @see KnowledgeAspect
+	 * @param questionId
+	 * @return
+	 */
+	Question viewQuestion(Long questionId);
+	
 	Question getQuestion(Long questionId);
 	
 	void createQuestion(Question question);
@@ -20,12 +28,8 @@ public interface QuestionService {
 	
 	void deleteQuestion(Long questionId);
 
-	Page<Question> getQuestionPage(Page<Question> page, Long projectId);
+	Page<Question> getQuestionPage(Page<Question> page, Project project);
 
-	/**
-	 * Intercept by @see KnowledgeAspect
-	 * @param questionId
-	 * @return
-	 */
-	Question viewQuestion(Long questionId);
+	Page<Question> getQuestionPage(Page<Question> page, Project project,
+			String questionOrder);
 }

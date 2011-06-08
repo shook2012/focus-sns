@@ -1,5 +1,6 @@
 package org.osforce.connect.dao.commons.impl;
 
+import org.apache.commons.lang.StringUtils;
 import org.osforce.connect.dao.commons.VoteRecordDao;
 import org.osforce.connect.entity.commons.VoteRecord;
 import org.osforce.spring4me.dao.AbstractDao;
@@ -25,9 +26,13 @@ public class VoteRecordDaoImpl extends AbstractDao<VoteRecord>
 		return findOne(JPQL0, linkedId, entity, userId);
 	}
 
-	static final String JPQL1 = "SELECT COUNT(*) FROM VoteRecord AS vr WHERE vr.code = ?1 AND vr.linkedId = ?2 AND vr.entity = ?3";
+	static final String JPQL1 = "SELECT COUNT(*) FROM VoteRecord AS vr WHERE vr.linkedId = ?1 AND vr.entity = ?2  %s";
 	public Long countVoteRecords(String code, Long linkedId, String entity) {
-		return count(JPQL1, code, linkedId, entity);
+		if(StringUtils.isBlank(code)) {
+			return count(String.format(JPQL1, ""), linkedId, entity);
+		} else {
+			return count(String.format(JPQL1, " AND vr.code = ?3"), linkedId, entity, code);
+		}
 	}
 
 }

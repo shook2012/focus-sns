@@ -41,5 +41,6 @@
 			</dl>
 		</div>
 		</#if>
+		<br class="clear" />
 	</div>
 </div>

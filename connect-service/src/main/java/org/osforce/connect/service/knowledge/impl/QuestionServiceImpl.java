@@ -2,9 +2,11 @@ package org.osforce.connect.service.knowledge.impl;
 
 import java.util.Date;
 
+import org.apache.commons.lang.StringUtils;
 import org.osforce.connect.dao.knowledge.QuestionDao;
 import org.osforce.connect.dao.system.ProjectDao;
 import org.osforce.connect.dao.system.UserDao;
+import org.osforce.connect.entity.commons.Statistic;
 import org.osforce.connect.entity.knowledge.Question;
 import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.entity.system.User;
@@ -86,8 +88,13 @@ public class QuestionServiceImpl implements QuestionService {
 		questionDao.delete(questionId);
 	}
 	
-	public Page<Question> getQuestionPage(Page<Question> page, Long projectId) {
-		return questionDao.findQuestionPage(page, projectId);
+	public Page<Question> getQuestionPage(Page<Question> page, Project project) {
+		return questionDao.findQuestionPage(page, project.getId());
+	}
+	
+	public Page<Question> getQuestionPage(Page<Question> page, Project project,
+			String orderFactor) {
+		return questionDao.findQuestionPage(page, project.getId(), orderFactor);
 	}
 	
 }

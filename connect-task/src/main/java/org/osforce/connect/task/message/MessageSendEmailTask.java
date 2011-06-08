@@ -50,6 +50,7 @@ public class MessageSendEmailTask extends AbstractEmailTask {
 		Long messageId = (Long) context.get("messageId");
 		Message message = messageService.getMessage(messageId);
 		context.put("message", message);
+		context.put("site", message.getFrom().getCategory().getSite());
 		//
 		String subject = FreeMarkerTemplateUtils.processTemplateIntoString(
 				configuration.getTemplate(TEMPLATE_MESSAGE_CREATE_SUBJECT), context); 

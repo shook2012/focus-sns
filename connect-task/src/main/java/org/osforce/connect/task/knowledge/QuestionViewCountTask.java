@@ -40,13 +40,16 @@ public class QuestionViewCountTask extends AbstractTask {
 	protected void doTask(Map<Object, Object> context) throws Exception {
 		Long questionId = (Long) context.get("questionId");
 		Question question = questionService.getQuestion(questionId);
-		Statistic statistic = statisticService.getStatistic(questionId, Question.NAME);
+		Statistic statistic = statisticService.getStatistic(Statistic.TYPE_VIEW, questionId, Question.NAME);
 		if(statistic==null) {
-			statistic = new Statistic(questionId, Question.NAME);
+			statistic = new Statistic(Statistic.TYPE_VIEW, questionId, Question.NAME);
 		}
-		statistic.countAdd();
+		Long views = statistic.countAdd();
 		statistic.setProjectId(question.getProjectId());
 		statisticService.createStatistic(statistic);
+		//
+		question.setViews(views);
+		questionService.updateQuestion(question);
 	}
 
 }

@@ -22,19 +22,9 @@ public class AnswerDaoImpl extends AbstractDao<Answer>
 		super(Answer.class);
 	}
 	
-	static final String JPQL0 = "FROM Answer AS a WHERE a.question.id = ?1 ORDER BY a.entered DESC";
+	static final String JPQL0 = "FROM Answer AS a WHERE a.question.id = ?1";
 	public Page<Answer> findAnswerPage(Page<Answer> page, Long questionId) {
 		return findPage(page, JPQL0, questionId);
-	}
-	
-	static final String JPQL1 = "SELECT a, COUNT(vr.id) AS vites FROM Answer AS a LEFT JOIN VoteRecord AS vr WHERE a.id = vr.linkedId AND vr.entity = 'Answer' AND a.question.id = ?1 ORDER BY vites DESC";
-	public Page<Answer> findAnswerPage(Page<Answer> page, Long questionId,
-			String answerOrder) {
-		if(StringUtils.equals(answerOrder, "vote")) {
-			return findPage(page, JPQL1, questionId);
-		} else {
-			return findAnswerPage(page, questionId);
-		}
 	}
 	
 }

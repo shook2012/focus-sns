@@ -7,7 +7,7 @@
 	</div>
 	</#if>
 	<div class="body">
-		<form id="inviteForm${id}" action="${base}/process/team/members/invite">
+		<form id="inviteForm${id}" action="${base}/team/member/invite-action" method="post">
 			<div>
 				<label>自动提示:</label>
 				<br/>

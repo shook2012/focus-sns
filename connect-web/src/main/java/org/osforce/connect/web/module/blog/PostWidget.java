@@ -111,7 +111,7 @@ public class PostWidget {
 			return "commons/blank";
 		}
 		for(Post post : page.getResult()) {
-			Statistic statistic = statisticService.getStatistic(post.getId(), Post.NAME);
+			Statistic statistic = statisticService.getStatistic(Statistic.TYPE_VIEW, post.getId(), Post.NAME);
 			if(statistic!=null) {
 				post.setViews(statistic.getCount());
 			}
@@ -127,7 +127,7 @@ public class PostWidget {
 		page = postService.getPostPage(page, project.getId(), categoryId);
 		for(Post post : page.getResult()) {
 			// views
-			Statistic statistic = statisticService.getStatistic(post.getId(), Post.NAME);
+			Statistic statistic = statisticService.getStatistic(Statistic.TYPE_VIEW, post.getId(), Post.NAME);
 			if(statistic!=null) {
 				post.setViews(statistic.getCount());
 			}

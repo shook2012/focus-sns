@@ -1,6 +1,7 @@
 package org.osforce.connect.web.module.system;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -16,9 +17,9 @@ import org.osforce.connect.entity.system.User;
 public class RegisterBean {
 	@NotBlank @Email
 	private String username;
-	@NotBlank @Min(6)
+	@NotBlank @Size(min=6, max=20)
 	private String password;
-	@NotBlank @Min(6)
+	@NotBlank @Size(min=6, max=20)
 	private String rePassword;
 	@NotBlank
 	private String nickname;

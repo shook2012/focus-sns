@@ -42,8 +42,8 @@ public class StatisticServiceImpl implements StatisticService {
 		return statisticDao.get(statisticId);
 	}
 
-	public Statistic getStatistic(Long linkedId, String entity) {
-		return statisticDao.findStatistic(linkedId, entity);
+	public Statistic getStatistic(String type, Long linkedId, String entity) {
+		return statisticDao.findStatistic(type, linkedId, entity);
 	}
 
 	public void createStatistic(Statistic statistic) {

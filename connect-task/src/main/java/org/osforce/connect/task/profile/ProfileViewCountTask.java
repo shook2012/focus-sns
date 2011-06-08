@@ -47,9 +47,9 @@ public class ProfileViewCountTask extends AbstractTask {
 		if(user==null || NumberUtils
 				.compare(project.getEnteredBy().getId(), user.getId())!=0) {
 			Statistic statistic = statisticService.getStatistic(
-					project.getProfile().getId(), Profile.NAME);
+					Statistic.TYPE_VIEW, project.getProfile().getId(), Profile.NAME);
 			if(statistic==null) {
-				statistic = new Statistic(project.getProfile().getId(), Profile.NAME);
+				statistic = new Statistic(Statistic.TYPE_VIEW, project.getProfile().getId(), Profile.NAME);
 			}
 			statistic.countAdd();
 			statistic.setProjectId(project.getId());

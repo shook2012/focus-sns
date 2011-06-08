@@ -1,7 +1,6 @@
 package org.osforce.connect.dao.commons;
 
 import org.osforce.connect.entity.commons.Statistic;
-import org.osforce.connect.entity.system.ProjectCategory;
 import org.osforce.spring4me.dao.BaseDao;
 import org.osforce.spring4me.dao.Page;
 
@@ -20,18 +19,8 @@ public interface StatisticDao extends BaseDao<Statistic> {
 	 * @param entity
 	 * @return
 	 */
-	public Statistic findStatistic(Long linkedId, String entity);
+	public Statistic findStatistic(String type, Long linkedId, String entity);
 	
-	/**
-	 * Find top entity page by statistic
-	 * @param page
-	 * @param category
-	 * @param entity
-	 * @return
-	 */
-	public Page<Statistic> findStatisticPage(Page<Statistic> page,
-			ProjectCategory category, String entity);
-
-	
+	public Page<Statistic> findStatisticPage(Page<Statistic> page, String type, String entity);
 
 }

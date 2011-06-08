@@ -44,7 +44,7 @@ public class SiteServiceImpl implements SiteService {
 	public Site getSite(String domain) {
 		return siteDao.findSite(domain);
 	}
-
+	
 	public void createSite(Site site) {
 		updateSite(site);
 	}

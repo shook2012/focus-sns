@@ -21,14 +21,4 @@ public interface AnswerDao extends BaseDao<Answer> {
 	 */
 	Page<Answer> findAnswerPage(Page<Answer> page, Long questionId);
 
-	/**
-	 * 
-	 * @param page
-	 * @param questionId
-	 * @param answerOrder
-	 * @return
-	 */
-	Page<Answer> findAnswerPage(Page<Answer> page, Long questionId,
-			String answerOrder);
-
 }

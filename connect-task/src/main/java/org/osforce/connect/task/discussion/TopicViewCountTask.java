@@ -40,9 +40,9 @@ public class TopicViewCountTask extends AbstractTask {
 	protected void doTask(Map<Object, Object> context) throws Exception {
 		Long topicId = (Long) context.get("topicId");
 		Topic topic = topicService.getTopic(topicId);
-		Statistic statistic = statisticService.getStatistic(topicId, Topic.NAME);
+		Statistic statistic = statisticService.getStatistic(Statistic.TYPE_VIEW, topicId, Topic.NAME);
 		if(statistic==null) {
-			statistic = new Statistic(topicId, Topic.NAME);
+			statistic = new Statistic(Statistic.TYPE_VIEW, topicId, Topic.NAME);
 		}
 		statistic.countAdd();
 		statistic.setProjectId(topic.getForum().getProject().getId());

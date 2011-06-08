@@ -20,10 +20,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Task
 public class PostViewCountTask extends AbstractTask {
 
-	private StatisticService statisticService;
 	private PostService postService;
+	private StatisticService statisticService;
 	
 	public PostViewCountTask() {
+	}
+
+	@Autowired
+	public void setPostService(PostService postService) {
+		this.postService = postService;
 	}
 	
 	@Autowired
@@ -31,18 +36,13 @@ public class PostViewCountTask extends AbstractTask {
 		this.statisticService = statisticService;
 	}
 	
-	@Autowired
-	public void setPostService(PostService postService) {
-		this.postService = postService;
-	}
-	
 	@Override
 	protected void doTask(Map<Object, Object> context) throws Exception {
 		Long postId = (Long) context.get("postId");
 		Post post = postService.getPost(postId); 
-		Statistic statistic = statisticService.getStatistic(postId, Post.NAME);
+		Statistic statistic = statisticService.getStatistic(Statistic.TYPE_VIEW, postId, Post.NAME);
 		if(statistic==null) {
-			statistic = new Statistic(postId, Post.NAME);
+			statistic = new Statistic(Statistic.TYPE_VIEW, postId, Post.NAME);
 		}
 		statistic.countAdd();
 		statistic.setProjectId(post.getProjectId());

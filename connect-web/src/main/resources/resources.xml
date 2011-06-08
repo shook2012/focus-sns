@@ -37,7 +37,7 @@
 	<resource name="Document模块浏览" code="project-document-view" enabled="true" />
 	<resource name="文档文件编辑" code="file-edit" enabled="true" />
 	<resource name="文档文件查看" code="file-view" enabled="true" />
-	<resource name="文档文件下载" code="file-upload" enabled="true" />
+	<resource name="文档文件上载" code="file-upload" enabled="true" />
 	<resource name="文档文件下载" code="file-download" enabled="true" />
 	<resource name="文档目录添加" code="folder-add" enabled="true" />
 	<resource name="文档目录编辑" code="folder-edit" enabled="true" />
