@@ -22,7 +22,14 @@
 				</div>
 			</div>
 			<div class="topic-head">
-				<span class="top right">发表于 ${topic.entered?string('yyyy-MM-dd HH:mm')}</span>
+				<span class="top right">
+					发表于 ${topic.entered?string('yyyy-MM-dd HH:mm')}
+					<#if user??>
+					<a class="ajaxAction" href="${base}/list/link/favorite?fromId=${user.project.id}&toId=${topic.id}&entity=Topic">收藏 (${topic.favorite})</a>
+					<#else>
+					<a class="popupAction" href="${base}/app/user/login">收藏 (${topic.favorite})</a>
+					</#if>
+				</span>
 				<h4>${topic.subject}</h4>
 			</div>
 			<div class="topic-body">

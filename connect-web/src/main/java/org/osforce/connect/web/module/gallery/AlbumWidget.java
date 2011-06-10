@@ -1,16 +1,12 @@
 package org.osforce.connect.web.module.gallery;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.osforce.connect.entity.gallery.Album;
-import org.osforce.connect.entity.gallery.Photo;
 import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.entity.system.ProjectFeature;
 import org.osforce.connect.entity.system.User;
 import org.osforce.connect.service.gallery.AlbumService;
-import org.osforce.connect.service.gallery.PhotoService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.spring4me.dao.Page;
@@ -34,17 +30,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/gallery/album")
 public class AlbumWidget {
 
-	private PhotoService photoService;
 	private AlbumService albumService;
 	
 	public AlbumWidget() {
 	}
-	
-	@Autowired
-	public void setPhotoService(PhotoService photoService) {
-		this.photoService = photoService;
-	}
-	
+
 	@Autowired
 	public void setAlbumService(AlbumService albumService) {
 		this.albumService = albumService;

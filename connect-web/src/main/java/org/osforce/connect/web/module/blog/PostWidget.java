@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
-import org.apache.commons.lang.StringUtils;
 import org.osforce.connect.entity.blog.Post;
 import org.osforce.connect.entity.blog.PostCategory;
 import org.osforce.connect.entity.commons.Statistic;
@@ -21,7 +20,6 @@ import org.osforce.connect.service.system.ProjectService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.spring4me.dao.Page;
-import org.osforce.spring4me.web.bind.annotation.PrefParam;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -92,21 +90,8 @@ public class PostWidget {
 	
 	@RequestMapping("/recent-view")
 	@Permission({"post-view"})
-	public String doRecentView(@PrefParam String uniqueId, @PrefParam String categoryLabel,
-			Page<Post> page, Project project, Model model) {
-		if(StringUtils.isNotBlank(uniqueId)) {
-			Project tmp = projectService.getProject(uniqueId);
-			if(tmp!=null) {
-				project = tmp;
-			}
-		}
-		PostCategory postCategory = null;
-		if(StringUtils.isNotBlank(categoryLabel)) {
-			 postCategory = postCategoryService
-					.getBlogCategory(project.getId(), categoryLabel);
-		}
-		page = postService.getPostPage(page, project.getId(), 
-				postCategory!=null?postCategory.getId():null);
+	public String doRecentView(Page<Post> page, Project project, Model model) {
+		page = postService.getPostPage(page, project.getId(), null);
 		if(page.getResult().isEmpty()) {
 			return "commons/blank";
 		}

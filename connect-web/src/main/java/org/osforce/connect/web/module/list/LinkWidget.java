@@ -6,6 +6,7 @@ import org.osforce.connect.entity.commons.Link;
 import org.osforce.connect.service.commons.LinkService;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * <a href="http://www.opensourceforce.org">开源力量</a>
  */
 @Widget
-@RequestMapping("/commons/link")
+@RequestMapping("/list/link")
 public class LinkWidget {
 
 	private LinkService linkService;
@@ -30,15 +31,23 @@ public class LinkWidget {
 		this.linkService = linkService;
 	}
 	
-	@RequestMapping(value="/focus")
-	public @ResponseBody Object focus(Link link) {
+	/**
+	 * 
+	 * @param type  such as focus, favorite ...
+	 * @param link
+	 * @return
+	 */
+	@RequestMapping(value={"/{type}"})
+	public @ResponseBody Object focus(@PathVariable String type, Link link) {
+		link.setType(type);
 		linkService.createLink(link);
-		return Collections.singletonMap("id", link.getId());
-	}
-	
-	@RequestMapping(value="/favorite")
-	public @ResponseBody Object favorite(Link link) {
-		linkService.createLink(link);
+		Link tmp = linkService.getLink(link.getFromId(), link.getToId(), link.getEntity());
+		if(tmp==null) {
+			linkService.createLink(link);
+		} else {
+			tmp.setType(link.getType());
+			linkService.updateLink(link);
+		}
 		return Collections.singletonMap("id", link.getId());
 	}
 	

@@ -29,7 +29,7 @@
 					<input type="checkbox" class="syncTarget" name="targets" value="tencent"/>
 					<img src="${base}/static/images/tencent_16x16.png">
 				</span>
-				<button id="${id}submitButton" type="submit" class="button right">提交</button>
+				<button id="${id}submitButton" type="submit" class="button right">分享</button>
 				<br class="clear"/>
 			</div>
 			<@spring.formHiddenInput path="activity.type" />

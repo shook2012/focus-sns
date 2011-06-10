@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.osforce.connect.entity.commons.Link;
 import org.osforce.connect.entity.commons.Statistic;
 import org.osforce.connect.entity.discussion.Forum;
 import org.osforce.connect.entity.discussion.Topic;
@@ -13,6 +14,7 @@ import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.entity.system.ProjectFeature;
 import org.osforce.connect.entity.system.Site;
 import org.osforce.connect.entity.system.User;
+import org.osforce.connect.service.commons.LinkService;
 import org.osforce.connect.service.commons.StatisticService;
 import org.osforce.connect.service.discussion.ForumService;
 import org.osforce.connect.service.discussion.TopicService;
@@ -40,11 +42,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/discussion/topic")
 public class TopicWidget {
 
+	private LinkService linkService;
 	private TopicService topicService;
 	private ForumService forumService;
 	private StatisticService statisticService;
 	
 	public TopicWidget() {
+	}
+	
+	@Autowired
+	public void setLinkService(LinkService linkService) {
+		this.linkService = linkService;
 	}
 	
 	@Autowired
@@ -63,7 +71,7 @@ public class TopicWidget {
 	}
 	
 	@RequestMapping("/top-view")
-	@Permission({"category-view"})
+	@Permission({"topic-view"})
 	public String doTopView(@PrefParam String categoryCode, Project project,
 			Page<Statistic> page, Site site, Model model) {
 		page = statisticService.getTopStatisticPage(page, project, Topic.NAME);
@@ -79,7 +87,7 @@ public class TopicWidget {
 	}
 	
 	@RequestMapping("/recent-view")
-	@Permission({"category-view"})
+	@Permission({"topic-view"})
 	public String doRecentView(Page<Topic> page, Project project, Model model) {
 		page = topicService.getTopicPage(page, project);
 		if(page.getResult().isEmpty()) {
@@ -96,7 +104,7 @@ public class TopicWidget {
 	}
 	
 	@RequestMapping("/list-view")
-	@Permission({"category-view"})
+	@Permission({"topic-view"})
 	public String doListView(@RequestParam Long forumId, 
 			Page<Topic> page,  Model model) {
 		page = topicService.getTopicPage(page, forumId);
@@ -111,15 +119,18 @@ public class TopicWidget {
 	}
 	
 	@RequestMapping("/detail-view")
-	@Permission({"category-view"})
+	@Permission({"topic-view"})
 	public String doDetailVIew(@RequestParam Long topicId, Model model) {
 		Topic topic = topicService.getTopic(topicId);
+		// count favorite
+		Long favorite = linkService.countLinks(Link.TYPE_FAVORITE, topicId, Topic.NAME);
+		topic.setFavorite(favorite);
 		model.addAttribute(AttributeKeys.TOPIC_KEY_READABLE, topic);
 		return "discussion/topic-detail";
 	}
 	
 	@RequestMapping("/form-view")
-	@Permission(value={"category-add", "category-edit"}, userRequired=true, projectRequired=true)
+	@Permission(value={"topic-add", "topic-edit"}, userRequired=true, projectRequired=true)
 	public String doFormView( @RequestParam(required=false) Long topicId, 
 			@RequestParam(required=false) Long forumId,
 			@ModelAttribute @Valid Topic topic, BindingResult result,
@@ -147,7 +158,7 @@ public class TopicWidget {
 	}
 	
 	@RequestMapping(value="/form-action", method=RequestMethod.POST)
-	@Permission(value={"category-add", "category-edit"}, userRequired=true, projectRequired=true)
+	@Permission(value={"topic-add", "topic-edit"}, userRequired=true, projectRequired=true)
 	public String doFormAction(@ModelAttribute @Valid Topic topic, 
 			BindingResult result, Model model, Project project) {
 		if(result.hasErrors()) {

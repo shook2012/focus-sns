@@ -136,7 +136,7 @@ ul li {
 }
 .tabs a{
 	background:inherit;
-	border:1px solid #fff;
+	border:1px solid #F6F6F6;
 	color:#777;
 	display:block;
 	float:left;
@@ -149,15 +149,15 @@ ul li {
 }
 .tabs a:hover{
 	background:#fff;
-	border:1px solid #777;
+	border:1px solid #CCC;
 	border-bottom-color:#fff;
 	line-height:20px;
 	margin-top:9px;
 }
 .tabs a.current{
 	background:#fff;
-	border:1px solid #777;
-	border-bottom-color:#ffffff;
+	border:1px solid #CCC;
+	border-bottom-color:#fff;
 	color:black;
 	font-size:120%;
 	height:30px;

@@ -23,5 +23,11 @@
 				<userRequired>true</userRequired>
 			</prefs>
 		</widget>
+		<widget name="questionWidget" path="/knowledge/question/recent-view">
+			<title>最新提问</title>
+		</widget>
+		<widget name="postWidget" path="/blog/post/recent-view">
+			<title>最新博文</title>
+		</widget>
 	</placeholder>
 </page>
