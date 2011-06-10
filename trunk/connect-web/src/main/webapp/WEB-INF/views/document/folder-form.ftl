@@ -13,9 +13,12 @@
 		<form id="folder-form${id}" action="${base}/document/folder/form-action" 
 			method="post" class="folder-form">
 			<div>
-				<label for="name" class="title">目录名</label>
+				<label for="name" class="title">目录名 <span class="required"> * </span></label>
 				<br/>
 				<@spring.formInput path="folder.name" />
+				<#if showErrors!false>
+				<@spring.showErrors separator="<br/>" classOrStyle="error"/>
+				</#if>
 			</div>
 			<div>
 				<label>请选择上一级目录</label>

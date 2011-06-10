@@ -109,6 +109,7 @@ public class UserWidget {
 			response.addCookie(cookie);
 		}
 		session.setAttribute(AttributeKeys.USER_ID_KEY, user.getId());
+		// TODO if ajax 
 		return String.format("redirect:/%s/profile", user.getProject().getUniqueId());
 	}
 	

@@ -51,6 +51,7 @@ public class Topic extends IdEntity {
 	private Long enteredId;
 	private Long modifiedId;
 	private Long views = 0L;
+	private Long favorite;
 	// refer
 	private Forum forum;
 	private TopicCategory category;
@@ -182,6 +183,15 @@ public class Topic extends IdEntity {
 	
 	public void setViews(Long views) {
 		this.views = views;
+	}
+	
+	@Transient
+	public Long getFavorite() {
+		return favorite;
+	}
+	
+	public void setFavorite(Long favorite) {
+		this.favorite = favorite;
 	}
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)

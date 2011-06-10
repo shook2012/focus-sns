@@ -17,7 +17,7 @@
 				<br/>
 				<@spring.formInput path="post.title" />
 				<#if categoryOptions?size gt 0>
-				<span>归类 ${categoryOptions?size}</span>
+				<span>归类 (${categoryOptions?size})</span>
 				<@spring.formSingleSelect path="post.categoryId" options=categoryOptions/>
 				</#if>
 				<#if showErrors!false>

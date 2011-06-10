@@ -21,7 +21,7 @@
 				<@spring.formSingleSelect path="topic.forumId" options=forumOptions />
 			</div>
 			<div>
-				<label for="subject" class="title">话题名</label>
+				<label for="subject" class="title">话题名 <span class="required"> * </span></label>
 				<br/>
 				<@spring.formInput path="topic.subject" />		
 				<#if showErrors!false>
@@ -29,7 +29,7 @@
 				</#if>
 			</div>
 			<div>
-				<label for="content" class="title">内容</label>
+				<label for="content" class="title">内容 <span class="required"> * </span></label>
 				<br/>
 				<@spring.formTextarea path="topic.content" attributes='class="xheditor-simple"' />
 				<#if showErrors!false>

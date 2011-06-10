@@ -23,7 +23,7 @@
 				</#if>
 			</span>
 			<#if events?size == 0>
-					<div class="info">当前无活动可显示！</div>
+				<div class="info">当前无活动可显示！</div>
 			<#else>
 			<ul>
 			<#list events as event>
