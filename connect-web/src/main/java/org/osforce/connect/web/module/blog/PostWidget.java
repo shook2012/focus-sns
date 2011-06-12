@@ -16,10 +16,10 @@ import org.osforce.connect.service.blog.PostCategoryService;
 import org.osforce.connect.service.blog.PostService;
 import org.osforce.connect.service.commons.CommentService;
 import org.osforce.connect.service.commons.StatisticService;
-import org.osforce.connect.service.system.ProjectService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.spring4me.dao.Page;
+import org.osforce.spring4me.web.bind.annotation.RequestAttr;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -40,7 +40,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PostWidget {
 
 	private PostService postService;
-	private ProjectService projectService;
 	private StatisticService statisticService;
 	private CommentService commentService;
 	private PostCategoryService postCategoryService;
@@ -51,11 +50,6 @@ public class PostWidget {
 	@Autowired
 	public void setPostService(PostService postService) {
 		this.postService = postService;
-	}
-	
-	@Autowired
-	public void setProjectService(ProjectService projectService) {
-		this.projectService = projectService;
 	}
 	
 	@Autowired
@@ -75,7 +69,8 @@ public class PostWidget {
 	
 	@RequestMapping("/top-view")
 	@Permission({"post-view"})
-	public String doTopView(Page<Statistic> page, Project project, Model model) {
+	public String doTopView(Page<Statistic> page, 
+			@RequestAttr Project project, Model model) {
 		page = statisticService.getTopStatisticPage(page, project, Post.NAME);
 		if(page.getResult().isEmpty()) {
 			return "commons/blank";
@@ -90,7 +85,8 @@ public class PostWidget {
 	
 	@RequestMapping("/recent-view")
 	@Permission({"post-view"})
-	public String doRecentView(Page<Post> page, Project project, Model model) {
+	public String doRecentView(Page<Post> page, 
+			@RequestAttr Project project, Model model) {
 		page = postService.getPostPage(page, project.getId(), null);
 		if(page.getResult().isEmpty()) {
 			return "commons/blank";
@@ -108,7 +104,7 @@ public class PostWidget {
 	@RequestMapping("/list-view")
 	@Permission({"post-view"})
 	public String doListView(@RequestParam(required=false) Long categoryId, 
-			Project project, Page<Post> page,  Model model) {
+			@RequestAttr Project project, Page<Post> page,  Model model) {
 		page = postService.getPostPage(page, project.getId(), categoryId);
 		for(Post post : page.getResult()) {
 			// views
@@ -126,7 +122,8 @@ public class PostWidget {
 	
 	@RequestMapping("/detail-view")
 	@Permission({"post-view"})
-	public String doDetailView(@RequestParam Long postId, User user, Model model) {
+	public String doDetailView(@RequestParam Long postId, 
+			@RequestAttr User user, Model model) {
 		Post post = postService.viewPost(postId);
 		model.addAttribute(AttributeKeys.BLOG_POST_KEY_READABLE, post);
 		return "blog/post-detail";
@@ -136,7 +133,7 @@ public class PostWidget {
 	@Permission(value={"post-add","post-edit"}, userRequired=true, projectRequired=true)
 	public String doFormView(@RequestParam(required=false) Long postId,
 			@ModelAttribute @Valid Post post, BindingResult result,
-			User user, Project project, Model model, Boolean showErrors) {
+			@RequestAttr User user, @RequestAttr Project project, Model model, Boolean showErrors) {
 		if(!showErrors) {
 			post.setEnteredId(user.getId());
 			post.setModifiedId(user.getId());

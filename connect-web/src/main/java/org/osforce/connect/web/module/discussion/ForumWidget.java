@@ -16,6 +16,7 @@ import org.osforce.connect.service.discussion.TopicService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.spring4me.dao.Page;
+import org.osforce.spring4me.web.bind.annotation.RequestAttr;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -60,7 +61,8 @@ public class ForumWidget {
 	
 	@RequestMapping("/list-view")
 	@Permission({"forum-view"})
-	public String doListView(Page<Topic> page, Project project, Model model) {
+	public String doListView(Page<Topic> page, 
+			@RequestAttr Project project, Model model) {
 		List<Forum> forums = forumService.getForumList(project);
 		for(Forum forum : forums) {
 			page = topicService.getTopicPage(page, forum.getId());
@@ -80,7 +82,7 @@ public class ForumWidget {
 	@Permission(value={"forum-add", "forum-edit"}, userRequired=true, projectRequired=true)
 	public String doFormView(@RequestParam(required=false) Long forumId,
 			@ModelAttribute @Valid Forum forum, BindingResult result, 
-			User user, Project project, Model model, Boolean showErrors) {
+			@RequestAttr User user, @RequestAttr Project project, Model model, Boolean showErrors) {
 		if(!showErrors) {
 			forum.setEnteredBy(user);
 			forum.setModifiedBy(user);
@@ -96,7 +98,7 @@ public class ForumWidget {
 	@RequestMapping(value="/form-action", method=RequestMethod.POST)
 	@Permission(value={"forum-add", "forum-edit"}, userRequired=true, projectRequired=true)
 	public String doFormAction(@ModelAttribute @Valid Forum forum, 
-			BindingResult result, Model model, Project project) {
+			BindingResult result, Model model, @RequestAttr Project project) {
 		if(result.hasErrors()) {
 			model.addAttribute(AttributeKeys.SHOW_ERRORS_KEY_READABLE, true);
 			model.addAttribute(AttributeKeys.FEATURE_CODE_KEY_READABLE, ProjectFeature.FEATURE_DISCUSSION);

@@ -40,13 +40,12 @@ public class LinkWidget {
 	@RequestMapping(value={"/{type}"})
 	public @ResponseBody Object focus(@PathVariable String type, Link link) {
 		link.setType(type);
-		linkService.createLink(link);
 		Link tmp = linkService.getLink(link.getFromId(), link.getToId(), link.getEntity());
 		if(tmp==null) {
 			linkService.createLink(link);
 		} else {
 			tmp.setType(link.getType());
-			linkService.updateLink(link);
+			linkService.updateLink(tmp);
 		}
 		return Collections.singletonMap("id", link.getId());
 	}

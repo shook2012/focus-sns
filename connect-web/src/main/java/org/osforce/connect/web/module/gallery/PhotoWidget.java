@@ -22,6 +22,7 @@ import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.module.util.AttachmentUtil;
 import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.spring4me.dao.Page;
+import org.osforce.spring4me.web.bind.annotation.RequestAttr;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -97,7 +98,7 @@ public class PhotoWidget {
 			@RequestParam(required=false) Long albumId,
 			@RequestParam(required=false) Long photoId, 
 			@ModelAttribute @Valid Photo photo, BindingResult result,
-			Project project, User user, Model model, Boolean showErrors) {
+			@RequestAttr Project project, @RequestAttr User user, Model model, Boolean showErrors) {
 		if(!showErrors) {
 			photo.setAlbumId(albumId);
 			photo.setEnteredId(user.getId());
@@ -123,7 +124,7 @@ public class PhotoWidget {
 	public String doFormAction(
 			@RequestParam MultipartFile file,
 			@ModelAttribute @Valid Photo photo, BindingResult result, 
-			Model model, Project project, WebRequest request) throws IOException {
+			@RequestAttr Project project, Model model, WebRequest request) throws IOException {
 		if(result.hasErrors()) {
 			model.addAttribute(AttributeKeys.SHOW_ERRORS_KEY_READABLE, true);
 			model.addAttribute(AttributeKeys.FEATURE_CODE_KEY_READABLE, ProjectFeature.FEATURE_GALLERY);
@@ -173,24 +174,24 @@ public class PhotoWidget {
 	public void syncSessionPhotoList(Photo photo, WebRequest request, Boolean reverse) {
 		List<Photo> photos = (List<Photo>) request.getAttribute(
 				AttributeKeys.PHOTO_LIST_KEY_READABLE, WebRequest.SCOPE_SESSION);
-		if(photos==null) {
-			photos = new ArrayList<Photo>();
-		}
-		if(!reverse) {
+		List<Photo> tmp = new ArrayList<Photo>();
+		if(reverse) {
 			for(Photo p : photos) {
-				if(NumberUtils.compare(p.getId(), photo.getId())==0) {
-					photos.remove(p);
+				if(NumberUtils.compare(p.getId(), photo.getId())!=0) {
+					tmp.add(p);
 				} 
 			}
-			photos.add(0, photo);
 		} else {
-			for(Photo p : photos) {
-				if(NumberUtils.compare(p.getId(), photo.getId())==0) {
-					photos.remove(p);
-				} 
+			if(photos!=null) {
+				for(Photo p : photos) {
+					if(NumberUtils.compare(p.getId(), photo.getId())!=0) {
+						tmp.add(p);
+					} 
+				}
 			}
+			tmp.add(0, photo);
 		}
-		request.setAttribute(AttributeKeys.PHOTO_LIST_KEY_READABLE, photos, WebRequest.SCOPE_SESSION);
+		request.setAttribute(AttributeKeys.PHOTO_LIST_KEY_READABLE, tmp, WebRequest.SCOPE_SESSION);
 	}
 	
 }

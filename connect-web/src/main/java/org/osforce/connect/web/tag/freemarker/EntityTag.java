@@ -7,7 +7,9 @@ import org.apache.commons.lang.StringUtils;
 import org.osforce.connect.entity.profile.Profile;
 import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.entity.system.User;
+import org.osforce.connect.entity.team.TeamMember;
 import org.osforce.connect.service.commons.LinkService;
+import org.osforce.connect.service.team.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
@@ -29,6 +31,7 @@ import freemarker.template.TemplateScalarModel;
 public class EntityTag implements TemplateDirectiveModel {
 
 	private LinkService linkService;
+	private MemberService memberService;
 	
 	public EntityTag() {
 	}
@@ -36,6 +39,11 @@ public class EntityTag implements TemplateDirectiveModel {
 	@Autowired
 	public void setLinkService(LinkService linkService) {
 		this.linkService = linkService;
+	}
+	
+	@Autowired
+	public void setMemberService(MemberService memberService) {
+		this.memberService = memberService;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -55,6 +63,8 @@ public class EntityTag implements TemplateDirectiveModel {
 		Object value = null;
 		if(Profile.NAME.equals(entity)) {
 			value = linkService.getLink(user.getProjectId(), project.getProfileId(), entity);
+		} else if (TeamMember.NAME.equals(entity)) {
+			value = memberService.getMember(project.getId(), user.getId(), Boolean.FALSE);
 		}
 		//
 		boolean flag = false;

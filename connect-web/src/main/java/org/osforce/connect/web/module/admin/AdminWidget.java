@@ -19,6 +19,7 @@ import org.osforce.connect.service.system.RoleService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.module.util.ModuleUtil;
 import org.osforce.spring4me.web.bind.annotation.PrefParam;
+import org.osforce.spring4me.web.bind.annotation.RequestAttr;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -79,8 +80,9 @@ public class AdminWidget {
 	}
 	
 	@RequestMapping("/project/form-view")
-	public String doProjectForm(@ModelAttribute @Valid Project project,
-			BindingResult result, Site site, Model model, Boolean showErrors, WebRequest request) {
+	public String doProjectForm(@RequestAttr Site site,
+			@ModelAttribute @Valid Project project, BindingResult result, 
+			Model model, Boolean showErrors, WebRequest request) {
 		if(!showErrors) {
 			if(project==null || project.getId()==null) {
 				project = (Project) request.getAttribute(AttributeKeys.PROJECT_KEY, WebRequest.SCOPE_REQUEST);
@@ -106,8 +108,8 @@ public class AdminWidget {
 	}
 	
 	@RequestMapping("/features/form-view")
-	public String doFeaturesForm(
-			@PrefParam String templateCode, Project project, Model model) {
+	public String doFeaturesForm(@PrefParam String templateCode, 
+			@RequestAttr Project project, Model model) {
 		Template template = templateService.getTemplate(project.getCategoryId(), templateCode);
 		List<ProjectFeature> features = ModuleUtil.parseToModules(template.getContent());
 		for(ProjectFeature feature : features) {
@@ -134,7 +136,7 @@ public class AdminWidget {
 	@RequestMapping("/features/form-action")
 	public String doFeaturesAction(@RequestParam Long[] ids, 
 			@RequestParam Long[] roleIds, @RequestParam Integer[] levels, 
-			@RequestParam Boolean[] shows, @RequestParam String[] labels, Project project) {
+			@RequestParam Boolean[] shows, @RequestParam String[] labels, @RequestAttr Project project) {
 		for(int i=0; i<ids.length; i++) {
 			ProjectFeature feature = featureService.getProjectFeature(ids[i]);
 			feature.setLabel(labels[i]);

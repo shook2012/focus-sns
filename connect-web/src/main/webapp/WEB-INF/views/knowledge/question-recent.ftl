@@ -8,7 +8,7 @@
 		<ul class="questions-recent">
 			<#list page.result as question>
 			<li>
-				<a href="${base}/${project.uniqueId}/knowledge/question/${question.id}">${question.title}</a>
+				<a href="${base}/${project.uniqueId}/knowledge/question/detail?questionId=${question.id}">${question.title}</a>
 			</li>
 			</#list>
 		</ul>

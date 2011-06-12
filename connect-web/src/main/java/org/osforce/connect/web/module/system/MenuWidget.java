@@ -15,6 +15,7 @@ import org.osforce.connect.service.system.PermissionService;
 import org.osforce.connect.service.system.ProjectCategoryService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.spring4me.web.bind.annotation.PrefParam;
+import org.osforce.spring4me.web.bind.annotation.RequestAttr;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -41,7 +42,7 @@ public class MenuWidget {
 	}
 	
 	@RequestMapping("/main-menu")
-	public String doMainMenu(Site site, Model model) {
+	public String doMainMenu(@RequestAttr Site site, Model model) {
 		List<ProjectCategory> menuitems = Collections.emptyList();
 		if(site!=null) {
 			menuitems = categoryService.getProjectCategoryList(site.getId(), null);
@@ -56,8 +57,8 @@ public class MenuWidget {
 	}
 	
 	@RequestMapping("/project-menu")
-	public String doProjectMenu(Project project, User user,
-			TeamMember member, Model model) {
+	public String doProjectMenu(@RequestAttr Project project, 
+			@RequestAttr User user, @RequestAttr TeamMember member, Model model) {
 		if(project==null) {
 			return "commons/blank";
 		}
@@ -79,7 +80,7 @@ public class MenuWidget {
 			@PrefParam("commons/menu") String menuPath,
 			@PrefParam(value="false", required=false) Boolean userRequired,
 			@PrefParam(value="false", required=false) Boolean projectRequired,
-			Project project, User user, Model model) {
+			@RequestAttr Project project, @RequestAttr User user, Model model) {
 		if((userRequired && user==null) || 
 				(projectRequired && project==null)) {
 			return "commons/blank";

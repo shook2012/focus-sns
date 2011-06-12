@@ -23,8 +23,11 @@ import org.osforce.spring4me.entity.IdEntity;
 @Table(name="roles")
 @Cacheable
 public class Role extends IdEntity {
-
 	private static final long serialVersionUID = 238135003201206342L;
+	
+	public static final Integer LEVEL_HIGH = 10;
+	public static final Integer LEVEL_MIDDLE = 50;
+	public static final Integer LEVEL_LOW = 100;
 
 	@NotBlank
 	private String name;

@@ -2,6 +2,7 @@ package org.osforce.connect.web.module.system;
 
 import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.web.security.annotation.Permission;
+import org.osforce.spring4me.web.bind.annotation.RequestAttr;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -21,7 +22,7 @@ public class ProjectWidget {
 	
 	@RequestMapping("/title-view")
 	@Permission(projectRequired=true)
-	public String doTitleView(Project project) {
+	public String doTitleView(@RequestAttr Project project) {
 		if(project==null) {
 			return "commons/blank";
 		}

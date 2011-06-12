@@ -16,7 +16,7 @@
 		Configures the @Controller programming model 
 		Multi custom argument resolvers should be split by comma
 	-->
-	<widget:annotation-driven custom-argument-resolvers="customArgumentResolver" cache="false"/>
+	<widget:annotation-driven cache="false" custom-argument-resolvers="customArgumentResolver"/>
 	<!-- reqister custom argument resolver -->
 	<bean id="customArgumentResolver" class="org.osforce.connect.web.bind.support.CustomArgumentResolver"/>
 

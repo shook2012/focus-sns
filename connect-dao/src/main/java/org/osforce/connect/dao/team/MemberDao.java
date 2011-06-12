@@ -21,7 +21,7 @@ public interface MemberDao extends BaseDao<TeamMember> {
 	 * @param userId
 	 * @return
 	 */
-	TeamMember findMember(Long projectId, Long userId);
+	TeamMember findMember(Long projectId, Long userId, Boolean enabled);
 	
 	/**
 	 * Find members by ...

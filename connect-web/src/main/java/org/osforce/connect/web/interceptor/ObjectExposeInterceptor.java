@@ -126,7 +126,8 @@ public class ObjectExposeInterceptor extends HandlerInterceptorAdapter {
 		Project project = (Project) request.getAttribute(AttributeKeys.PROJECT_KEY);
 		User user = (User) request.getAttribute(AttributeKeys.USER_KEY);
 		if(project!=null && user!=null) {
-			TeamMember member = memberService.getMember(user.getId(), project.getId());
+			TeamMember member = memberService.getMember(
+					user.getId(), project.getId(), Boolean.TRUE);
 			request.setAttribute(AttributeKeys.TEAM_MEMBER_KEY, member);
 			request.setAttribute(AttributeKeys.TEAM_MEMBER_KEY_READABLE, member);
 		}

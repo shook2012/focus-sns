@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.apache.commons.lang.StringUtils;
 import org.osforce.connect.entity.commons.Attachment;
 import org.osforce.connect.entity.system.User;
 import org.osforce.spring4me.entity.IdEntity;
@@ -50,6 +51,9 @@ public class Photo extends IdEntity {
 	}
 
 	public String getName() {
+		if(StringUtils.isBlank(name) && realFile!=null) {
+			this.name = realFile.getName();
+		}
 		return name;
 	}
 

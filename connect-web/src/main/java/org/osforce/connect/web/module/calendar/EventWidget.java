@@ -17,6 +17,7 @@ import org.osforce.connect.service.calendar.EventService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.spring4me.dao.Page;
+import org.osforce.spring4me.web.bind.annotation.RequestAttr;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -49,7 +50,8 @@ public class EventWidget {
 
 	@RequestMapping("/recent-view")
 	@Permission({"event-view"})
-	public String doRecentView(Page<Event> page, Project project, Model model) {
+	public String doRecentView(Page<Event> page, 
+			@RequestAttr Project project, Model model) {
 		page = eventService.getEventPage(page, project.getId(), new Date());
 		if(page.getResult().isEmpty()) {
 			return "commons/blank";
@@ -61,7 +63,7 @@ public class EventWidget {
 	@RequestMapping("/list-view")
 	@Permission({"event-view"})
 	public String doListView(@RequestParam(required=false) String date, 
-			Project project, Model model) throws ParseException {
+			 @RequestAttr Project project, Model model) throws ParseException {
 		Date d = new Date();
 		Date start = new Date();
 		Date end = null;
@@ -95,10 +97,11 @@ public class EventWidget {
 	
 	@RequestMapping("/form-view")
 	@Permission(value={"event-detail-add", "event-detail-edit"}, userRequired=true, projectRequired=true)
-	public String doFormView(@RequestParam(required=false) Long eventId, 
+	public String doFormView(Model model,
+			@RequestParam(required=false) Long eventId, 
 			@RequestParam(required=false) String date, 
 			@ModelAttribute @Valid Event event, BindingResult result,
-			Project project, User user, Model model, Boolean showErrors) throws ParseException {
+			@RequestAttr Project project, @RequestAttr User user, Boolean showErrors) throws ParseException {
 		if(!showErrors) {
 			event.setEnteredBy(user);
 			event.setModifiedBy(user);

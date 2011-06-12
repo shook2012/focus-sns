@@ -44,7 +44,7 @@
 						<#list Session.photos as photo>
 						<tr>
 							<td>${photo.id}</td>
-							<td><#if photo.name??>${photo.name}<#else>${photo.realFile.name}</#if></td>
+							<td><#if photo.name?? && photo.name != ''>${photo.name}<#else>${photo.realFile.name}</#if></td>
 							<td>
 								<@security code="photo-edit">
 								<a href="${base}/${project.uniqueId}/gallery/photo/form?photoId=${photo.id}">编辑</a>
@@ -61,7 +61,11 @@
 			</div>
 			</#if>
 			<div>
+				<#if photo.id??>
+				<button type="submit">保存</button>
+				<#else>
 				<button type="submit">上传</button>
+				</#if>
 				<@spring.formHiddenInput path="photo.id" />
 				<@spring.formHiddenInput path="photo.enteredId" />
 				<@spring.formHiddenInput path="photo.modifiedId" />

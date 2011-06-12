@@ -18,7 +18,7 @@ public interface MemberService {
 
 	TeamMember getMember(Long memberId);
 
-	TeamMember getMember(Long userId, Long projectId);
+	TeamMember getMember(Long userId, Long projectId, Boolean enabled);
 
 	void createMember(TeamMember member);
 

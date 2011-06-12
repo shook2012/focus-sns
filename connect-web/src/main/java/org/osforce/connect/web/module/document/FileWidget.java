@@ -20,6 +20,7 @@ import org.osforce.connect.service.document.FolderService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.module.util.AttachmentUtil;
 import org.osforce.connect.web.security.annotation.Permission;
+import org.osforce.spring4me.web.bind.annotation.RequestAttr;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -66,8 +67,8 @@ public class FileWidget {
 	
 	@RequestMapping("/list-view")
 	@Permission({"file-view"})
-	public String doListView(@RequestParam(required=false) Long folderId,
-			Project project, Model model) {
+	public String doListView(@RequestAttr Project project,
+			@RequestParam(required=false) Long folderId, Model model) {
 		// 
 		if(folderId==null) {
 			List<Folder> folders = folderService.getFolderList(project.getId());
@@ -93,10 +94,11 @@ public class FileWidget {
 	
 	@RequestMapping("/form-view")
 	@Permission(value={"file-add", "file-edit"}, userRequired=true, projectRequired=true)
-	public String doFormView(@RequestParam(required=false) Long folderId, 
+	public String doFormView(
 			@RequestParam(required=false) Long fileId,
+			@RequestParam(required=false) Long folderId, 
 			@ModelAttribute @Valid File file, BindingResult result,
-			Project project, User user, Model model, Boolean showErrors) {
+			@RequestAttr Project project, @RequestAttr User user, Model model, Boolean showErrors) {
 		if(!showErrors) {
 			file.setFolderId(folderId);
 			file.setEnteredBy(user);
@@ -116,7 +118,7 @@ public class FileWidget {
 	@Permission(value={"file-add", "file-edit"}, userRequired=true, projectRequired=true)
 	public String doFormAction(@RequestParam MultipartFile file,
 			@ModelAttribute("file") @Valid File fileItem, BindingResult result, 
-			Model model, Project project, WebRequest request) throws IOException {
+			Model model, @RequestAttr Project project, WebRequest request) throws IOException {
 		if(result.hasErrors()) {
 			model.addAttribute(AttributeKeys.SHOW_ERRORS_KEY_READABLE, true);
 			model.addAttribute(AttributeKeys.FEATURE_CODE_KEY_READABLE, ProjectFeature.FEATURE_DOCUMENT);
@@ -165,24 +167,24 @@ public class FileWidget {
 	public void syncSessionFileList(File file, WebRequest request, Boolean reverse) {
 		List<File> files = (List<File>) request.getAttribute(
 				AttributeKeys.FILE_LIST_KEY_READABLE, WebRequest.SCOPE_SESSION);
-		if(files==null) {
-			files = new ArrayList<File>();
-		}
-		if(!reverse) {
+		List<File> tmp = new ArrayList<File>();
+		if(reverse) {
 			for(File f : files) {
-				if(NumberUtils.compare(f.getId(), file.getId())==0) {
-					files.remove(f);
+				if(NumberUtils.compare(f.getId(), file.getId())!=0) {
+					tmp.add(f);
 				} 
 			}
-			files.add(0, file);
 		} else {
-			for(File f : files) {
-				if(NumberUtils.compare(f.getId(), file.getId())==0) {
-					files.remove(f);
-				} 
+			if(files!=null) {
+				for(File f : files) {
+					if(NumberUtils.compare(f.getId(), file.getId())!=0) {
+						tmp.add(f);
+					} 
+				}
 			}
+			tmp.add(0, file);
 		}
-		request.setAttribute(AttributeKeys.FILE_LIST_KEY_READABLE, files, WebRequest.SCOPE_SESSION);
+		request.setAttribute(AttributeKeys.FILE_LIST_KEY_READABLE, tmp, WebRequest.SCOPE_SESSION);
 	}
 	
 }

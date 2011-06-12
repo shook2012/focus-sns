@@ -25,7 +25,7 @@
 						<a href="${base}/${project.uniqueId}/message/${box}/detail?messageId=${message.id}">${message.subject}</a>
 						<#if box == 'inbox'>
 						<span>接收于 <@prettyTime date=message.entered /> (${message.entered?string('yyyy-MM-dd HH:mm')})</span>
-						<a href="${base}/${project.uniqueId}/message/${box}/form?messageId=${message.id}&toId=${message.from.id}">回复</a>
+						<a href="${base}/${project.uniqueId}/message/${box}/form?messageId=${message.id}&fromId=${message.to.id}&toId=${message.from.id}">回复</a>
 						<#else>
 						<span>发送于 <@prettyTime date=message.entered /> (${message.entered?string('yyyy-MM-dd HH:mm')})</span>
 						</#if>

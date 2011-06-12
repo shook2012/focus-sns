@@ -129,7 +129,8 @@ public class PermissionServiceImpl implements PermissionService {
 		//
 		int roleLevel = 50;
 		if(user!=null) {
-			TeamMember member = memberDao.findMember(project.getId(), user.getId());
+			TeamMember member = memberDao.findMember(
+					project.getId(), user.getId(), Boolean.TRUE);
 			if(member!=null) {
 				roleLevel = member.getRole().getLevel();
 			} else {

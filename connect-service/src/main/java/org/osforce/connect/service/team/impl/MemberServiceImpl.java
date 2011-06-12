@@ -60,8 +60,8 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.get(memberId);
 	}
 
-	public TeamMember getMember(Long projectId, Long userId) {
-		return memberDao.findMember(projectId, userId);
+	public TeamMember getMember(Long projectId, Long userId, Boolean enabled) {
+		return memberDao.findMember(projectId, userId, enabled);
 	}
 
 	public void createMember(TeamMember member) {
