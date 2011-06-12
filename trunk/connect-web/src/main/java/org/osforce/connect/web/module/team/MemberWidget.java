@@ -21,6 +21,7 @@ import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.spring4me.dao.Page;
 import org.osforce.spring4me.web.bind.annotation.PrefParam;
+import org.osforce.spring4me.web.bind.annotation.RequestAttr;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -68,10 +69,12 @@ public class MemberWidget {
 		this.memberService = memberService;
 	}
 	
-	@RequestMapping("/alert-view")
-	@Permission(projectRequired=true, userRequired=true)
-	public String doInfoView(User user, Project project, Model model) {
-		TeamMember teamMember = memberService.getMember(user.getId(), project.getId());
+	@RequestMapping("/info-view")
+	@Permission(value={"member-add"}, projectRequired=true, userRequired=true)
+	public String doInfoView(@RequestAttr User user, 
+			@RequestAttr Project project, Model model) {
+		TeamMember teamMember = memberService.getMember(
+				user.getId(), project.getId(), Boolean.TRUE);
 		List<TeamMember> needApprove = Collections.emptyList();
 		List<TeamMember> needAccept = Collections.emptyList();
 		if(NumberUtils.compare(project.getId(), user.getProject().getId())==0 ||
@@ -85,17 +88,18 @@ public class MemberWidget {
 		model.addAttribute("needApprove", needApprove);
 		model.addAttribute("needAccept", needAccept);
 		if(!needApprove.isEmpty() || !needAccept.isEmpty()) {
-			return "team/member-alert";
+			return "team/member-info";
 		}
 		return "commons/blank";
 	}
 	
 	@RequestMapping("/list-view")
 	@Permission({"member-view"})
-	public String doListView(Page<TeamMember> page, User user,
-		Project project, Model model) {
+	public String doListView(Page<TeamMember> page, 
+			@RequestAttr User user, @RequestAttr Project project, Model model) {
 		if(user!=null) {
-			TeamMember teamMember = memberService.getMember(user.getId(), project.getId());
+			TeamMember teamMember = memberService.getMember(
+					user.getId(), project.getId(), Boolean.TRUE);
 			List<TeamMember> needApprove = Collections.emptyList();
 			List<TeamMember> waitApprove = Collections.emptyList();
 			List<TeamMember> needAccept = Collections.emptyList();
@@ -121,8 +125,8 @@ public class MemberWidget {
 		return "team/member-list";
 	}
 	// TODO need role code support
-	public String doShowView(@PrefParam String uniqueId, @PrefParam String roleCode,
-			Page<TeamMember> page, Model model) {
+	public String doShowView(@PrefParam String uniqueId, 
+			@PrefParam String roleCode, Page<TeamMember> page, Model model) {
 		if(StringUtils.isNotBlank(uniqueId)) {
 			Project project = projectService.getProject(uniqueId);
 			if(project!=null) {
@@ -136,7 +140,8 @@ public class MemberWidget {
 	
 	@RequestMapping("/invite-view")
 	@Permission(value={"member-add", "member-edit"}, userRequired=true, projectRequired=true)
-	public String doInviteView(Project project, User user, Model model) {
+	public String doInviteView(
+			@RequestAttr Project project, @RequestAttr User user, Model model) {
 		Message message = new Message();
 		message.setFrom(project);
 		message.setEnteredBy(user);
@@ -147,7 +152,7 @@ public class MemberWidget {
 	@RequestMapping(value="/invite-action", method=RequestMethod.POST)
 	@Permission(value={"member-add", "member-edit"}, userRequired=true, projectRequired=true)
 	public String doInviteAction(@RequestParam String emails,
-			Model model, Project project, User user) {
+			Model model, @RequestAttr Project project, @RequestAttr User user) {
 		List<Long> memberList = new ArrayList<Long>();
 		String[] emailsArray = StringUtils.split(emails, "\n");
 		for(String email : emailsArray) {
@@ -164,7 +169,7 @@ public class MemberWidget {
 	}
 	
 	@RequestMapping(value="/auto-action", method=RequestMethod.GET)
-	public @ResponseBody Map<String, Object> autoComplete(
+	public @ResponseBody Map<String, Object> doAutoAction(
 			@RequestParam String query) {
 		Page<User> page = new Page<User>(10);
 		page = userService.getUserPage(page, query);
@@ -177,6 +182,23 @@ public class MemberWidget {
 		}
 		model.put("suggestions", suggestions);
 		return model;
+	}
+	
+	@RequestMapping(value="/request")
+	public @ResponseBody Object doRequestAction (TeamMember member) {
+		Project project = projectService.getProject(member.getProjectId());
+		Role role = roleService.getRole(project.getCategoryId(), Role.LEVEL_MIDDLE);
+		member.setRole(role);
+		member.setStatus(TeamMember.STATUS_WAIT_APPROVE);
+		memberService.requestMember(member);
+		return Collections.singletonMap("id", member.getId());
+	}
+	
+	@RequestMapping(value={"/approve"})
+	public @ResponseBody Object doApproveAction (
+			@RequestParam Long memberId) {
+		memberService.approveMember(memberId);
+		return Collections.singletonMap("id", memberId);
 	}
 	
 }

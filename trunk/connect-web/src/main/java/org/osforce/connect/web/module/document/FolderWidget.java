@@ -15,6 +15,7 @@ import org.osforce.connect.entity.system.User;
 import org.osforce.connect.service.document.FolderService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.security.annotation.Permission;
+import org.osforce.spring4me.web.bind.annotation.RequestAttr;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -54,7 +55,7 @@ public class FolderWidget {
 
 	@RequestMapping(value="/tree-action", method=RequestMethod.POST)
 	public @ResponseBody Object doTreeAction(
-			@RequestParam(required=false) Long id, Project project) {
+			@RequestParam(required=false) Long id, @RequestAttr Project project) {
 		List<Folder> folders = Collections.emptyList();
 		List<Map<String, Object>> nodeList = new ArrayList<Map<String, Object>>();
 		if(id==-1) {
@@ -80,10 +81,11 @@ public class FolderWidget {
 
 	@RequestMapping("/form-view")
 	@Permission(value={"folder-add", "folder-edit"}, userRequired=true, projectRequired=true)
-	public String doFormView(@RequestParam(required=false) Long folderId, 
+	public String doFormView(
+			@RequestParam(required=false) Long folderId, 
 			@RequestParam(required=false) Long parentFolderId,
 			@ModelAttribute @Valid Folder folder, BindingResult result,
-			Project project, User user, Model model, Boolean showErrors) {
+			@RequestAttr Project project, @RequestAttr User user, Model model, Boolean showErrors) {
 		if(!showErrors) {
 			folder.setModifiedBy(user);
 			folder.setEnteredBy(user);
@@ -104,7 +106,7 @@ public class FolderWidget {
 	@RequestMapping(value="/form-action", method=RequestMethod.POST)
 	@Permission(value={"folder-add", "folder-edit"}, userRequired=true, projectRequired=true)
 	public String doFormAction(@ModelAttribute @Valid Folder folder, 
-			BindingResult result, Model model, Project project) {
+			BindingResult result, Model model, @RequestAttr Project project) {
 		if(result.hasErrors()) {
 			model.addAttribute(AttributeKeys.SHOW_ERRORS_KEY_READABLE, true);
 			model.addAttribute(AttributeKeys.FEATURE_CODE_KEY_READABLE, ProjectFeature.FEATURE_DOCUMENT);

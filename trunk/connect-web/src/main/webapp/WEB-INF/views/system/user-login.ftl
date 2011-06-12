@@ -39,6 +39,9 @@
 				   <img src="${base}/static/images/icons/button/cross.png"/>
 				 	重置
 				</button>
+				<#if Request.popup?? && Request.popup>
+				<input type="hidden" name="ajax" value="true" />
+				</#if>
 				<br class="clear"/>
        		</div>
        		<div>
@@ -48,3 +51,25 @@
 		</form>
 	</div>
 </div>
+
+<#if Request.popup?? && Request.popup>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.login-form').ajaxForm({
+		dataType: 'json',
+		beforeSubmit: function(formData, $form){
+			var username = $.trim(formData[0]);
+			var password = $.trim(formData[1]);
+			if(username=='' || password=='') {
+				return false;
+			}
+		},
+		success: function(user){
+			if(user.id!=null) {
+				window.location.reload();
+			}
+		}
+	});
+});
+</script>
+</#if>

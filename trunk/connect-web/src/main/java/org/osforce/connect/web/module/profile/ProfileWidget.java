@@ -15,6 +15,7 @@ import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.spring4me.dao.Page;
 import org.osforce.spring4me.web.bind.annotation.PrefParam;
+import org.osforce.spring4me.web.bind.annotation.RequestAttr;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -52,8 +53,9 @@ public class ProfileWidget {
 	}
 	
 	@RequestMapping("/list-view")
-	public String doListView(@PrefParam String categoryCode, 
-		Page<Profile> page, User user, Site site, Model model, WebRequest request) {
+	public String doListView(@PrefParam String categoryCode,
+			@RequestAttr User user, @RequestAttr Site site,
+			Page<Profile> page, Model model, WebRequest request) {
 		String mode = (String) request.getAttribute("mode", WebRequest.SCOPE_REQUEST);
 		ProjectCategory category = categoryService.getProjectCategory(site, categoryCode);
 		if(StringUtils.isBlank(mode) && user!=null) {
@@ -67,7 +69,7 @@ public class ProfileWidget {
 	
 	@RequestMapping("/detail-view")
 	@Permission({"profile-view"})
-	public String doDetailView(Project project, Model model) {
+	public String doDetailView(@RequestAttr Project project, Model model) {
 		Profile profile = project.getProfile();
 		model.addAttribute(AttributeKeys.PROFILE_KEY_READABLE, profile);
 		return "profile/profile-detail";
@@ -88,8 +90,8 @@ public class ProfileWidget {
 	
 	@RequestMapping("/form-action")
 	@Permission({"profile-add", "profile-edit"})
-	public String doFormAction(@ModelAttribute @Valid Profile profile,
-			BindingResult result, Model model) {
+	public String doFormAction(
+			@ModelAttribute @Valid Profile profile, BindingResult result, Model model) {
 		if(result.hasErrors()) {
 			model.addAttribute(AttributeKeys.SHOW_ERRORS_KEY_READABLE, true);
 			model.addAttribute(AttributeKeys.FEATURE_CODE_KEY_READABLE, ProjectFeature.FEATURE_PROFILE);

@@ -22,6 +22,7 @@ import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.spring4me.dao.Page;
 import org.osforce.spring4me.web.bind.annotation.PrefParam;
+import org.osforce.spring4me.web.bind.annotation.RequestAttr;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -72,8 +73,8 @@ public class TopicWidget {
 	
 	@RequestMapping("/top-view")
 	@Permission({"topic-view"})
-	public String doTopView(@PrefParam String categoryCode, Project project,
-			Page<Statistic> page, Site site, Model model) {
+	public String doTopView(@PrefParam String categoryCode, Page<Statistic> page, 
+			@RequestAttr Project project, @RequestAttr Site site, Model model) {
 		page = statisticService.getTopStatisticPage(page, project, Topic.NAME);
 		if(page.getResult().isEmpty()) {
 			return "commons/blank";
@@ -88,7 +89,8 @@ public class TopicWidget {
 	
 	@RequestMapping("/recent-view")
 	@Permission({"topic-view"})
-	public String doRecentView(Page<Topic> page, Project project, Model model) {
+	public String doRecentView(Page<Topic> page, 
+			@RequestAttr Project project, Model model) {
 		page = topicService.getTopicPage(page, project);
 		if(page.getResult().isEmpty()) {
 			return "commons/blank";
@@ -160,7 +162,7 @@ public class TopicWidget {
 	@RequestMapping(value="/form-action", method=RequestMethod.POST)
 	@Permission(value={"topic-add", "topic-edit"}, userRequired=true, projectRequired=true)
 	public String doFormAction(@ModelAttribute @Valid Topic topic, 
-			BindingResult result, Model model, Project project) {
+			BindingResult result, Model model, @RequestAttr Project project) {
 		if(result.hasErrors()) {
 			model.addAttribute(AttributeKeys.SHOW_ERRORS_KEY_READABLE, true);
 			model.addAttribute(AttributeKeys.FEATURE_CODE_KEY_READABLE, ProjectFeature.FEATURE_DISCUSSION);

@@ -1,5 +1,6 @@
 package org.osforce.connect.web.module.system;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -24,6 +25,7 @@ import org.osforce.connect.web.module.util.ModuleUtil;
 import org.osforce.spring4me.commons.cipher.CipherUtil;
 import org.osforce.spring4me.dao.Page;
 import org.osforce.spring4me.web.bind.annotation.PrefParam;
+import org.osforce.spring4me.web.bind.annotation.RequestAttr;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -33,6 +35,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
 /**
@@ -77,8 +80,8 @@ public class UserWidget {
 	}
 	
 	@RequestMapping("/list-view")
-	public String doListView(@RequestParam(required=false) Long siteId, 
-			Page<User> page, Model model) {
+	public String doListView(
+			@RequestParam(required=false) Long siteId, Page<User> page, Model model) {
 		if(siteId==null) {
 			page = userService.getUserPage(page);
 		} else {
@@ -109,8 +112,25 @@ public class UserWidget {
 			response.addCookie(cookie);
 		}
 		session.setAttribute(AttributeKeys.USER_ID_KEY, user.getId());
-		// TODO if ajax 
 		return String.format("redirect:/%s/profile", user.getProject().getUniqueId());
+	}
+	
+	@RequestMapping(value="/login-action", method=RequestMethod.POST, params="ajax=true")
+	public @ResponseBody Object doAjaxLoginAction(@Valid LoginBean loginBean, BindingResult result, 
+			Model model, HttpSession session, HttpServletResponse response) throws Exception {
+		User user = userService.loginUser(loginBean.getUsername(), loginBean.getPassword());
+		if(result.hasErrors() || user==null) {
+			return Collections.singletonMap("error", result.getAllErrors().size());
+		}
+		//
+		if(loginBean.getRememberMe()) {
+			String username = CipherUtil.encrypt(user.getUsername(), KEY_FILE);
+			Cookie cookie = new Cookie(AttributeKeys.REMEMBER_ME_KEY, username);
+			cookie.setPath("/connect");
+			response.addCookie(cookie);
+		}
+		session.setAttribute(AttributeKeys.USER_ID_KEY, user.getId());
+		return Collections.singletonMap("id", user.getId());
 	}
 	
 	@RequestMapping("/logout-action")
@@ -123,7 +143,7 @@ public class UserWidget {
 	public String doRegisterView(
 			@PrefParam String categoryCode, @PrefParam String templateCode,
 			@ModelAttribute @Valid RegisterBean registerBean, BindingResult result, 
-			Site site, Model model, WebRequest request) {
+			@RequestAttr Site site, Model model, WebRequest request) {
 		ProjectCategory category = categoryService.getProjectCategory(site, categoryCode);
 		//
 		Template template = templateService.getTemplate(category.getId(), templateCode);
@@ -144,8 +164,8 @@ public class UserWidget {
 	}
 	
 	@RequestMapping(value="/register-action", method=RequestMethod.POST)
-	public String doRegisterAction(@ModelAttribute @Valid RegisterBean registerBean, 
-			BindingResult result, Model model, WebRequest request) {
+	public String doRegisterAction(Model model, WebRequest request,
+			@ModelAttribute @Valid RegisterBean registerBean, BindingResult result) {
 		User user = userService.getUser(registerBean.getUsername());
 		// FIXME
 		if(user!=null) {

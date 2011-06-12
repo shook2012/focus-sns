@@ -38,12 +38,15 @@
 				<@spring.formHiddenInput path="message.toId" />
 				<@spring.formHiddenInput path="message.enteredId" />
 				<@spring.formHiddenInput path="message.entered" />
+				<#if Request.popup?? && Request.popup>
+				<input type="hidden" name="ajax" value="true"/>
+				</#if>
 			</div>
 		</form>
 	</div>
 </div>
 
-
+<#if Request.popup?? && Request.popup>
 <script type="text/javascript">
 $(document).ready(function(){
 	$('#message-form${id}').ajaxForm({
@@ -64,3 +67,4 @@ $(document).ready(function(){
 	});
 });
 </script>
+</#if>

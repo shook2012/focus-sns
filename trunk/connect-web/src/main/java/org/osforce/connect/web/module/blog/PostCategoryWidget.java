@@ -10,6 +10,7 @@ import org.osforce.connect.entity.system.ProjectFeature;
 import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.connect.service.blog.PostCategoryService;
 import org.osforce.connect.web.AttributeKeys;
+import org.osforce.spring4me.web.bind.annotation.RequestAttr;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -42,7 +43,7 @@ public class PostCategoryWidget {
 	
 	@RequestMapping("/list-view")
 	@Permission({"post-category-detail-view"})
-	public String doListView(Project project, Model model) {
+	public String doListView(@RequestAttr Project project, Model model) {
 		List<PostCategory> categories = postCategoryService.getBlogCategoryList(project);
 		if(categories.size()==0) {
 			return "commons/blank";
@@ -55,7 +56,7 @@ public class PostCategoryWidget {
 	@Permission(value={"post-category-detail-add", "post-category-detail-edit"}, userRequired=true, projectRequired=true)
 	public String doFormView(
 			@RequestParam(required=false) Long categoryId,
-			Project project, Model model, Boolean showErrors,
+			@RequestAttr Project project, Model model, Boolean showErrors,
 			@ModelAttribute("category") @Valid PostCategory category, BindingResult result) {
 		if(!showErrors) {
 			category.setProjectId(project.getId());
@@ -69,8 +70,9 @@ public class PostCategoryWidget {
 	
 	@RequestMapping(value="/form-action", method=RequestMethod.POST)
 	@Permission(value={"post-category-detail-add", "post-category-detail-edit"}, userRequired=true, projectRequired=true)
-	public String doFormAction(@ModelAttribute("category") @Valid PostCategory category, 
-			BindingResult result, Project project, Model model) {
+	public String doFormAction(
+			@ModelAttribute("category") @Valid PostCategory category, 
+			BindingResult result, @RequestAttr Project project, Model model) {
 		if(result.hasErrors()) {
 			model.addAttribute(AttributeKeys.SHOW_ERRORS_KEY_READABLE, true);
 			model.addAttribute(AttributeKeys.FEATURE_CODE_KEY_READABLE, ProjectFeature.FEATURE_BLOG);

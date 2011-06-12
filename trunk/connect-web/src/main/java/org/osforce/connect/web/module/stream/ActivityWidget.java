@@ -15,6 +15,7 @@ import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.spring4me.dao.Page;
 import org.osforce.spring4me.web.bind.annotation.PrefParam;
+import org.osforce.spring4me.web.bind.annotation.RequestAttr;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -47,7 +48,7 @@ public class ActivityWidget {
 	@RequestMapping("/list-view")
 	@Permission(value={"activity-view"}, projectRequired=true)
 	public String doListView(@PrefParam String activityTypes, 
-			Page<Activity> page, Project project, Model model) {
+			Page<Activity> page, @RequestAttr Project project, Model model) {
 		List<String> types = Arrays.asList(StringUtils.split(activityTypes, ","));
 		page = activityService.getActivityPage(page, project, types);
 		model.addAttribute(AttributeKeys.PAGE_KEY_READABLE, page);
@@ -56,9 +57,9 @@ public class ActivityWidget {
 	
 	@RequestMapping("/form-view")
 	@Permission(value={"activity-add", "activity-edit"}, userRequired=true, projectRequired=true)
-	public String doFormView(@PrefParam String activityType, User user, 
-			@PrefParam("false") Boolean showToolbar, Project project, Model model,
-			@ModelAttribute @Valid Activity activity, BindingResult result) {
+	public String doFormView(@PrefParam String activityType, @RequestAttr User user, 
+			@PrefParam("false") Boolean showToolbar, @RequestAttr Project project,
+			@ModelAttribute @Valid Activity activity, BindingResult result, Model model) {
 		activity.setType(activityType);
 		activity.setEnteredBy(user);
 		activity.setProject(project);
@@ -71,7 +72,7 @@ public class ActivityWidget {
 	@RequestMapping(value="/form-action", method=RequestMethod.POST)
 	@Permission(value={"activity-add", "activity-edit"}, userRequired=true, projectRequired=true)
 	public String doFormAction(@ModelAttribute @Valid Activity activity,
-			BindingResult result, Model model, Project project) {
+			BindingResult result, Model model, @RequestAttr Project project) {
 		if(result.hasErrors()) {
 			model.addAttribute(AttributeKeys.FEATURE_CODE_KEY_READABLE, ProjectFeature.FEATURE_PROFILE);
 			return "page:/profile/profile-detail";

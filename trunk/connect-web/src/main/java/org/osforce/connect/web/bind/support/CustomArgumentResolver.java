@@ -5,10 +5,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.osforce.connect.entity.system.Project;
-import org.osforce.connect.entity.system.Site;
-import org.osforce.connect.entity.system.User;
-import org.osforce.connect.entity.team.TeamMember;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.spring4me.dao.Page;
 import org.osforce.spring4me.web.widget.WidgetConfig;
@@ -32,11 +28,11 @@ public class CustomArgumentResolver implements WebArgumentResolver {
 	private ConversionService conversionService;
 	
 	static {
-		classes.add(Site.class);
+		//classes.add(Site.class);
 		classes.add(Page.class);
-		classes.add(Project.class);
-		classes.add(User.class);
-		classes.add(TeamMember.class);
+		//classes.add(Project.class);
+		//classes.add(User.class);
+		//classes.add(TeamMember.class);
 	}
 
 	public CustomArgumentResolver() {
@@ -56,7 +52,7 @@ public class CustomArgumentResolver implements WebArgumentResolver {
 		if(paramType.isAssignableFrom(Page.class)) {
 			value = getPage(widgetConfig, webRequest.getNativeRequest(HttpServletRequest.class));
 			return returnValue(webRequest, value, Page.class); 
-		} else if(paramType.isAssignableFrom(Site.class)) {
+		} /*else if(paramType.isAssignableFrom(Site.class)) {
 			value = webRequest.getAttribute(AttributeKeys.SITE_KEY, WebRequest.SCOPE_REQUEST);
 			return returnValue(webRequest, value, Site.class);
 		} else if(paramType.isAssignableFrom(Project.class)) {
@@ -68,7 +64,7 @@ public class CustomArgumentResolver implements WebArgumentResolver {
 		} else if(paramType.isAssignableFrom(TeamMember.class)) {
 			value = webRequest.getAttribute(AttributeKeys.TEAM_MEMBER_KEY, WebRequest.SCOPE_REQUEST);
 			return returnValue(webRequest, value, TeamMember.class);
-		} else if(AttributeKeys.SHOW_ERRORS_KEY_READABLE.equals(methodParameter.getParameterName())) {
+		}*/ else if(AttributeKeys.SHOW_ERRORS_KEY_READABLE.equals(methodParameter.getParameterName())) {
 			value = (Boolean) webRequest.getAttribute(
 					AttributeKeys.SHOW_ERRORS_KEY_READABLE, WebRequest.SCOPE_REQUEST);
 			return returnValue(webRequest, value!=null?value:false, Boolean.class);

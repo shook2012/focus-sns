@@ -12,6 +12,7 @@ import org.osforce.connect.service.discussion.TopicService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.spring4me.dao.Page;
+import org.osforce.spring4me.web.bind.annotation.RequestAttr;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -66,7 +67,7 @@ public class ReplyWidget {
 	public String doFormView(@RequestParam Long topicId,
 			@RequestParam(required=false) Long replyId, 
 			@ModelAttribute @Valid Reply reply, BindingResult result,
-			User user, Model model, Boolean showErrors) {
+			@RequestAttr User user, Model model, Boolean showErrors) {
 		if(!showErrors) {
 			reply.setEnteredBy(user);
 			reply.setModifiedBy(user);
@@ -84,7 +85,7 @@ public class ReplyWidget {
 	@RequestMapping(value="/form-action", method=RequestMethod.POST)
 	@Permission(value={"reply-add", "reply-edit"}, userRequired=true, projectRequired=true)
 	public String doFormAction(@ModelAttribute @Valid Reply reply, 
-			BindingResult result, Model model, Project project) {
+			BindingResult result, Model model, @RequestAttr Project project) {
 		if(result.hasErrors()) {
 			model.addAttribute(AttributeKeys.SHOW_ERRORS_KEY_READABLE, true);
 			model.addAttribute(AttributeKeys.FEATURE_CODE_KEY_READABLE, ProjectFeature.FEATURE_DISCUSSION);

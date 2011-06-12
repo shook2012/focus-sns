@@ -12,6 +12,7 @@ import org.osforce.connect.service.knowledge.AnswerService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.spring4me.dao.Page;
+import org.osforce.spring4me.web.bind.annotation.RequestAttr;
 import org.osforce.spring4me.web.bind.annotation.SessionParam;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,7 +76,7 @@ public class AnswerWidget {
 			@RequestParam(required=false) Long answerId,
 			@RequestParam(required=false) Long questionId,
 			@ModelAttribute @Valid Answer answer, BindingResult result,
-			Project project, User user, Model model, Boolean showErrors) {
+			@RequestAttr Project project, @RequestAttr User user, Model model, Boolean showErrors) {
 		if(!showErrors) {
 			answer.setQuestionId(questionId);
 			answer.setEnteredBy(user);
@@ -91,7 +92,7 @@ public class AnswerWidget {
 	@RequestMapping(value="/form-action", method=RequestMethod.POST)
 	@Permission(value={"answer-add", "answer-edit"}, userRequired=true, projectRequired=true)
 	public String doFormAction(@ModelAttribute @Valid Answer answer, 
-			BindingResult result, Model model, Project project) {
+			BindingResult result, Model model, @RequestAttr Project project) {
 		if(result.hasErrors()) {
 			model.addAttribute(AttributeKeys.SHOW_ERRORS_KEY_READABLE, true);
 			model.addAttribute(AttributeKeys.FEATURE_CODE_KEY_READABLE, ProjectFeature.FEATURE_KNOWLEDGE);

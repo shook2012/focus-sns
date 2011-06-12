@@ -19,6 +19,7 @@ import org.osforce.connect.service.knowledge.QuestionService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.spring4me.dao.Page;
+import org.osforce.spring4me.web.bind.annotation.RequestAttr;
 import org.osforce.spring4me.web.bind.annotation.SessionParam;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +72,7 @@ public class QuestionWidget {
 	@RequestMapping("/recent-view")
 	@Permission({"question-view"})
 	public String doRecentView(Page<Question> page, 
-			Project project, Model model) {
+			@RequestAttr Project project, Model model) {
 		page = questionService.getQuestionPage(page, project);
 		if(page.getResult().isEmpty()) {
 			return "commons/blank";
@@ -83,7 +84,7 @@ public class QuestionWidget {
 	@RequestMapping("/list-view")
 	@Permission({"question-view"})
 	public String doListView(@SessionParam String questionOrder,
-			Page<Question> page, Project project, Model model) {
+			Page<Question> page, @RequestAttr Project project, Model model) {
 		page = questionService.getQuestionPage(page, project, questionOrder);
 		for(Question question : page.getResult()) {
 			// views count
@@ -100,7 +101,7 @@ public class QuestionWidget {
 	@RequestMapping("/detail-view")
 	@Permission({"question-view"})
 	public String doDetailView(@RequestParam(required=false) 
-			Long questionId, User user, Model model) {
+			Long questionId, @RequestAttr User user, Model model) {
 		if(questionId!=null) {
 			Question question = questionService.viewQuestion(questionId);
 			Long favorite = linkService.countLinks(Link.TYPE_FAVORITE, questionId, Question.NAME);
@@ -115,7 +116,7 @@ public class QuestionWidget {
 	@Permission(value={"question-add", "question-edit"}, userRequired=true, projectRequired=true)
 	public String doFormView(@RequestParam(required=false) Long questionId,
 			@ModelAttribute @Valid Question question, BindingResult result, 
-			Project project, User user, Model model, Boolean showErrors) {
+			@RequestAttr Project project, @RequestAttr User user, Model model, Boolean showErrors) {
 		if(!showErrors) {
 			if(questionId==null) {
 				question.setEnteredBy(user);
@@ -136,7 +137,7 @@ public class QuestionWidget {
 	@Permission(value={"question-add", "question-edit"}, userRequired=true, projectRequired=true)
 	public String doFormAction(@RequestParam String[] tags,
 			@ModelAttribute @Valid Question question, BindingResult result, 
-			Project project, User user, Model model) {
+			@RequestAttr Project project, @RequestAttr User user, Model model) {
 		if(result.hasErrors()) {
 			model.addAttribute(AttributeKeys.SHOW_ERRORS_KEY_READABLE, true);
 			model.addAttribute(AttributeKeys.FEATURE_CODE_KEY_READABLE, ProjectFeature.FEATURE_KNOWLEDGE);

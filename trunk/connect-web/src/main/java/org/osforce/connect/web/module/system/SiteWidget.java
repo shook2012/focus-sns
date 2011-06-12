@@ -4,9 +4,9 @@ import javax.validation.Valid;
 
 import org.osforce.connect.entity.system.Site;
 import org.osforce.connect.service.system.SiteService;
-import org.osforce.connect.service.system.ThemeService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.spring4me.dao.Page;
+import org.osforce.spring4me.web.bind.annotation.RequestAttr;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class SiteWidget {
 
 	private SiteService siteService;
-	private ThemeService themeService;
 
 	public SiteWidget() {
 	}
@@ -29,11 +28,6 @@ public class SiteWidget {
 	@Autowired
 	public void setSiteService(SiteService siteService) {
 		this.siteService = siteService;
-	}
-
-	@Autowired
-	public void setThemeService(ThemeService themeService) {
-		this.themeService = themeService;
 	}
 
 	@RequestMapping(value="/list-view")
@@ -44,7 +38,7 @@ public class SiteWidget {
 	}
 
 	@RequestMapping(value="/copyright-view")
-	public String doCopyrightView(Site site, Model model) {
+	public String doCopyrightView(@RequestAttr Site site, Model model) {
 		model.addAttribute(AttributeKeys.SITE_KEY_READABLE, site);
 		return "system/site-copyright";
 	}

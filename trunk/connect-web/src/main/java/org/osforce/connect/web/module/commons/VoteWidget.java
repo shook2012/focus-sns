@@ -5,6 +5,7 @@ import java.util.Collections;
 import org.osforce.connect.entity.commons.VoteRecord;
 import org.osforce.connect.entity.system.User;
 import org.osforce.connect.service.commons.VoteRecordService;
+import org.osforce.spring4me.web.bind.annotation.RequestAttr;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +36,7 @@ public class VoteWidget {
 	
 	@RequestMapping(value="/vote-action", method=RequestMethod.GET)
 	public @ResponseBody Object doVoteAction(@RequestParam String code,
-			@RequestParam Long linkedId,@RequestParam String entity, User user) {
+			@RequestParam Long linkedId,@RequestParam String entity, @RequestAttr User user) {
 		VoteRecord voteRecord = voteRecordService.getVoteRecord(linkedId, entity, user);
 		if(voteRecord==null) {
 			voteRecord = new VoteRecord(code, linkedId, entity);

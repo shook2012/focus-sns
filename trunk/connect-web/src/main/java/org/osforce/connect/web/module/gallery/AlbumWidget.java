@@ -10,6 +10,7 @@ import org.osforce.connect.service.gallery.AlbumService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.spring4me.dao.Page;
+import org.osforce.spring4me.web.bind.annotation.RequestAttr;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -43,7 +44,7 @@ public class AlbumWidget {
 	@RequestMapping("/list-view")
 	@Permission({"album-view"})
 	public String doListView(Page<Album> page, 
-			Project project, Model model) {
+			@RequestAttr Project project, Model model) {
 		page = albumService.getAlbumPage(page, project.getId());
 		model.addAttribute(AttributeKeys.PAGE_KEY_READABLE, page);
 		return "gallery/album-list";
@@ -53,7 +54,7 @@ public class AlbumWidget {
 	@Permission(value={"album-add", "album-edit"}, userRequired=true, projectRequired=true)
 	public String doFormView(@RequestParam(required=false) Long albumId,
 			@ModelAttribute @Valid Album album, BindingResult result,
-			Project project, User user, Model model, Boolean showErrors) {
+			@RequestAttr Project project, @RequestAttr User user, Model model, Boolean showErrors) {
 		if(!showErrors) {
 			album.setEnteredBy(user);
 			album.setModifiedBy(user);
@@ -69,7 +70,7 @@ public class AlbumWidget {
 	@RequestMapping(value="/form-action", method=RequestMethod.POST)
 	@Permission(value={"album-add", "album-edit"}, userRequired=true, projectRequired=true)
 	public String doFormAction(@ModelAttribute @Valid Album album, 
-			BindingResult result, Model model, Project project) {
+			BindingResult result, Model model, @RequestAttr Project project) {
 		if(result.hasErrors()) {
 			model.addAttribute(AttributeKeys.SHOW_ERRORS_KEY_READABLE, true);
 			model.addAttribute(AttributeKeys.FEATURE_CODE_KEY_READABLE, ProjectFeature.FEATURE_GALLERY);

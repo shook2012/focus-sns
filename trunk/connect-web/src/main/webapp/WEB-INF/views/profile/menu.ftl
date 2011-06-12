@@ -7,13 +7,13 @@
 	</#if>
 	<div class="body">
 		<ul class="actions">
-			<#if !member??>
+			<@entity entity="TeamMember" exist="no" project=project user=user>
 			<li>
-				<a class="ajaxAction" href="${base}/team/member/request?projectId=${project.id}">
+				<a class="ajaxAction" href="${base}/team/member/request?projectId=${project.id}&userId=${user.id}">
 				<#if project.category.code == 'people'>加为好友<#else>申请加入</#if>
 				</a>
 			</li>
-			</#if>
+			</@entity>
 			<@entity entity="Profile" exist="no" project=project user=user>
 			<li>
 				<a class="ajaxAction" href="${base}/commons/link/focus?fromId=${user.project.id}&toId=${project.profile.id}&entity=Profile">
