@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page parent="parent/global">
+	<placeholder name="leftColumn">
+		<widget name="menuWidget" path="/system/menu/custom-menu">
+			<prefs>
+				<menuPath>admin/menu</menuPath>
+				<userRequired>true</userRequired>
+			</prefs>
+		</widget>
+	</placeholder>
+	<placeholder name="mainColumn">
+		<widget name="adminWidget" path="/admin/features/form-view">
+			<title>模块管理</title>
+			<prefs>
+				<templateCode>people-features</templateCode>
+			</prefs>
+		</widget>
+	</placeholder>
+</page>

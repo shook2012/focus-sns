@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page parent="parent/global">
+	<placeholder name="mainColumn">
+		<widget name="userWidget" path="/system/user/login-view">
+			<title>用户登录</title>
+		</widget>
+	</placeholder>
+</page>

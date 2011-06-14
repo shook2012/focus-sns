@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page parent="parent/global">
+	<placeholder name="leftColumn">
+		<widget name="menuWidget" path="/system/menu/custom-menu">
+			<prefs>
+				<menuPath>calendar/menu</menuPath>
+				<userRequired>true</userRequired>
+			</prefs>
+		</widget>
+	</placeholder>
+	<placeholder name="mainColumn">
+		<widget name="eventWidget" path="/calendar/event/list-view">
+			<title>日程列表</title>
+		</widget>
+	</placeholder>
+</page>
