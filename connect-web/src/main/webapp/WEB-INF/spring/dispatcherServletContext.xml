@@ -19,6 +19,7 @@
 	<widget:annotation-driven cache="false" custom-argument-resolvers="customArgumentResolver"/>
 	<!-- reqister custom argument resolver -->
 	<bean id="customArgumentResolver" class="org.osforce.connect.web.bind.support.CustomArgumentResolver"/>
+	<bean class="org.osforce.spring4me.web.cache.impl.DefaultWidgetCacheService"/>
 
 	<!-- Configures Handler Interceptors -->
 	<mvc:interceptors>

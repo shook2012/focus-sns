@@ -6,18 +6,18 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
-import org.osforce.connect.entity.commons.Link;
 import org.osforce.connect.entity.commons.Statistic;
 import org.osforce.connect.entity.discussion.Forum;
 import org.osforce.connect.entity.discussion.Topic;
+import org.osforce.connect.entity.list.Link;
 import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.entity.system.ProjectFeature;
 import org.osforce.connect.entity.system.Site;
 import org.osforce.connect.entity.system.User;
-import org.osforce.connect.service.commons.LinkService;
 import org.osforce.connect.service.commons.StatisticService;
 import org.osforce.connect.service.discussion.ForumService;
 import org.osforce.connect.service.discussion.TopicService;
+import org.osforce.connect.service.list.LinkService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.spring4me.dao.Page;

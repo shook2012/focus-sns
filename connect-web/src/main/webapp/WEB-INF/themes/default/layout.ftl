@@ -87,39 +87,26 @@
 			<img id="logo" src="${base}/themes/default/logo.png"/>
 			</a>
 			<div id="wrapper">
-				<div id="user-menu">
-					<@w.placeholder name="userMenu"/>
-				</div>
-				<div id="site-search">
-					<@w.placeholder name="siteSearch"/>
-				</div>
+				<@w.placeholder name="userMenu" openWith='<div id="user-menu">' closeWith='</div>'/>
+				<@w.placeholder name="siteSearch" openWith='<div id="site-search">' closeWith='</div>'/>
 			</div>
 			<br class="clear"/>
-			<div id="main-menu">
-				<@w.placeholder name="mainMenu"/>
-			</div>
-			<div id="sub-menu1">
-				<@w.placeholder name="subMenu1"/>
-			</div>
-			<div id="sub-menu">
-				<@w.placeholder name="subMenu"/>
-			</div>
+			<@w.placeholder name="mainMenu" openWith='<div id="main-menu">' closeWith='</div>'/>
+			
+			<@w.placeholder name="subMenu1" openWith='<div id="sub-menu1">' closeWith='</div>'/>
+			
+			<@w.placeholder name="subMenu" openWith='<div id="sub-menu">' closeWith='</div>' />
 		</div>
 		<div id="body">
-			<div class="span-5 left-column">
-				<@w.placeholder name="leftColumn"/>
-			</div>
-			<div class='span-11 main-column'>
-				<@w.placeholder name="mainColumn"/>
-			</div>
-			<div class="span-8 last right-column">
-				<@w.placeholder name="rightColumn"/>
-			</div>
+			<@w.placeholder name="leftColumn" openWith='<div class="span-5 left-column">' closeWith='</div>' />
+			
+			<@w.placeholder name="mainColumn" openWith='<div class="span-11 main-column">' closeWith='</div>' />
+			
+			<@w.placeholder name="rightColumn" openWith='<div class="span-8 last right-column">' closeWith='</div>' />
 			<br class="clear"/>
 		</div>
-		<div id="foot">
-			<@w.placeholder name="foot"/>
-		</div>
+		
+		<@w.placeholder name="foot" openWith='<div id="foot">' closeWith='</div>'/>
 	</div>
 </body>
 </html>

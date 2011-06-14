@@ -31,28 +31,6 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
-	<filter>
-		<filter-name>WidgetCachingFilter</filter-name>
-		<filter-class>org.osforce.spring4me.web.cache.WidgetCachingFilter</filter-class>
-	    <init-param>
-	      <param-name>suppressStackTraces</param-name>
-	      <param-value>false</param-value>
-	    </init-param>
-		<init-param>
-			<param-name>cacheName</param-name>
-			<param-value>WidgetCachingFilter</param-value>
-		</init-param>
-		<init-param>
-			<param-name>cacheConfigLocation</param-name>
-			<param-value>/cache/ehcache-widget.xml</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-    	<filter-name>WidgetCachingFilter</filter-name>
-    	<url-pattern>/*</url-pattern>
-    	<dispatcher>INCLUDE</dispatcher>
-  	</filter-mapping>
-
 	<!-- Handles all requests into the application -->
 	<servlet>
 		<servlet-name>dispatcherServlet</servlet-name>

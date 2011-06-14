@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.osforce.connect.entity.blog.Post;
 import org.osforce.connect.entity.blog.PostCategory;
 import org.osforce.connect.entity.commons.Statistic;
+import org.osforce.connect.entity.list.Link;
 import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.entity.system.ProjectFeature;
 import org.osforce.connect.entity.system.User;
@@ -16,6 +17,7 @@ import org.osforce.connect.service.blog.PostCategoryService;
 import org.osforce.connect.service.blog.PostService;
 import org.osforce.connect.service.commons.CommentService;
 import org.osforce.connect.service.commons.StatisticService;
+import org.osforce.connect.service.list.LinkService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.spring4me.dao.Page;
@@ -39,12 +41,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/blog/post")
 public class PostWidget {
 
+	private LinkService linkService;
 	private PostService postService;
 	private StatisticService statisticService;
 	private CommentService commentService;
 	private PostCategoryService postCategoryService;
 	
 	public PostWidget() {
+	}
+	
+	@Autowired
+	public void setLinkService(LinkService linkService) {
+		this.linkService = linkService;
 	}
 	
 	@Autowired
@@ -71,6 +79,7 @@ public class PostWidget {
 	@Permission({"post-view"})
 	public String doTopView(Page<Statistic> page, 
 			@RequestAttr Project project, Model model) {
+		page.setPageNo(1);
 		page = statisticService.getTopStatisticPage(page, project, Post.NAME);
 		if(page.getResult().isEmpty()) {
 			return "commons/blank";
@@ -87,6 +96,7 @@ public class PostWidget {
 	@Permission({"post-view"})
 	public String doRecentView(Page<Post> page, 
 			@RequestAttr Project project, Model model) {
+		page.setPageNo(1);
 		page = postService.getPostPage(page, project.getId(), null);
 		if(page.getResult().isEmpty()) {
 			return "commons/blank";
@@ -115,6 +125,9 @@ public class PostWidget {
 			// count comment
 			Long commentNumber = commentService.countComment(post.getId(), Post.NAME);
 			post.setCommentNumber(commentNumber);
+			// favorite
+			Long favorite = linkService.countLinks(Link.TYPE_FAVORITE, post.getId(), Post.NAME);
+			post.setFavorite(favorite);
 		}
 		model.addAttribute(AttributeKeys.PAGE_KEY_READABLE, page);
 		return "blog/post-list";

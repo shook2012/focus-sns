@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.apache.commons.lang.StringUtils;
 import org.osforce.connect.entity.commons.Template;
 import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.entity.system.ProjectCategory;
@@ -113,18 +112,22 @@ public class AdminWidget {
 		Template template = templateService.getTemplate(project.getCategoryId(), templateCode);
 		List<ProjectFeature> features = ModuleUtil.parseToModules(template.getContent());
 		for(ProjectFeature feature : features) {
-			for(ProjectFeature tmp : project.getFeatures()) {
-				if(StringUtils.equals(feature.getCode(), tmp.getCode())) {
-					feature.setId(tmp.getId());
-					feature.setLabel(tmp.getLabel());
-					feature.setShow(tmp.getShow());
-					if(tmp.getLevel()!=null) {
-						feature.setLevel(tmp.getLevel());
-					}
-					feature.setRoleId(tmp.getRoleId());
+			ProjectFeature tmp = featureService.getProjectFeature(feature.getCode(), project.getId());
+			if(tmp!=null) {
+				feature.setId(tmp.getId());
+				feature.setLabel(tmp.getLabel());
+				feature.setShow(tmp.getShow());
+				if(tmp.getLevel()!=null) {
+					feature.setLevel(tmp.getLevel());
 				}
+				feature.setRoleId(tmp.getRoleId());
+				feature.setProjectId(project.getId());
+			} else {
+				Role role = roleService.getRole(feature.getRoleCode(), project.getCategoryId());
+				feature.setRole(role);
+				feature.setProject(project);
+				featureService.createProjectFeature(feature);
 			}
-			feature.setProjectId(project.getId());
 		}
 		model.addAttribute(AttributeKeys.PROJECT_FEATURE_LIST_KEY_READABLE, features);
 		//

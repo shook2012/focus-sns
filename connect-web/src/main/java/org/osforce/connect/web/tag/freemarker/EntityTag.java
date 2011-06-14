@@ -8,7 +8,7 @@ import org.osforce.connect.entity.profile.Profile;
 import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.entity.system.User;
 import org.osforce.connect.entity.team.TeamMember;
-import org.osforce.connect.service.commons.LinkService;
+import org.osforce.connect.service.list.LinkService;
 import org.osforce.connect.service.team.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;

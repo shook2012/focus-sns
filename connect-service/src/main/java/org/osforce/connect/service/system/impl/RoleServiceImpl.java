@@ -49,7 +49,7 @@ public class RoleServiceImpl implements RoleService {
 		List<Role> roles = roleDao.findRoleList(null, categoryId);
 		Role tmp = null;
 		for(Role role : roles) {
-			if(tmp==null || (role.getLevel()>roleLevel && 
+			if(tmp==null || (role.getLevel()<=roleLevel && 
 					NumberUtils.compare(role.getLevel(), tmp.getLevel())>0)) {
 				tmp = role;
 			}

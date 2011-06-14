@@ -44,10 +44,11 @@
 		<class>org.osforce.connect.entity.system.ProjectFeature</class>
 		<!-- oauth -->
 		<class>org.osforce.connect.entity.oauth.Authorization</class>
+		<!-- list -->
+		<class>org.osforce.connect.entity.list.Link</class>
 		<!-- commons -->
 		<class>org.osforce.connect.entity.commons.Attachment</class>
 		<class>org.osforce.connect.entity.commons.Comment</class>
-		<class>org.osforce.connect.entity.commons.Link</class>
 		<class>org.osforce.connect.entity.commons.Rating</class>
 		<class>org.osforce.connect.entity.commons.Statistic</class>
 		<class>org.osforce.connect.entity.commons.Template</class>
@@ -109,10 +110,11 @@
 			<property name="hibernate.ejb.collectioncache.org.osforce.connect.entity.system.ProjectCategory.children" value="read-write"/>
 			<!-- oauth -->
 			<property name="hibernate.ejb.classcache.org.osforce.connect.entity.oauth.Authorization" value="read-write"/>
+			<!-- list -->
+			<property name="hibernate.ejb.classcache.org.osforce.connect.entity.list.Link" value="read-write"/>
 			<!-- commons -->
 			<property name="hibernate.ejb.classcache.org.osforce.connect.entity.commons.Attachment" value="read-write"/>
 			<property name="hibernate.ejb.classcache.org.osforce.connect.entity.commons.Comment" value="read-write"/>
-			<property name="hibernate.ejb.classcache.org.osforce.connect.entity.commons.Link" value="read-write"/>
 			<property name="hibernate.ejb.classcache.org.osforce.connect.entity.commons.Statistic" value="read-write"/>
 			<property name="hibernate.ejb.classcache.org.osforce.connect.entity.commons.Template" value="read-write"/>
 			<property name="hibernate.ejb.classcache.org.osforce.connect.entity.commons.Tag" value="read-write"/>

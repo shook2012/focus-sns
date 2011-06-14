@@ -80,4 +80,8 @@
 	<resource name="答案添加" code="answer-add" enabled="true" />
 	<resource name="答案编辑" code="answer-edit" enabled="true" />
 	<resource name="答案查看" code="answer-view" enabled="true" />
+	
+	<!-- List Module -->
+	<resource name="List模块浏览" code="project-list-view" enabled="true"/>
+	<resource name="链接查看" code="link-view" enabled="true"/>
 </resources>
