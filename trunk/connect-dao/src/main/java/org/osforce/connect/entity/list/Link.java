@@ -1,4 +1,4 @@
-package org.osforce.connect.entity.commons;
+package org.osforce.connect.entity.list;
 
 import java.util.Date;
 

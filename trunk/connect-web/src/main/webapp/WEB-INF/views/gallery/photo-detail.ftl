@@ -7,8 +7,10 @@
 	</div>
 	</#if>
 	<div class="body">
-		<div id="photo${id}" class="photo">
+		<div class="photo">
+			<a href="${base}/commons/attachment/download/${photo.realFile.id}">
 			<img class="thumbnail" src="${base}/commons/attachment/download/${photo.realFile.id}/400x400" id="${photo.id}"/>
+			</a>
 		</div>
 	</div>
 </div>

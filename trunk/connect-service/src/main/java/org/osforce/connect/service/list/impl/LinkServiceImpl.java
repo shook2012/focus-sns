@@ -1,12 +1,12 @@
-package org.osforce.connect.service.commons.impl;
+package org.osforce.connect.service.list.impl;
 
 import java.util.Date;
 
-import org.osforce.connect.dao.commons.LinkDao;
+import org.osforce.connect.dao.list.LinkDao;
 import org.osforce.connect.dao.system.ProjectDao;
-import org.osforce.connect.entity.commons.Link;
+import org.osforce.connect.entity.list.Link;
 import org.osforce.connect.entity.system.Project;
-import org.osforce.connect.service.commons.LinkService;
+import org.osforce.connect.service.list.LinkService;
 import org.osforce.spring4me.dao.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -78,4 +78,13 @@ public class LinkServiceImpl implements LinkService {
 			String entity) {
 		return linkDao.findLinkPage(page, fromId, toId, entity);
 	}
+	
+	public Page<Link> getLinkPage(Page<Link> page, Project project, String entity) {
+		return linkDao.findLinkPage(page, project.getId(), null, entity);
+	}
+	
+	public Page<Link> getLinkPage(Page<Link> page, Project project) {
+		return linkDao.findLinkPage(page, project.getId(), null, null);
+	}
+	
 }

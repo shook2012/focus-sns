@@ -1,6 +1,7 @@
-package org.osforce.connect.service.commons;
+package org.osforce.connect.service.list;
 
-import org.osforce.connect.entity.commons.Link;
+import org.osforce.connect.entity.list.Link;
+import org.osforce.connect.entity.system.Project;
 import org.osforce.spring4me.dao.Page;
 
 /**
@@ -25,5 +26,9 @@ public interface LinkService {
 	Long countLinks(String type, Long toId, String entity);
 	
 	Page<Link> getLinkPage(Page<Link> page, Long fromId, Long toId, String entity);
+
+	Page<Link> getLinkPage(Page<Link> page, Project project, String entity);
+
+	Page<Link> getLinkPage(Page<Link> page, Project project);
 
 }

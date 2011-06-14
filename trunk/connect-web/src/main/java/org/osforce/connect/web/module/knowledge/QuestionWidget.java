@@ -5,17 +5,17 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.apache.commons.lang.StringUtils;
-import org.osforce.connect.entity.commons.Link;
 import org.osforce.connect.entity.commons.Statistic;
 import org.osforce.connect.entity.commons.Tag;
 import org.osforce.connect.entity.knowledge.Question;
+import org.osforce.connect.entity.list.Link;
 import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.entity.system.ProjectFeature;
 import org.osforce.connect.entity.system.User;
-import org.osforce.connect.service.commons.LinkService;
 import org.osforce.connect.service.commons.StatisticService;
 import org.osforce.connect.service.commons.TagService;
 import org.osforce.connect.service.knowledge.QuestionService;
+import org.osforce.connect.service.list.LinkService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.spring4me.dao.Page;
@@ -73,6 +73,7 @@ public class QuestionWidget {
 	@Permission({"question-view"})
 	public String doRecentView(Page<Question> page, 
 			@RequestAttr Project project, Model model) {
+		page.setPageNo(1);
 		page = questionService.getQuestionPage(page, project);
 		if(page.getResult().isEmpty()) {
 			return "commons/blank";

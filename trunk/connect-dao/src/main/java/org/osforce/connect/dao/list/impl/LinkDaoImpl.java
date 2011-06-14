@@ -1,7 +1,7 @@
-package org.osforce.connect.dao.commons.impl;
+package org.osforce.connect.dao.list.impl;
 
-import org.osforce.connect.dao.commons.LinkDao;
-import org.osforce.connect.entity.commons.Link;
+import org.osforce.connect.dao.list.LinkDao;
+import org.osforce.connect.entity.list.Link;
 import org.osforce.spring4me.dao.AbstractDao;
 import org.osforce.spring4me.dao.Page;
 import org.springframework.stereotype.Repository;
@@ -26,15 +26,24 @@ public class LinkDaoImpl extends AbstractDao<Link> implements LinkDao {
 		return findOne(JPQL0, fromId, toId, entity);
 	}
 	
-	static final String JPQL1 = "FROM Link AS l WHERE  l.entity = ?1 %s";
-	public Page<Link> findLinkPage(Page<Link> page, Long fromId, Long toId,
-			String entity) {
-		if(fromId!=null) {
-			return findPage(page, String.format(JPQL1, "AND l.from.id = ?2"), fromId);
-		} else if(toId!=null) {
-			return findPage(page, String.format(JPQL1, "AND l.toId = ?2"), toId);
+	static final String JPQL1 = "FROM Link AS l %s";
+	public Page<Link> findLinkPage(Page<Link> page, Long fromId, Long toId, String entity) {
+		if(entity==null) {
+			if(fromId!=null) {
+				return findPage(page, String.format(JPQL1, "WHERE l.from.id = ?1"), fromId);
+			} else {
+				return findPage(page, String.format(JPQL1, ""));
+			}
+		} else {
+			if(fromId!=null && toId!=null) {
+				return findPage(page, String.format(JPQL1, "WHERE l.from.id = ?1 AND l.toId = ?2 AND l.entity = ?3"), fromId, toId, entity);
+			} else if(fromId!=null) {
+				return findPage(page, String.format(JPQL1, "WHERE l.from.id = ?1 AND l.entity = ?2"), fromId, entity);
+			} else if(toId!=null) {
+				return findPage(page, String.format(JPQL1, "WHERE l.toId = ?1 AND l.entity = ?2"), toId, entity);
+			}
+			return findPage(page, String.format(JPQL1, "WHERE l.entity = ?1"), entity);
 		}
-		return null;
 	}
 
 	static final String JPQL2 = "SELECT COUNT(*) FROM Link AS l WHERE l.entity = ?1 %s";

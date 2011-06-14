@@ -349,7 +349,7 @@ public class RouteController {
 	}
 	
 	@RequestMapping(value={"/{uniqueId}/message/{box}/{mode}"}, method=RequestMethod.GET)
-	public String route301(@PathVariable String uniqueId, 
+	public String route302(@PathVariable String uniqueId, 
 			@PathVariable String box, @PathVariable String mode, WebRequest webRequest) {
 		webRequest.setAttribute(AttributeKeys.PROJECT_UNIQUE_KEY_READABLE, 
 				uniqueId, WebRequest.SCOPE_REQUEST);
@@ -381,5 +381,15 @@ public class RouteController {
 	}
 	
 	//  ---------------------------------------------- Admin Module -------------------------------------------------  //
-	
+
+	//  ---------------------------------------------- List Module -------------------------------------------------  //
+	@RequestMapping(value={"/{uniqueId}/list"})
+	public String route320(@PathVariable String uniqueId, WebRequest webRequest) {
+		webRequest.setAttribute(AttributeKeys.PROJECT_UNIQUE_KEY_READABLE, 
+				uniqueId, WebRequest.SCOPE_REQUEST);
+		webRequest.setAttribute(AttributeKeys.FEATURE_CODE_KEY_READABLE, 
+				ProjectFeature.FEATURE_LIST, WebRequest.SCOPE_REQUEST);
+		return "page:/list/link-list";
+	}
+	//  ---------------------------------------------- List Module -------------------------------------------------  //
 }

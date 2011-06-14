@@ -51,7 +51,6 @@ public class Post extends IdEntity {
 	private Date modified;
 	private Boolean enabled;	// 标记是否为草稿
 	private Boolean top = false;
-
 	// helper
 	private String shortContent;
 	private Long categoryId;
@@ -60,7 +59,7 @@ public class Post extends IdEntity {
 	private Long modifiedId;
 	private Long views = 0L;
 	private Long commentNumber;
-
+	private Long favorite;
 	// refer
 	private PostCategory category;
 	private Project project;
@@ -210,6 +209,15 @@ public class Post extends IdEntity {
 
 	public void setCommentNumber(Long commentNumber) {
 		this.commentNumber = commentNumber;
+	}
+	
+	@Transient
+	public Long getFavorite() {
+		return favorite;
+	}
+	
+	public void setFavorite(Long favorite) {
+		this.favorite = favorite;
 	}
 
 	@ManyToOne(fetch=FetchType.LAZY)

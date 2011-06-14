@@ -26,6 +26,11 @@
 					</@security>
 					<a href="${base}/${project.uniqueId}/blog/post/detail?postId=${post.id}#comments-list" class="comments">评论(${post.commentNumber})</a>
 					<span class="date">${post.entered?string('yyyy/M/d')}</span>
+					<#if user??>
+					<a class="ajaxAction" href="${base}/list/link/favorite?fromId=${user.project.id}&toId=${post.id}&entity=Post">收藏 (${post.favorite})</a>
+					<#else>
+					<a class="popupAction" href="${base}/app/user/login">收藏 (${post.favorite})</a>
+					</#if>
 				</div>
 			</li>
 			</#list>

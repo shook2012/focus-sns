@@ -21,9 +21,12 @@
 				</#if>
 				</a>
 				<div class="desc">
+					<div>
 					<a target="_blank" href="${base}/${member.user.project.uniqueId}/profile">
 						${member.user.project.title}
 					</a>
+					${member.role.name}
+					</div>
 					<div>注册日期: ${member.user.entered?string('yyyy/M/d')}</div>
 					<div>最近登录: ${member.user.lastLogin?string('yyyy/M/d HH:mm')}</div>
 					<div class="clear"></div>
