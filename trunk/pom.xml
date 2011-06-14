@@ -19,6 +19,17 @@
 		<url>http://www.opensourceforce.org</url>
 	</organization>
 
+	<distributionManagement>
+		<repository>
+			<id>releases</id>
+			<url>http://www.opensourceforce.org:8081/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<url>http://www.opensourceforce.org:8081/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 	<scm>
 		<connection>scm:svn:http://focus-sns.googlecode.com/svn/trunk/</connection>
 		<developerConnection>scm:svn:https://focus-sns.googlecode.com/svn/trunk/</developerConnection>
