@@ -21,16 +21,13 @@
 					<@security code="post-view">
 					<a href="${base}/${project.uniqueId}/blog/post/detail?postId=${post.id}" class="readmore">浏览(${post.views})</a>
 					</@security>
-					<@security code="post-edit">
-					<a href="${base}/${project.uniqueId}/blog/post/form?postId=${post.id}">编辑</a>
-					</@security>
 					<a href="${base}/${project.uniqueId}/blog/post/detail?postId=${post.id}#comments-list" class="comments">评论(${post.commentNumber})</a>
-					<span class="date">${post.entered?string('yyyy/M/d')}</span>
 					<#if user??>
 					<a class="ajaxAction" href="${base}/list/link/favorite?fromId=${user.project.id}&toId=${post.id}&entity=Post">收藏 (${post.favorite})</a>
 					<#else>
 					<a class="popupAction" href="${base}/app/user/login">收藏 (${post.favorite})</a>
 					</#if>
+					<span class="date">${post.entered?string('yyyy/M/d')}</span>
 				</div>
 			</li>
 			</#list>
