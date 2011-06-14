@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page>
+	<placeholder name="leftColumn">
+		<widget name="systemWidget" path="/system/menu-view">
+			<title>系统菜单</title>
+		</widget>
+	</placeholder>
+	<placeholder name="mainColumn">
+		<widget name="roleWidget" path="/system/role/list-view">
+			<title>角色列表</title>
+		</widget>
+	</placeholder>
+</page>

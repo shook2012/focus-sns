@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page parent="parent/global">
+	<placeholder name="leftColumn">
+		<widget name="memberWidget" path="/system/menu/custom-menu">
+			<prefs>
+				<menuPath>team/menu</menuPath>
+				<userRequired>true</userRequired>
+			</prefs>
+		</widget>
+	</placeholder>
+	<placeholder name="mainColumn">
+		<widget name="memberWidget" path="/team/member/list-view">
+			<title>成员列表</title>
+		</widget>
+	</placeholder>
+</page>
