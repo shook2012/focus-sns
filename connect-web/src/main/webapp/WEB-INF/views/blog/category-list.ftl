@@ -11,7 +11,7 @@
 			<#list categories as category>
 			<li>
 				<a href="${base}/${project.uniqueId}/blog/post/list?categoryId=${category.id}">${category.label}</a>
-				<@security code="post-category-edit">
+				<@security code="post-category-edit" userRequired="true">
 				(<a href="${base}/${project.uniqueId}/blog/category/form?categoryId=${category.id}">编辑</a>)
 				</@security>
 			</li>	

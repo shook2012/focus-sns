@@ -4,16 +4,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
 import org.osforce.connect.entity.system.Project;
+import org.osforce.connect.entity.system.ProjectCategory;
 import org.osforce.connect.entity.system.Site;
 import org.osforce.connect.entity.system.User;
 import org.osforce.connect.entity.team.TeamMember;
+import org.osforce.connect.service.system.ProjectCategoryService;
 import org.osforce.connect.service.system.ProjectService;
 import org.osforce.connect.service.system.SiteService;
 import org.osforce.connect.service.system.UserService;
 import org.osforce.connect.service.team.MemberService;
 import org.osforce.connect.web.AttributeKeys;
+import org.osforce.connect.web.route.RouteController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
@@ -29,6 +34,7 @@ public class ObjectExposeInterceptor extends HandlerInterceptorAdapter {
 	private UserService userService;
 	private ProjectService projectService;
 	private MemberService memberService;
+	private ProjectCategoryService categoryService;
 	
 	public ObjectExposeInterceptor() {
 	}
@@ -51,6 +57,11 @@ public class ObjectExposeInterceptor extends HandlerInterceptorAdapter {
 	@Autowired
 	public void setMemberService(MemberService memberService) {
 		this.memberService = memberService;
+	}
+	
+	@Autowired
+	public void setCategoryService(ProjectCategoryService categoryService) {
+		this.categoryService = categoryService;
 	}
 	
 	@Override
@@ -76,6 +87,16 @@ public class ObjectExposeInterceptor extends HandlerInterceptorAdapter {
 		return true;
 	}
 	
+	@Override
+	public void postHandle(HttpServletRequest request,
+			HttpServletResponse response, Object handler,
+			ModelAndView modelAndView) throws Exception {
+		//
+		exposeQualifier(request, handler);
+		//
+		exposeProjectCategory(request, handler);
+	}
+	
 	protected void exposeContextPath(HttpServletRequest request) {
 		request.setAttribute(AttributeKeys.BASE_KEY_READABLE, request.getContextPath());
 	}
@@ -94,6 +115,7 @@ public class ObjectExposeInterceptor extends HandlerInterceptorAdapter {
 			Site site = siteService.getSite(domain);
 			request.setAttribute(AttributeKeys.SITE_KEY, site);
 			request.setAttribute(AttributeKeys.SITE_KEY_READABLE, site);
+			request.setAttribute(AttributeKeys.SITE_DOMAIN_KEY_READABLE, domain);
 		}
 	}
 	// TODO FIXME
@@ -122,6 +144,24 @@ public class ObjectExposeInterceptor extends HandlerInterceptorAdapter {
 		}
 	}
 	
+	protected void exposeProjectCategory(HttpServletRequest request, Object handler) {
+		if(handler instanceof RouteController) {
+			String categoryIdStr = request.getParameter("categoryId");
+			Project project = (Project) request.getAttribute(AttributeKeys.PROJECT_KEY);
+			Site site = (Site) request.getAttribute(AttributeKeys.SITE_KEY);
+			String categoryCode = (String) request.getAttribute("categoryCode");
+			ProjectCategory currentCategory = null;
+			if(StringUtils.isNotBlank(categoryIdStr)) {
+				currentCategory = categoryService.getProjectCategory(NumberUtils.createLong(categoryIdStr));
+			} else if(StringUtils.isNotBlank(categoryCode)) {
+				currentCategory = categoryService.getProjectCategory(site, categoryCode);
+			} else if(project!=null) {
+				currentCategory = project.getCategory();
+			}
+			request.setAttribute(AttributeKeys.PROJECT_CATEGORY_CURRENT_KEY_READABLE, currentCategory);
+		}
+	}
+	
 	protected void exposeMember(HttpServletRequest request) {
 		Project project = (Project) request.getAttribute(AttributeKeys.PROJECT_KEY);
 		User user = (User) request.getAttribute(AttributeKeys.USER_KEY);
@@ -130,6 +170,29 @@ public class ObjectExposeInterceptor extends HandlerInterceptorAdapter {
 					user.getId(), project.getId(), Boolean.TRUE);
 			request.setAttribute(AttributeKeys.TEAM_MEMBER_KEY, member);
 			request.setAttribute(AttributeKeys.TEAM_MEMBER_KEY_READABLE, member);
+		}
+	}
+	
+	protected void exposeQualifier(HttpServletRequest request, Object handler) {
+		if(handler instanceof RouteController) {
+			// expose qualifier
+			String uniqueId = (String) request.getAttribute(AttributeKeys.PROJECT_UNIQUE_KEY_READABLE);
+			if(uniqueId==null) {
+				uniqueId = request.getParameter(AttributeKeys.PROJECT_UNIQUE_KEY_READABLE);
+			}
+			if(StringUtils.isNotBlank(uniqueId)) {
+				Project project = projectService.getProject(uniqueId);
+				request.setAttribute("qualifier", project.getCategory().getCode());
+			}
+			String categoryCode = (String) request.getAttribute("categoryCode");
+			if(StringUtils.isNotBlank(categoryCode)) {
+				request.setAttribute("qualifier", categoryCode);
+			}
+			String categoryIdStr = request.getParameter("categoryId");
+			if(StringUtils.isNotBlank(categoryIdStr)) {
+				ProjectCategory category = categoryService.getProjectCategory(NumberUtils.createLong(categoryIdStr));
+				request.setAttribute("qualifier", category.getCode());
+			}
 		}
 	}
 	

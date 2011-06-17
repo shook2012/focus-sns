@@ -40,15 +40,15 @@
 					<td>${file.entered!''}</td>
 					<td>${file.modified}</td>
 					<td>
-						<@security code="file-edit">
+						<@security code="file-edit" userRequired="true">
 						<a href="${base}/${project.uniqueId}/document/file/form?fileId=${file.id}">编辑</a>
-						</@security>
-						<@security code="file-edit">  
 						|
+						</@security>
+						<@security code="file-edit" userRequired="true">  
 						<a href="${base}/document/file/delete-action?fileId=${file.id}">删除</a>
+						|
 						</@security>
 						<@security code="file-download">
-						|
 						<a href="${base}/commons/attachment/download?id=${file.realFileId}" target="_blank">下载</a>
 						</@security>
 					</td>

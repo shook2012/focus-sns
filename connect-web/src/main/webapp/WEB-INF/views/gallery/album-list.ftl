@@ -18,7 +18,7 @@
 					</a>	
 				</#list>
 			<#else>
-				<a <@security code="photo-add|photo-edit">href="${base}/${project.uniqueId}/gallery/photo/form?albumId=${album.id}"</@security> title="${album.name}">
+				<a <@security code="photo-add|photo-edit" userRequired="true">href="${base}/${project.uniqueId}/gallery/photo/form?albumId=${album.id}"</@security> title="${album.name}">
 					<img src="${base}/static/images/nophoto.jpg" width="150" height="150"/>	
 				</a>
 			</#if>

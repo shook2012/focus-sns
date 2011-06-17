@@ -116,6 +116,11 @@ ul li {
 	padding: 0;
 	list-style: none;
 }
+.site-copyright {
+	text-align: center;	
+}
+
+
 .widget .head {
 	border-bottom: 1px solid #666;
 	height: 34px;

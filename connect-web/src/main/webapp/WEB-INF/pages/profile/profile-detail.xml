@@ -24,7 +24,7 @@
 			</prefs>
 		</widget>
 		<widget name="memberWidget" path="/team/member/info-view">
-			<title>好友请求</title>
+			<title>邀请</title>
 		</widget>
 		<widget name="questionWidget" path="/knowledge/question/recent-view">
 			<title>最新提问</title>

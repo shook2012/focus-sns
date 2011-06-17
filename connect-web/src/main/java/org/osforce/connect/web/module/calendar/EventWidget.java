@@ -1,6 +1,7 @@
 package org.osforce.connect.web.module.calendar;
 
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +18,7 @@ import org.osforce.connect.service.calendar.EventService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.spring4me.dao.Page;
+import org.osforce.spring4me.web.bind.annotation.PrefParam;
 import org.osforce.spring4me.web.bind.annotation.RequestAttr;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +48,16 @@ public class EventWidget {
 	@Autowired
 	public void setEventService(EventService eventService) {
 		this.eventService = eventService;
+	}
+	
+	@RequestMapping("/upcoming-view")
+	public String doUpcomingView(Page<Event> page, 
+			@PrefParam String categoryCodes, Model model) {
+		page.asc("e.start");
+		List<String> codes = Arrays.asList(StringUtils.split(categoryCodes, ","));
+		page = eventService.getEventPage(page, codes, new Date());
+		model.addAttribute(AttributeKeys.PAGE_KEY_READABLE, page);
+		return "calendar/event-upcoming";
 	}
 
 	@RequestMapping("/recent-view")

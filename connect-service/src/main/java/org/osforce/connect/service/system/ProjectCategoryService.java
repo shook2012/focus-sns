@@ -36,7 +36,6 @@ public interface ProjectCategoryService {
 
 	List<ProjectCategory> getProjectCategoryList(Long siteId, Long parentId);
 
-	List<ProjectCategory> getSiblingProjectCategoryList(Long siteId,
-			Long categoryId);
+	List<ProjectCategory> getSiblingProjectCategoryList(Long siteId, Long categoryId);
 
 }

@@ -28,7 +28,7 @@
 			<ul>
 			<#list events as event>
 				<li <#if !event_has_next>class="last"</#if> >
-					<@security code="event-edit">
+					<@security code="event-edit" userRequired="true">
 					<span class="right">
 						<a href="${base}/${project.uniqueId}/calendar/event/form?eventId=${event.id}">编辑</a>
 					</span>

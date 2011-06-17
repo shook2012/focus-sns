@@ -1,4 +1,4 @@
-<@security code="post-add|post-category-add">
+<@security code="post-add|post-category-add" userRequired="true">
 <div id="${widgetConfig.id}" class="widget">
 	<#if widgetConfig.title??>
 	<div class="head">
@@ -7,12 +7,12 @@
 	</#if>
 	<div class="body">
 		<ul class="actions">
-			<@security code="post-add" >
+			<@security code="post-add" userRequired="true">
 			<li>
 				<a href="${base}/${project.uniqueId}/blog/post/form">添加博文</a>
 			</li>
 			</@security>
-			<@security code="post-category-add">
+			<@security code="post-category-add" userRequired="true">
 			<li>
 				<a href="${base}/${project.uniqueId}/blog/category/form">添加分类</a>
 			</li>

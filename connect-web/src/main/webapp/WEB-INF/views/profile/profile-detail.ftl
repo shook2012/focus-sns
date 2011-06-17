@@ -15,7 +15,7 @@
 			<dl>
 				<dd>
 				${profile.shortDescription!''}
-				<@security code="profile-edit">
+				<@security code="profile-edit" userRequired="true">
 					(<a href="${base}/${project.uniqueId}/profile/form?profileId=${profile.id}">编辑简介</a>)
 				</@security>
 				</dd>

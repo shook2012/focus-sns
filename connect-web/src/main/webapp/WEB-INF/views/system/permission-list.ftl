@@ -15,7 +15,7 @@
 			<span>当前分类：</span>
 			<select id="select-category${widgetConfig.id}" name="categoryId">
 				<#list categories as category>
-				<option value="${category.id}" <#if RequestParameters.categoryId?? && category.id == RequestParameters.categoryId>selected="selected"</#if>>${category.label}</option>
+				<option value="${category.id}" <#if RequestParameters.categoryId?? && category.id == (RequestParameters.categoryId?number)>selected="selected"</#if>>${category.label}</option>
 				</#list>
 			</select>
 		</div>
@@ -35,7 +35,7 @@
 				<#assign permission = resourceMap[resource.code] />
 				</#if>
 				<tr>
-					<td>${resource.id}</td>
+					<td>${permission.id!'-1'}</td>
 					<td>${resource.name}</td>
 					<td>${resource.code}</td>
 					<td>

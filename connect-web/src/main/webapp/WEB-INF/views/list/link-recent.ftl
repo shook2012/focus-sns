@@ -15,6 +15,7 @@
 				<#elseif link.entity=='Topic'>
 				<a href="${base}/${link.linkedEntity.forum.project.uniqueId}/discussion/reply/list?topicId=${link.toId}">${link.linkedEntity.subject}</a>
 				</#if>
+				收藏于 <@prettyTime date=link.entered />
 			</li>
 			</#list>
 		</ul>

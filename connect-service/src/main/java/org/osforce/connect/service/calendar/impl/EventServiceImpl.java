@@ -91,6 +91,10 @@ public class EventServiceImpl implements EventService {
 		return eventDao.findEventList(projectId, start, end);
 	}
 	
+	public Page<Event> getEventPage(Page<Event> page, List<String> categoryCodes, Date start) {
+		return eventDao.findEventPage(page, categoryCodes, start);
+	}
+	
 	public Page<Event> getEventPage(Page<Event> page, Long projectId, Date start) {
 		return eventDao.findEventPage(page, projectId, start);
 	}

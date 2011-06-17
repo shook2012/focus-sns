@@ -1,5 +1,7 @@
 package org.osforce.connect.service.list;
 
+import java.util.List;
+
 import org.osforce.connect.entity.list.Link;
 import org.osforce.connect.entity.system.Project;
 import org.osforce.spring4me.dao.Page;
@@ -29,6 +31,6 @@ public interface LinkService {
 
 	Page<Link> getLinkPage(Page<Link> page, Project project, String entity);
 
-	Page<Link> getLinkPage(Page<Link> page, Project project);
+	Page<Link> getLinkPage(Page<Link> page, Project project, List<String> linkTypes);
 
 }

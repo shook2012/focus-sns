@@ -1,5 +1,7 @@
 package org.osforce.connect.service.blog;
 
+import java.util.List;
+
 import org.osforce.connect.entity.blog.Post;
 import org.osforce.spring4me.dao.Page;
 
@@ -30,5 +32,7 @@ public interface PostService {
 	 * @return
 	 */
 	Page<Post> getPostPage(Page<Post> page, Long projectId, Long categoryId);
+
+	Page<Post> getPostPage(Page<Post> page, List<String> categoryCodes);
 
 }

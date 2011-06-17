@@ -50,9 +50,3 @@
 		</form:form>
 	</div>
 </div>
-
-<script type="text/javascript">
-$(document).ready(function(){
-	$('#${id} #content').htmlarea(settings.simple);
-});
-</script>

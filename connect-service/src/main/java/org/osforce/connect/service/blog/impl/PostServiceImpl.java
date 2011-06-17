@@ -1,6 +1,7 @@
 package org.osforce.connect.service.blog.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.osforce.connect.dao.blog.PostCategoryDao;
 import org.osforce.connect.dao.blog.PostDao;
@@ -102,4 +103,9 @@ public class PostServiceImpl implements PostService {
 			Long projectId, Long categoryId) {
 		return postDao.findPostList(page, projectId, categoryId);
 	}
+	
+	public Page<Post> getPostPage(Page<Post> page, List<String> categoryCodes) {
+		return postDao.findPostPage(page, categoryCodes);
+	}
+	
 }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages>
+	<page parent="parent/global">
+		<placeholder name="leftColumn">
+			<widget name="profileSearchWidget" path="/search/profile/form-view">
+				<title>搜索</title>
+			</widget>
+		</placeholder>
+		<placeholder name="mainColumn">
+			<widget name="profileSearchWidget" path="/search/profile/result-view">
+				<title>搜索结果</title>
+			</widget>
+		</placeholder>
+	</page>
+	
+	<page parent="parent/global" qualifier="people">
+		<placeholder name="leftColumn">
+			<widget name="profileSearchWidget" path="/search/profile/form-view">
+				<title>搜索</title>
+			</widget>
+		</placeholder>
+		<placeholder name="mainColumn">
+			<widget name="profileSearchWidget" path="/search/profile/result-view">
+				<title>搜索结果</title>
+			</widget>
+		</placeholder>
+	</page>
+
+	<page parent="parent/global" qualifier="groups">
+		<placeholder name="leftColumn">
+			<widget name="profileSearchWidget" path="/search/profile/form-view">
+				<title>搜索</title>
+			</widget>
+		</placeholder>
+		<placeholder name="mainColumn">
+			<widget name="profileSearchWidget" path="/search/profile/result-view">
+				<title>搜索结果</title>
+			</widget>
+		</placeholder>
+	</page>
+</pages>

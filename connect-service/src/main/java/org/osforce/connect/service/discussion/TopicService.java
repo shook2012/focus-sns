@@ -1,5 +1,7 @@
 package org.osforce.connect.service.discussion;
 
+import java.util.List;
+
 import org.osforce.connect.entity.discussion.Topic;
 import org.osforce.connect.entity.system.Project;
 import org.osforce.spring4me.dao.Page;
@@ -39,5 +41,7 @@ public interface TopicService {
 	 * @return
 	 */
 	Page<Topic> getTopicPage(Page<Topic> page, Long forumId);
+
+	Page<Topic> getTopicPage(Page<Topic> page, List<String> categoryCodes);
 }
 

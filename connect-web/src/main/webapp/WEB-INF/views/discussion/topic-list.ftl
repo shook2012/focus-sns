@@ -15,7 +15,7 @@
 			<li>
 				<span class="top right">${topic.views} 阅</span>
 				<a href="${base}/${topic.forum.project.uniqueId}/discussion/reply/list?topicId=${topic.id}">${topic.subject}</a>
-				作者
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<a href="${base}/${topic.enteredBy.project.uniqueId}/profile">${topic.enteredBy.nickname}</a>
 				发表于
 				${topic.entered?string('yyyy-MM-dd HH:mm')}

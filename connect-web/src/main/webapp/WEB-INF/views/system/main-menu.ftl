@@ -11,11 +11,11 @@
 					<span>主页<span>
 				</a>
 			</li>
-			<#if menuitems?? && menuitems?size gt 0>
-			<#list menuitems as menuitem>
-			<li>
-				<a href="${base}/${menuitem.code}">
-					<span>${menuitem.label}</span>
+			<#if categories?? && categories?size gt 0>
+			<#list categories as category>
+			<li <#if currentCategory?? && currentCategory.id=category.id>class="active"</#if>>
+				<a href="${base}/${category.code}">
+					<span>${category.label}</span>
 				</a>
 			</li>
 			</#list>

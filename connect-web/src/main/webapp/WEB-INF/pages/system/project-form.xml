@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages>
+	<page parent="parent/global" qualifier="groups">
+		<placeholder name="leftColumn">
+		</placeholder>
+		<placeholder name="mainColumn">
+			<widget name="projectWidget" path="/system/project/form-view">
+				<title>圈子编辑</title>
+				<prefs>
+					<categoryCode>groups</categoryCode>
+					<templateCode>groups-features</templateCode>
+				</prefs>
+			</widget>
+		</placeholder>
+	</page>
+</pages>

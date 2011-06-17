@@ -51,7 +51,7 @@
 			<div>
 				<label for="copyright">网站版权</label>
 				<br/>
-				<@spring.formTextarea path="site.copyright"/>
+				<@spring.formTextarea path="site.copyright" attributes='class="xheditor-simple"'/>
 			</div>
 			<div>
 				<label for="theme">网站主题</label>

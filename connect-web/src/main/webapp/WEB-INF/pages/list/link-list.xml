@@ -8,6 +8,9 @@
 	<placeholder name="rightColumn">
 		<widget name="menuWidget" path="/list/link/recent-view">
 			<title>最近收藏</title>
+			<prefs>
+				<linkTypes>favorite</linkTypes>
+			</prefs>
 		</widget>
 	</placeholder>
 </page>

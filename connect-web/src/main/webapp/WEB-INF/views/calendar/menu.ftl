@@ -1,4 +1,4 @@
-<@security code="event-add">
+<@security code="event-add" userRequired="true">
 <div id="${widgetConfig.id}" class="widget">
 	<#if widgetConfig.title??>
 	<div class="head">
@@ -7,7 +7,7 @@
 	</#if>
 	<div class="body">
 		<ul class="actions">
-			<@security code="event-add">
+			<@security code="event-add" userRequired="true">
 			<li>
 				<a href="${base}/${project.uniqueId}/calendar/event/form">添加日程</a>
 			</li>
