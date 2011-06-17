@@ -9,7 +9,7 @@
 				<h3>${question.title}</h3>
 				<div>
 					<span class="right">
-						<@security code="question-edit">
+						<@security code="question-edit" userRequired="true">
 						<a href="${base}/${project.uniqueId}/knowledge/question/form?questionId=${question.id}">编辑</a>
 						</@security>
 					</span>

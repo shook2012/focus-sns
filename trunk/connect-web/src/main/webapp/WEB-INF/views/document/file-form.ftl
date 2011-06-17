@@ -55,10 +55,10 @@
 								<#else>${file.realFile.name}</#if>
 							</td>
 							<td>
-								<@security code="file-edit">
+								<@security code="file-edit" userRequired="true">
 								<a href="${base}/${project.uniqueId}/document/file/form?fileId=${file.id}">编辑</a>
 								</@security>
-								<@security code="file-edit">  
+								<@security code="file-edit" userRequired="true">  
 								|
 								<a href="${base}/document/file/delete-action?fileId=${file.id}">删除</a>
 								</@security>

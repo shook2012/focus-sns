@@ -45,6 +45,7 @@ import org.osforce.spring4me.dao.Page;
 public  abstract  class AttributeKeys {
 
 	public static final String BASE_KEY_READABLE = "base";
+	public static final String SITE_DOMAIN_KEY_READABLE = "domain";
 	public static final String FEATURE_CODE_KEY_READABLE = "featureCode";
 	public static final String CUSTOM_ATTRIBUTES_KEY_READABLE = "customAttributes";
 	public static final String TOTAL_COUNT_KEY_READABLE = "totalCount";
@@ -83,6 +84,7 @@ public  abstract  class AttributeKeys {
 	
 	public static final String PROJECT_CATEGORY_KEY = "_" + ProjectCategory.class.getName();
 	public static final String PROJECT_CATEGORY_KEY_READABLE = "category";
+	public static final String PROJECT_CATEGORY_CURRENT_KEY_READABLE = "currentCategory";
 	public static final String PROJECT_CATEGORY_LIST_KEY_READABLE = "categories";
 	
 	public static final String MAIL_SETTINGS_KEY = "_" + MailSettings.class.getName();

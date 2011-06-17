@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page path="/register">
+	<placeholder name="mainColumn">
+		<widget name="userWidget" path="/system/user/register-view">
+			<title>用户注册</title>
+			<prefs>
+				<categoryCode>people</categoryCode>
+				<templateCode>people-features</templateCode>
+			</prefs>
+		</widget>
+	</placeholder>
+</page>

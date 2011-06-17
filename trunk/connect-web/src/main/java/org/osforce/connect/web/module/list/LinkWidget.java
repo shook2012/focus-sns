@@ -1,6 +1,8 @@
 package org.osforce.connect.web.module.list;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.osforce.connect.entity.blog.Post;
@@ -83,12 +85,10 @@ public class LinkWidget {
 	@RequestMapping("/recent-view")
 	@Permission(value={"link-view"}, projectRequired=true)
 	public String doRecentView(Page<Link> page, Model model,
-			@RequestAttr Project project) {
+			@RequestAttr Project project, @PrefParam String linkTypes) {
 		page.desc("l.entered");
-		page = linkService.getLinkPage(page, project);
-		if(page.getResult().isEmpty()) {
-			return "commons/blank";
-		}
+		List<String> types = Arrays.asList(StringUtils.split(linkTypes, ","));
+		page = linkService.getLinkPage(page, project, types);
 		associateLinkedEntity(page);
 		model.addAttribute(AttributeKeys.PAGE_KEY_READABLE, page);
 		return "list/link-recent";

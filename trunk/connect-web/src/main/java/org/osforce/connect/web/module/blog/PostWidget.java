@@ -1,11 +1,13 @@
 package org.osforce.connect.web.module.blog;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang.StringUtils;
 import org.osforce.connect.entity.blog.Post;
 import org.osforce.connect.entity.blog.PostCategory;
 import org.osforce.connect.entity.commons.Statistic;
@@ -21,6 +23,7 @@ import org.osforce.connect.service.list.LinkService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.spring4me.dao.Page;
+import org.osforce.spring4me.web.bind.annotation.PrefParam;
 import org.osforce.spring4me.web.bind.annotation.RequestAttr;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,13 +96,15 @@ public class PostWidget {
 	}
 	
 	@RequestMapping("/recent-view")
-	@Permission({"post-view"})
 	public String doRecentView(Page<Post> page, 
-			@RequestAttr Project project, Model model) {
+			@PrefParam(required=false) String categoryCodes, @RequestAttr Project project, Model model) {
 		page.setPageNo(1);
-		page = postService.getPostPage(page, project.getId(), null);
-		if(page.getResult().isEmpty()) {
-			return "commons/blank";
+		page.desc("p.entered");
+		if(StringUtils.isNotBlank(categoryCodes)) {
+			List<String> codes = Arrays.asList(StringUtils.split(categoryCodes, ","));
+			page = postService.getPostPage(page, codes);
+		} else if(project!=null) {
+			page = postService.getPostPage(page, project.getId(), null);
 		}
 		for(Post post : page.getResult()) {
 			Statistic statistic = statisticService.getStatistic(Statistic.TYPE_VIEW, post.getId(), Post.NAME);

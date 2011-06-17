@@ -1,5 +1,7 @@
 package org.osforce.connect.service.knowledge;
 
+import java.util.List;
+
 import org.osforce.connect.entity.knowledge.Question;
 import org.osforce.connect.entity.system.Project;
 import org.osforce.spring4me.dao.Page;
@@ -32,4 +34,7 @@ public interface QuestionService {
 
 	Page<Question> getQuestionPage(Page<Question> page, Project project,
 			String questionOrder);
+
+	Page<Question> getQuestionPage(Page<Question> page, List<String> categoryCodes);
+	
 }

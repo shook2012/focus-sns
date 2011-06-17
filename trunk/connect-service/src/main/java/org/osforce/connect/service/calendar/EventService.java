@@ -26,6 +26,8 @@ public interface EventService {
 	List<Event> getEventList(Date start, Date end);
 	
 	List<Event> getEventList(Long projectId, Date start, Date end);
+	
+	Page<Event> getEventPage(Page<Event> page, List<String> categoryCodes, Date start);
 
 	Page<Event> getEventPage(Page<Event> page, Long projectId, Date start);
 

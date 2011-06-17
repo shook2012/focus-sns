@@ -13,8 +13,12 @@
 			<li class="forum">
 				<div class="forum-head">
 					<span class="top right">
+						<@security code="topic-add" userRequired="true">
 						<a href="${base}/${project.uniqueId}/discussion/topic/form?forumId=${forum.id}">发表话题</a>
+						</@security>
+						<@security code="forum-edit" userRequired="true">
 						<a href="${base}/${project.uniqueId}/discussion/forum/form?forumId=${forum.id}">编辑</a>
+						</@security>
 					</span>
 					<h3><a href="${base}/${project.uniqueId}/discussion/topic/list?forumId=${forum.id}">${forum.name}</a></h3>
 				</div>

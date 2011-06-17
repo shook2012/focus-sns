@@ -1,4 +1,4 @@
-<@security code="album-add|photo-add">
+<@security code="album-add|photo-add" userRequired="true">
 <div id="${widgetConfig.id}" class="widget">
 	<#if widgetConfig.title??>
 	<div class="head">
@@ -7,10 +7,10 @@
 	</#if>
 	<div class="body">
 		<ul class="actions">
-			<@security code="album-add">
+			<@security code="album-add" userRequired="true">
 			<li><a href="${base}/${project.uniqueId}/gallery/album/form">添加相册</a></li>
 			</@security>
-			<@security code="photo-add">
+			<@security code="photo-add" userRequired="true">
 			<li><a href="${base}/${project.uniqueId}/gallery/photo/form">上传相片</a></li>
 			</@security>
 		</ul>

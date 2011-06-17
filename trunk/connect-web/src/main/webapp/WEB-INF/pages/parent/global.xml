@@ -12,4 +12,7 @@
 	<placeholder name="subMenu1">
 		<widget name="projectWidget" path="/system/project/title-view"/>		
 	</placeholder>
+	<placeholder name="copyright">
+		<widget name="siteWidget" path="/system/site/copyright-view"/>
+	</placeholder>
 </page>

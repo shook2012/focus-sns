@@ -54,8 +54,6 @@ public class EventNotifyEmailTask extends AbstractEmailTask {
 				configuration.getTemplate(TEMPLATE_EVENT_NOTIFY_CONTENT), context);
 		helper.setSubject(subject);
 		helper.setText(content, true);
-		helper.addTo(event.getEnteredBy().getNickname(), 
-				event.getEnteredBy().getEmail());
-		// TODO add members to event notification list
+		helper.addTo(event.getEnteredBy().getEmail(), event.getEnteredBy().getNickname());
 	}
 }

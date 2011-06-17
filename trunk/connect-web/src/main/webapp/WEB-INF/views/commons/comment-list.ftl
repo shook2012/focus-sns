@@ -41,7 +41,7 @@
 		<form id="comment-form${id}" class="comment-form"
 			action="${base}/commons/comment/form-action" method="post">
 			<#if !user??>
-				<p>添加评论，请先<a href="${base}/app/login/form" class="loginAction">登录</a></p>
+				<p>添加评论，请先<a href="${base}/app/user/login" class="popupAction">登录</a></p>
 			<#else>
 				<div>
 					<label>评论内容:</label>

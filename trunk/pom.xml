@@ -49,7 +49,7 @@
 		<hibernate.search.version>3.3.0.Final</hibernate.search.version>
 		<aspectj.version>1.6.10</aspectj.version>
 		<slf4j.version>1.6.1</slf4j.version>
-		<spring4me.version>0.2.1</spring4me.version>
+		<spring4me.version>0.2.2-SNAPSHOT</spring4me.version>
 	</properties>
 
 	<dependencies>

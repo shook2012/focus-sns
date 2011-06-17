@@ -8,7 +8,7 @@
 	</#if>
 	<div class="body">
 		<span class="right">
-			<@security code="post-edit">
+			<@security code="post-edit" userRequired="true">
 			<a href="${base}/${project.uniqueId}/blog/post/form?postId=${post.id}">编辑</a>
 			</@security>
 		</span>

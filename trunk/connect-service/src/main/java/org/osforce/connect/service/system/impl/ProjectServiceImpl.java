@@ -28,7 +28,7 @@ public class ProjectServiceImpl implements ProjectService {
 
 	private UserDao userDao;
 	private ProjectDao projectDao;
-	private ProjectCategoryDao projectCategoryDao;
+	private ProjectCategoryDao categoryDao;
 	
 	public ProjectServiceImpl() {
 	}
@@ -44,8 +44,8 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Autowired
-	public void setProjectCategoryDao(ProjectCategoryDao projectCategoryDao) {
-		this.projectCategoryDao = projectCategoryDao;
+	public void setCategoryDao(ProjectCategoryDao categoryDao) {
+		this.categoryDao = categoryDao;
 	}
 	
 	public Project getProject(Long projectId) {
@@ -58,21 +58,21 @@ public class ProjectServiceImpl implements ProjectService {
 
 	public void updateProject(Project project) {
 		if(project.getCategoryId()!=null) {
-			ProjectCategory category = projectCategoryDao.get(project.getCategoryId());
+			ProjectCategory category = categoryDao.get(project.getCategoryId());
 			project.setCategory(category);
 		}
 		if(project.getSubCategoryId1()!=null) {
-			ProjectCategory subCategory1 = projectCategoryDao
+			ProjectCategory subCategory1 = categoryDao
 					.get(project.getSubCategoryId1());
 			project.setSubCategory1(subCategory1);
 		}
 		if(project.getSubCategoryId2()!=null) {
-			ProjectCategory subCategory2 = projectCategoryDao
+			ProjectCategory subCategory2 = categoryDao
 					.get(project.getSubCategoryId2());
 			project.setSubCategory2(subCategory2);
 		}
 		if(project.getSubCategoryId3()!=null) {
-			ProjectCategory subCategory3 = projectCategoryDao
+			ProjectCategory subCategory3 = categoryDao
 					.get(project.getSubCategoryId3());
 			project.setSubCategory3(subCategory3);
 		}
@@ -100,7 +100,8 @@ public class ProjectServiceImpl implements ProjectService {
 	private void validateUniqueId(Project project) {
 		String uniqueId = project.getUniqueId();
 		Project persisted = projectDao.findProject(uniqueId);
-		if(persisted!=null && NumberUtils.compare(project.getId(), persisted.getId())==0) {
+		if(persisted!=null && (project.getId()==null || 
+				NumberUtils.compare(project.getId(), persisted.getId())==0)) {
 			Long count = projectDao.countProjects();
 			uniqueId += "-" + ++count;
 		}

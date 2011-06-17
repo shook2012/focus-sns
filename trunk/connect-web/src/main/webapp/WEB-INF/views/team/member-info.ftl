@@ -10,16 +10,14 @@
 		<ul class="members-info">
 			<#list needApprove as member>
 			<li>
-				<span class="span-2">
 				<a href="${base}/${member.user.project.uniqueId}/profile">
 					<#if member.user.project.profile.logo??>
-					<img class="thumbnail" src="${base}/logo/download/${member.user.project.profile.logo.id}/35x35"/>
+					<img class="left thumbnail" src="${base}/logo/download/${member.user.project.profile.logo.id}/30x30"/>
 					<#else>
-					<img class="thumbnail"src="${base}/themes/${theme}/stock/${member.user.project.category.code}.png" with="35" height="35"/>
+					<img class="left thumbnail" src="${base}/themes/${theme}/stock/${member.user.project.category.code}.png" with="30" height="30"/>
 					</#if>
 				</a>
-				</span>
-				<span class="span-4">
+				<div class="member-detail">
 					<div>
 						<a target="_blank" href="${base}/${member.user.project.uniqueId}/profile">
 							${member.user.project.title}
@@ -30,20 +28,19 @@
 						|
 						<a class="ajaxAction" href="#">拒绝</a>
 					</div>
-				</span>
-				<div class="clear"></div>
+				</div>
 			</li>
 			</#list>
 			<#list needAccept as member>
 			<li>
 				<a href="${base}/${member.user.project.uniqueId}/profile">
 					<#if member.project.profile.logo??>
-					<img class="thumbnail" src="${base}/logo/download/${member.project.profile.logo.id}/35x35"/>
+					<img class="left thumbnail" src="${base}/logo/download/${member.project.profile.logo.id}/30x30"/>
 					<#else>
-					<img class="thumbnail"src="${base}/themes/${theme}/stock/${member.project.category.code}.png" with="35" height="35"/>
+					<img class="left thumbnail"src="${base}/themes/${theme}/stock/${member.project.category.code}.png" with="30" height="30"/>
 					</#if>
 				</a>
-				<div class="desc">
+				<div class="member-detail">
 					<div>
 						<a target="_blank" href="${base}/${member.project.uniqueId}/profile">
 							${member.project.title}
@@ -54,7 +51,6 @@
 						|
 						<a class="ajaxAction" href="#">拒绝</a>
 					</div>
-					<div class="clear"></div>
 				</div>
 			</li>
 			</#list>

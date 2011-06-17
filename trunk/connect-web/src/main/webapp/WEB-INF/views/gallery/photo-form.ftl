@@ -46,10 +46,10 @@
 							<td>${photo.id}</td>
 							<td><#if photo.name?? && photo.name != ''>${photo.name}<#else>${photo.realFile.name}</#if></td>
 							<td>
-								<@security code="photo-edit">
+								<@security code="photo-edit" userRequired="true">
 								<a href="${base}/${project.uniqueId}/gallery/photo/form?photoId=${photo.id}">编辑</a>
 								</@security>
-								<@security code="photo-edit">  
+								<@security code="photo-edit" userRequired="true">  
 								|
 								<a href="${base}/${project.uniqueId}/gallery/photo/delete-action?photoId=${photo.id}">删除</a>
 								</@security>

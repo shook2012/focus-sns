@@ -17,8 +17,10 @@
 				~ 
 				${event.end}
 			</dd>
+			<#if event.description?? && event.description?trim!=''>
 			<dt>描述</dt>
 			<dd>${event.description}</dd>
+			</#if>
 			<#if event.url?? && event.url?trim!=''>
 			<dt>URL</dt>
 			<dd><a href="${event.url}">${event.url}</a></dd>

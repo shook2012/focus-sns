@@ -127,7 +127,7 @@ public class PermissionServiceImpl implements PermissionService {
 		Assert.notNull(project, "Parameter project can not be null!");
 		Assert.notNull(resource, "Parameter resource can not be null!");
 		//
-		int roleLevel = 50;
+		int roleLevel = Role.LEVEL_LOW;
 		if(user!=null) {
 			TeamMember member = memberDao.findMember(
 					project.getId(), user.getId(), Boolean.TRUE);

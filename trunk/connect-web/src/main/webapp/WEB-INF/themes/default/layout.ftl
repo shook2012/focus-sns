@@ -105,8 +105,9 @@
 			<@w.placeholder name="rightColumn" openWith='<div class="span-8 last right-column">' closeWith='</div>' />
 			<br class="clear"/>
 		</div>
-		
-		<@w.placeholder name="foot" openWith='<div id="foot">' closeWith='</div>'/>
+		<div id="foot">
+			<@w.placeholder name="copyright"/>		
+		</div>
 	</div>
 </body>
 </html>

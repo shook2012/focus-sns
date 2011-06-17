@@ -1,6 +1,7 @@
 package org.osforce.connect.service.list.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.osforce.connect.dao.list.LinkDao;
 import org.osforce.connect.dao.system.ProjectDao;
@@ -83,8 +84,8 @@ public class LinkServiceImpl implements LinkService {
 		return linkDao.findLinkPage(page, project.getId(), null, entity);
 	}
 	
-	public Page<Link> getLinkPage(Page<Link> page, Project project) {
-		return linkDao.findLinkPage(page, project.getId(), null, null);
+	public Page<Link> getLinkPage(Page<Link> page, Project project, List<String> linkTypes) {
+		return linkDao.findLinkPage(page, project.getId(), linkTypes);
 	}
 	
 }

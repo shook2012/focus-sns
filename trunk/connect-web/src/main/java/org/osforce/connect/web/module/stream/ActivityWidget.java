@@ -45,6 +45,15 @@ public class ActivityWidget {
 		this.activityService = activityService;
 	}
 	
+	@RequestMapping("/recent-view")
+	public String doRecentView(Page<Activity> page,
+			@PrefParam String activityTypes, Model model) {
+		List<String> types = Arrays.asList(StringUtils.split(activityTypes, ","));
+		page = activityService.getActivityPage(page, types);
+		model.addAttribute(AttributeKeys.PAGE_KEY_READABLE, page);
+		return "stream/activity-recent";
+	}
+	
 	@RequestMapping("/list-view")
 	@Permission(value={"activity-view"}, projectRequired=true)
 	public String doListView(@PrefParam String activityTypes, 

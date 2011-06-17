@@ -1,11 +1,13 @@
 package org.osforce.connect.web.module.discussion;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang.StringUtils;
 import org.osforce.connect.entity.commons.Statistic;
 import org.osforce.connect.entity.discussion.Forum;
 import org.osforce.connect.entity.discussion.Topic;
@@ -88,12 +90,13 @@ public class TopicWidget {
 	}
 	
 	@RequestMapping("/recent-view")
-	@Permission({"topic-view"})
 	public String doRecentView(Page<Topic> page, 
-			@RequestAttr Project project, Model model) {
-		page = topicService.getTopicPage(page, project);
-		if(page.getResult().isEmpty()) {
-			return "commons/blank";
+			@PrefParam(required=false) String categoryCodes, @RequestAttr Project project, Model model) {
+		if(StringUtils.isNotBlank(categoryCodes)) {
+			List<String> codes = Arrays.asList(StringUtils.split(categoryCodes, ","));
+			page = topicService.getTopicPage(page, codes);
+		} else if(project!=null) {
+			page = topicService.getTopicPage(page, project);
 		}
 		for(Topic topic : page.getResult()) {
 			Statistic statistic = statisticService.getStatistic(Statistic.TYPE_VIEW, topic.getId(), Topic.NAME);
@@ -136,7 +139,7 @@ public class TopicWidget {
 	public String doFormView( @RequestParam(required=false) Long topicId, 
 			@RequestParam(required=false) Long forumId,
 			@ModelAttribute @Valid Topic topic, BindingResult result,
-			User user, Project project, Model model, Boolean showErrors) {
+			@RequestAttr User user, @RequestAttr Project project, Model model, Boolean showErrors) {
 		if(!showErrors) {
 			topic.setEnteredBy(user);
 			topic.setModifiedBy(user);

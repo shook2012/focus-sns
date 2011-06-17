@@ -16,7 +16,7 @@
 			</@entity>
 			<@entity entity="Profile" exist="no" project=project user=user>
 			<li>
-				<a class="ajaxAction" href="${base}/commons/link/focus?fromId=${user.project.id}&toId=${project.profile.id}&entity=Profile">
+				<a class="ajaxAction" href="${base}/list/link/focus?fromId=${user.project.id}&toId=${project.profile.id}&entity=Profile">
 					添加关注
 				</a>
 			</li>

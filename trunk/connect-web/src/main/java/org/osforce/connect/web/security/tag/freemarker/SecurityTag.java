@@ -48,6 +48,19 @@ public class SecurityTag implements TemplateDirectiveModel {
 		BeanModel userModel = (BeanModel) env.getDataModel().get(USER_KEY);
 		Project project = (Project) projectModel.getWrappedObject();
 		User user = userModel!=null ? (User) userModel.getWrappedObject() : null;
+		//
+		if(params.containsKey("userRequired")) {
+			String userRequired = params.get("userRequired").toString();
+			if(StringUtils.equals("true", userRequired) && user==null) {
+				return ;
+			}
+		}
+		if(params.containsKey("projectRequired")) {
+			String projectRequired = params.get("projectRequired").toString();
+			if(StringUtils.equals("true", projectRequired) && project==null) {
+				return ;
+			}
+		}
 		if(permissionService.hasPermission(project, user, resources)) {
 			body.render(env.getOut());
 		}

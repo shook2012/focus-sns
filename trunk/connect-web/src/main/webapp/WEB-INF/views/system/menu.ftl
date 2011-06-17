@@ -10,6 +10,7 @@
 			<ul>
 				<li>
 					<a href="${base}/system">系统概况</a>
+					(<a class="ajaxAction" href="${base}/system/search/index">索引</a>)
 				</li>
 				<li>
 					<a href="${base}/system/site/list">站点管理</a>

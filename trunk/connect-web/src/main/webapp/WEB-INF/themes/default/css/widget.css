@@ -109,12 +109,9 @@
 .activities-list .comments-list .comment-content {
 	margin-left: 55px;
 }
-.faces-list {
-	width: 112px;
-}
-
-.faces-list li {
-	display: inline;
+.activities-recent li .activity-detail {
+	margin-left: 50px;
+	min-height: 50px;
 }
 /* blog post widget */
 .post-form textarea {
@@ -122,6 +119,9 @@
 }
 .posts-list li {
 	margin-bottom: 3em;
+}
+.posts-recent li {
+	border-bottom: 1px dashed #DDD;	
 }
 /* question widget */
 .questions-list li {
@@ -142,6 +142,10 @@
 	font-size: large;
 	font-weight: bold;
 	margin-bottom: 10px;
+}
+.questions-recent li .question-detail {
+	margin-left: 50px;
+	min-height: 50px;
 }
 .question-form textarea {
 	width: 450px;
@@ -203,6 +207,13 @@
 .events-list ul li h4 {
 	padding: 5px 10px;
 	border-bottom: 1px solid #DDD;
+}
+.events-upcoming li .event-detail {
+	margin-left: 55px;
+	min-height: 55px;
+}
+.events-upcoming li h4 {
+	margin-bottom: 5px;
 }
 table.calendar {
 
@@ -287,6 +298,12 @@ table.calendar tbody tr td a {
 	margin-left: 120px;
 	border-bottom: 1px solid #DDD;
 }
+.topics-list li {
+	border-bottom: 1px dashed #DDD;		
+}
+.topics-recent li {
+	border-bottom: 1px dashed #DDD;	
+}
 /* reply widget */
 .author {
 	text-align: center;
@@ -320,6 +337,10 @@ table.calendar tbody tr td a {
 .members-list li img {
 	float: left;
 	margin: 5px;
+}
+.members-info li .member-detail {
+	margin-left: 50px;
+	min-height: 50px;	
 }
 .members-info li:hover {
 	background-color: #DDF0F8;

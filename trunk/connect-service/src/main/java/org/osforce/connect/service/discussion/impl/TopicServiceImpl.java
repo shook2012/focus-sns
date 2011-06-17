@@ -1,6 +1,7 @@
 package org.osforce.connect.service.discussion.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.osforce.connect.dao.discussion.ForumDao;
 import org.osforce.connect.dao.discussion.ReplyDao;
@@ -106,5 +107,9 @@ public class TopicServiceImpl implements TopicService {
 	
 	public Page<Topic> getTopicPage(Page<Topic> page, Project project) {
 		return topicDao.findTopicPage(page, project.getId(), null);
+	}
+	
+	public Page<Topic> getTopicPage(Page<Topic> page, List<String> categoryCodes) {
+		return topicDao.findTopicPage(page, categoryCodes);
 	}
 }

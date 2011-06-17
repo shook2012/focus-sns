@@ -1,12 +1,11 @@
 package org.osforce.connect.service.knowledge.impl;
 
 import java.util.Date;
+import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.osforce.connect.dao.knowledge.QuestionDao;
 import org.osforce.connect.dao.system.ProjectDao;
 import org.osforce.connect.dao.system.UserDao;
-import org.osforce.connect.entity.commons.Statistic;
 import org.osforce.connect.entity.knowledge.Question;
 import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.entity.system.User;
@@ -95,6 +94,11 @@ public class QuestionServiceImpl implements QuestionService {
 	public Page<Question> getQuestionPage(Page<Question> page, Project project,
 			String orderFactor) {
 		return questionDao.findQuestionPage(page, project.getId(), orderFactor);
+	}
+	
+	public Page<Question> getQuestionPage(Page<Question> page,
+			List<String> categoryCodes) {
+		return questionDao.findQuestionPage(page, categoryCodes);
 	}
 	
 }

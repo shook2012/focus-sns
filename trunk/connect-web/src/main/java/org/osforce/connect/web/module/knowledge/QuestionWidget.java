@@ -1,5 +1,6 @@
 package org.osforce.connect.web.module.knowledge;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -19,6 +20,7 @@ import org.osforce.connect.service.list.LinkService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.spring4me.dao.Page;
+import org.osforce.spring4me.web.bind.annotation.PrefParam;
 import org.osforce.spring4me.web.bind.annotation.RequestAttr;
 import org.osforce.spring4me.web.bind.annotation.SessionParam;
 import org.osforce.spring4me.web.stereotype.Widget;
@@ -70,14 +72,16 @@ public class QuestionWidget {
 	}
 	
 	@RequestMapping("/recent-view")
-	@Permission({"question-view"})
 	public String doRecentView(Page<Question> page, 
-			@RequestAttr Project project, Model model) {
+			@RequestAttr Project project, @PrefParam(required=false) String categoryCodes, Model model) {
 		page.setPageNo(1);
-		page = questionService.getQuestionPage(page, project);
-		if(page.getResult().isEmpty()) {
-			return "commons/blank";
-		}
+		page.desc("q.entered");
+		if(StringUtils.isNotBlank(categoryCodes)) {
+			List<String> codes = Arrays.asList(StringUtils.split(categoryCodes, ","));
+			page = questionService.getQuestionPage(page, codes);
+		} else if(project!=null) {
+			page = questionService.getQuestionPage(page, project);
+		} 
 		model.addAttribute(AttributeKeys.PAGE_KEY_READABLE, page);
 		return "knowledge/question-recent";
 	}

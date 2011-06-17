@@ -1,7 +1,6 @@
 package org.osforce.connect.web.module.system;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -43,11 +42,8 @@ public class MenuWidget {
 	
 	@RequestMapping("/main-menu")
 	public String doMainMenu(@RequestAttr Site site, Model model) {
-		List<ProjectCategory> menuitems = Collections.emptyList();
-		if(site!=null) {
-			menuitems = categoryService.getProjectCategoryList(site.getId(), null);
-		}
-		model.addAttribute("menuitems", menuitems);
+		List<ProjectCategory> categories = categoryService.getProjectCategoryList(site.getId());
+		model.addAttribute(AttributeKeys.PROJECT_CATEGORY_LIST_KEY_READABLE, categories);
 		return "system/main-menu";
 	}
 	
