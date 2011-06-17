@@ -1,5 +1,7 @@
 package org.osforce.connect.dao.blog;
 
+import java.util.List;
+
 import org.osforce.connect.entity.blog.Post;
 import org.osforce.spring4me.dao.BaseDao;
 import org.osforce.spring4me.dao.Page;
@@ -21,5 +23,7 @@ public interface PostDao extends BaseDao<Post> {
 	 * @return
 	 */
 	Page<Post> findPostList(Page<Post> page, Long projectId, Long categoryId);
+
+	Page<Post> findPostPage(Page<Post> page, List<String> categoryCodes);
 
 }

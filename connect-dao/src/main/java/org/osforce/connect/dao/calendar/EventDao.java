@@ -34,4 +34,6 @@ public interface EventDao extends BaseDao<Event> {
 	 */
 	Page<Event> findEventPage(Page<Event> page, Long projectId, Date start);
 
+	Page<Event> findEventPage(Page<Event> page, List<String> categoryCodes, Date start);
+
 }

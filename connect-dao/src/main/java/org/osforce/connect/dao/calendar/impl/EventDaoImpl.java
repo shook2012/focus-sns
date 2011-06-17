@@ -37,8 +37,19 @@ public class EventDaoImpl extends AbstractDao<Event>
 		}
 	}
 	
-	static final String JPQL1 = "FROM Event e WHERE e.project.id = ?1 AND e.start >= ?2";
+	static final String JPQL1 = "FROM Event e WHERE e.start >= ?1 %s";
 	public Page<Event> findEventPage(Page<Event> page, Long projectId, Date start) {
-		return findPage(page, JPQL1, projectId, start);
+		Assert.notNull(start, "Prameter start can not be null!");
+		if(projectId==null) {
+			return findPage(page, String.format(JPQL1, ""), start);
+		} else {
+			return findPage(page, String.format(JPQL1, "AND e.project.id = ?2"), start, projectId);
+		}
+	}
+	
+	static final String JPQL2 = "FROM Event e WHERE e.start >= ?1 AND e.project.category.code IN (?2)";
+	public Page<Event> findEventPage(Page<Event> page, List<String> categoryCodes, Date start) {
+		Assert.notNull(start, "Prameter start can not be null!");
+		return findPage(page, JPQL2, start, categoryCodes);
 	}
 }

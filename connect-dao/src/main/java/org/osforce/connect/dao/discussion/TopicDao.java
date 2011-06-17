@@ -1,5 +1,7 @@
 package org.osforce.connect.dao.discussion;
 
+import java.util.List;
+
 import org.osforce.connect.entity.discussion.Topic;
 import org.osforce.spring4me.dao.BaseDao;
 import org.osforce.spring4me.dao.Page;
@@ -21,4 +23,6 @@ public interface TopicDao extends BaseDao<Topic> {
 	 * @return
 	 */
 	Page<Topic> findTopicPage(Page<Topic> page, Long projectId, Long forumId);
+
+	Page<Topic> findTopicPage(Page<Topic> page, List<String> categoryCodes);
 }

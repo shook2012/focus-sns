@@ -5,12 +5,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
 import org.osforce.spring4me.entity.IdEntity;
 
@@ -125,7 +127,8 @@ public class Site extends IdEntity {
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
 	}
-
+	
+	@Lob@Type(type="org.hibernate.type.StringClobType")
 	public String getCopyright() {
 		return copyright;
 	}
