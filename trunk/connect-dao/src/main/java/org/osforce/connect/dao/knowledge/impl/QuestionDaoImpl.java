@@ -1,5 +1,7 @@
 package org.osforce.connect.dao.knowledge.impl;
 
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.osforce.connect.dao.knowledge.QuestionDao;
 import org.osforce.connect.entity.knowledge.Question;
@@ -43,6 +45,12 @@ public class QuestionDaoImpl extends AbstractDao<Question>
 			page.desc("q.modified");
 			return findQuestionPage(page, projectId);
 		}
+	}
+
+	static final String JPQL3 = "FROM Question AS q WHERE q.project.category.code IN (?1)";
+	public Page<Question> findQuestionPage(Page<Question> page,
+			List<String> categoryCodes) {
+		return findPage(page, JPQL3, categoryCodes);
 	}
 	
 }

@@ -16,6 +16,7 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.validator.constraints.NotBlank;
 import org.osforce.connect.entity.profile.Profile;
 import org.osforce.spring4me.entity.IdEntity;
@@ -230,6 +231,7 @@ public class Project extends IdEntity {
 		this.profile = profile;
 	}
 
+	@IndexedEmbedded
 	@ManyToOne(fetch=FetchType.EAGER, optional=false)
 	@JoinColumn(name="category_id")
 	public ProjectCategory getCategory() {

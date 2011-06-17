@@ -1,5 +1,7 @@
 package org.osforce.connect.dao.list.impl;
 
+import java.util.List;
+
 import org.osforce.connect.dao.list.LinkDao;
 import org.osforce.connect.entity.list.Link;
 import org.osforce.spring4me.dao.AbstractDao;
@@ -48,13 +50,23 @@ public class LinkDaoImpl extends AbstractDao<Link> implements LinkDao {
 
 	static final String JPQL2 = "SELECT COUNT(*) FROM Link AS l WHERE l.entity = ?1 %s";
 	public Long countLinks(String type, Long toId, String entity) {
-		Assert.notNull(toId, "Paramter toId can not be null!");
-		Assert.notNull(entity, "Paramter entity can not be null!");
+		Assert.notNull(toId, "Parameter toId can not be null!");
+		Assert.notNull(entity, "Parameter entity can not be null!");
 		if(type!=null) {
 			return count(String.format(JPQL2, "AND l.type = ?2 AND l.toId = ?3"), entity, type, toId);
 		} else {
 			return count(String.format(JPQL2, "AND l.toId = ?3"), entity, toId);
 		}
+	}
+
+	static final String JPQL3 = "FROM Link AS l WHERE l.type IN (?1) %s";
+	public Page<Link> findLinkPage(Page<Link> page, Long fromId,
+			List<String> linkTypes) {
+		Assert.notNull(linkTypes, "Parameter linkType can not be null!");
+		if(fromId==null) {
+			return findPage(page, String.format(JPQL3, ""), linkTypes);
+		}
+		return findPage(page, String.format(JPQL3, "AND l.from.id = ?2"), linkTypes, fromId);
 	}
 
 }

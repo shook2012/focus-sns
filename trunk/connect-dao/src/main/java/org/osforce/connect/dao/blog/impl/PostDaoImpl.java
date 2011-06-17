@@ -1,5 +1,7 @@
 package org.osforce.connect.dao.blog.impl;
 
+import java.util.List;
+
 import org.osforce.connect.dao.blog.PostDao;
 import org.osforce.connect.entity.blog.Post;
 import org.osforce.spring4me.dao.AbstractDao;
@@ -21,7 +23,7 @@ public class PostDaoImpl extends AbstractDao<Post>
 		super(Post.class);
 	}
 
-	static final String JPQL0 = "FROM Post p %s ORDER BY p.entered DESC";
+	static final String JPQL0 = "FROM Post p %s";
 	public Page<Post> findPostList(Page<Post> page, Long projectId,
 			Long categoryId) {
 		if(projectId!=null && categoryId!=null) {
@@ -34,4 +36,10 @@ public class PostDaoImpl extends AbstractDao<Post>
 			return findPage(page, String.format(JPQL0, ""));
 		}
 	}
+
+	static final String JPQL1 = "FROM Post AS p WHERE p.project.category.code IN (?1)"; 
+	public Page<Post> findPostPage(Page<Post> page, List<String> categoryCodes) {
+		return findPage(page, JPQL1, categoryCodes);
+	}
+	
 }

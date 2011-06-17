@@ -1,7 +1,8 @@
 package org.osforce.connect.dao.knowledge;
 
+import java.util.List;
+
 import org.osforce.connect.entity.knowledge.Question;
-import org.osforce.connect.entity.system.Project;
 import org.osforce.spring4me.dao.BaseDao;
 import org.osforce.spring4me.dao.Page;
 
@@ -31,5 +32,8 @@ public interface QuestionDao extends BaseDao<Question> {
 	 */
 	Page<Question> findQuestionPage(Page<Question> page, Long projectId,
 			String orderFactor);
+
+	Page<Question> findQuestionPage(Page<Question> page,
+			List<String> categoryCodes);
 
 }

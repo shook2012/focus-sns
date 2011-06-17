@@ -16,6 +16,11 @@ import javax.persistence.Transient;
 
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.Type;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
+import org.hibernate.search.annotations.Store;
 import org.hibernate.validator.constraints.NotBlank;
 import org.osforce.connect.entity.commons.Attachment;
 import org.osforce.connect.entity.system.Project;
@@ -26,6 +31,7 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Entity
 @Table(name="profiles")
+@Indexed
 @Cacheable
 public class Profile extends IdEntity {
 	private static final long serialVersionUID = -7252838349384546418L;
@@ -54,6 +60,7 @@ public class Profile extends IdEntity {
 	public Profile() {
 	}
 
+	@Field(index=Index.TOKENIZED, store=Store.YES)
 	public String getTitle() {
 		return title;
 	}
@@ -62,7 +69,8 @@ public class Profile extends IdEntity {
 		this.title = title;
 	}
 
-	@Column(length=1000)
+	@Column(length=100)
+	@Field(index=Index.TOKENIZED, store=Store.YES)
 	public String getShortDescription() {
 		return shortDescription;
 	}
@@ -72,6 +80,7 @@ public class Profile extends IdEntity {
 	}
 
 	@Lob@Type(type="org.hibernate.type.StringClobType")
+	@Field(index=Index.TOKENIZED, store=Store.YES)
 	public String getDescription() {
 		return description;
 	}
@@ -211,6 +220,7 @@ public class Profile extends IdEntity {
 		this.modifiedBy = modifiedBy;
 	}
 
+	@IndexedEmbedded
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	@JoinColumn(name="project_id")
 	public Project getProject() {

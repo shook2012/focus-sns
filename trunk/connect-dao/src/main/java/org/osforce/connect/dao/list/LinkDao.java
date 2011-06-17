@@ -1,5 +1,7 @@
 package org.osforce.connect.dao.list;
 
+import java.util.List;
+
 import org.osforce.connect.entity.list.Link;
 import org.osforce.spring4me.dao.BaseDao;
 import org.osforce.spring4me.dao.Page;
@@ -32,6 +34,8 @@ public interface LinkDao extends BaseDao<Link> {
 	 * @return
 	 */
 	Page<Link> findLinkPage(Page<Link> page, Long fromId, Long toId, String entity);
+	
+	Page<Link> findLinkPage(Page<Link> page, Long fromId, List<String> linkTypes);
 	
 	/**
 	 * Count links by type toId and entity
