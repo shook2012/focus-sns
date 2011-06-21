@@ -1,7 +1,6 @@
 package org.osforce.connect.web.module.discussion;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +21,7 @@ import org.osforce.connect.service.discussion.TopicService;
 import org.osforce.connect.service.list.LinkService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.security.annotation.Permission;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.dao.Page;
 import org.osforce.spring4me.web.bind.annotation.PrefParam;
 import org.osforce.spring4me.web.bind.annotation.RequestAttr;
@@ -153,7 +153,7 @@ public class TopicWidget {
 			model.addAttribute(AttributeKeys.TOPIC_KEY_READABLE, topic);
 		}
 		List<Forum> forums = forumService.getForumList(project);
-		Map<String, String> forumOptions = new HashMap<String, String>();
+		Map<String, String> forumOptions = CollectionUtil.newHashMap();
 		for(Forum forum : forums) {
 			forumOptions.put(forum.getId().toString(), forum.getName());
 		}

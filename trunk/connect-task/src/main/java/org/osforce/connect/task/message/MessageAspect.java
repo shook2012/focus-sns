@@ -1,12 +1,12 @@
 package org.osforce.connect.task.message;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.osforce.connect.entity.message.Message;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -37,7 +37,7 @@ public class MessageAspect {
 	@AfterReturning("execution(* org.osforce.connect.service.message.MessageService.createMessage(..))")
 	public void sendMessage(JoinPoint jp) {
 		Message message = (Message) jp.getArgs()[0];
-		Map<Object, Object> context = new HashMap<Object, Object>();
+		Map<Object, Object> context = CollectionUtil.newHashMap();
 		context.put("siteId", message.getFrom().getCategory().getSiteId());
 		context.put("messageId", message.getId());
 		messageSendEmailTask.doAsyncTask(context);

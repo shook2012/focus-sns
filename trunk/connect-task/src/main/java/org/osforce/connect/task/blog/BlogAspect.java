@@ -1,12 +1,12 @@
 package org.osforce.connect.task.blog;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.osforce.connect.entity.blog.Post;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -45,7 +45,7 @@ public class BlogAspect {
 	@AfterReturning("execution(* org.osforce.connect.service.blog.PostService.viewPost(..))")
 	public void viewBlogPost(JoinPoint jp) {
 		Long postId = (Long) jp.getArgs()[0];
-		Map<Object, Object> context = new HashMap<Object, Object>();
+		Map<Object, Object> context = CollectionUtil.newHashMap();
 		context.put("postId", postId);
 		postViewCountTask.doAsyncTask(context);
 	}
@@ -54,7 +54,7 @@ public class BlogAspect {
 			+ "execution(* org.osforce.connect.service.blog.PostService.updatePost(..))")
 	public void updateBlogPost(JoinPoint jp) {
 		Post post = (Post) jp.getArgs()[0];
-		Map<Object, Object> context = new HashMap<Object, Object>();
+		Map<Object, Object> context = CollectionUtil.newHashMap();
 		context.put("postId", post.getId());
 		context.put("template", TEMPLATE_POST_UPDATE);
 		postActivityStreamTask.doAsyncTask(context);

@@ -1,6 +1,5 @@
 package org.osforce.connect.web.module.system;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +12,7 @@ import org.osforce.connect.service.system.ProjectCategoryService;
 import org.osforce.connect.service.system.ResourceService;
 import org.osforce.connect.service.system.RoleService;
 import org.osforce.connect.web.AttributeKeys;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -70,7 +70,7 @@ public class PermissionWidget {
 		model.addAttribute("categoryId", categoryId);
 		//
 		List<Permission> permissions = permissionService.getPermissionList(siteId, categoryId);
-		Map<String, Permission> resourceMap = new HashMap<String, Permission>();
+		Map<String, Permission> resourceMap = CollectionUtil.newHashMap();
 		for(Permission p : permissions) {
 			resourceMap.put(p.getResource().getCode(), p);
 		}

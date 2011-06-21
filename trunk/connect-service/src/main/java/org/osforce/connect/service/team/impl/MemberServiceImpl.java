@@ -59,9 +59,13 @@ public class MemberServiceImpl implements MemberService {
 	public TeamMember getMember(Long memberId) {
 		return memberDao.get(memberId);
 	}
+	
+	public TeamMember getMember(Project project, User user) {
+		return memberDao.findMember(project.getId(), user.getId(), null);
+	}
 
-	public TeamMember getMember(Long projectId, Long userId, Boolean enabled) {
-		return memberDao.findMember(projectId, userId, enabled);
+	public TeamMember getMember(Project project, User user, Boolean enabled) {
+		return memberDao.findMember(project.getId(), user.getId(), enabled);
 	}
 
 	public void createMember(TeamMember member) {
@@ -96,24 +100,6 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.findMemberPage(page, project.getId());
 	}
 
-	/*public List<TeamMember> getNeedApproveMemberList(
-			Project project, User user) {
-		QueryAppender appender = new QueryAppender();
-		appender.equal("teamMember.project.id", project.getId())
-				.notEqual("teamMember.user.id", user.getId())
-				.equal("teamMember.enabled", false);
-		return memberDao.find(appender);
-	}
-
-	public List<TeamMember> getWaitApproveMemberList(
-			Project project, User user) {
-		QueryAppender appender = new QueryAppender();
-		appender.notEqual("teamMember.project.id", project.getId())
-				.equal("teamMember.user.id", user.getId())
-				.equal("teamMember.enabled", false);
-		return memberDao.find(appender);
-	}*/
-
 	public List<TeamMember> getMemberList(Project project, User user,
 			String status, Boolean reverse) {
 		return memberDao.findMemberList(project.getId(), user.getId(), status, reverse);
@@ -128,14 +114,19 @@ public class MemberServiceImpl implements MemberService {
 		member.setStatus(null);
 		member.setEnabled(true);
 		memberDao.update(member);
+		// if project is user project
 		if(NumberUtils.compare(member.getProject().getId(),
 				member.getProject().getEnteredBy().getProject().getId())==0) {
-			TeamMember otherSide = new TeamMember();
+			TeamMember otherSide = memberDao.findMember(
+					member.getUser().getProjectId(), member.getProject().getEnteredId(), null);
+			if(otherSide==null) {
+				otherSide = new TeamMember();
+			}
 			otherSide.setStatus(null);
 			otherSide.setEnabled(true);
-			otherSide.setProject(member.getUser().getProject());
-			otherSide.setUser(member.getProject().getEnteredBy());
-			otherSide.setRole(member.getRole());
+			otherSide.setProjectId(member.getUser().getProjectId());
+			otherSide.setUserId(member.getProject().getEnteredId());
+			otherSide.setRoleId(member.getRoleId());
 			memberDao.save(otherSide);
 		}
 	}

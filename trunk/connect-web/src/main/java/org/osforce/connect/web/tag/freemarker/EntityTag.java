@@ -64,7 +64,7 @@ public class EntityTag implements TemplateDirectiveModel {
 		if(Profile.NAME.equals(entity)) {
 			value = linkService.getLink(user.getProjectId(), project.getProfileId(), entity);
 		} else if (TeamMember.NAME.equals(entity)) {
-			value = memberService.getMember(project.getId(), user.getId(), Boolean.FALSE);
+			value = memberService.getMember(project, user, Boolean.FALSE);
 		}
 		//
 		boolean flag = false;

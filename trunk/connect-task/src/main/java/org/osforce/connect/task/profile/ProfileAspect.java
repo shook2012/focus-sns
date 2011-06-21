@@ -1,6 +1,5 @@
 package org.osforce.connect.task.profile;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.aspectj.lang.JoinPoint;
@@ -9,6 +8,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.osforce.connect.entity.profile.Profile;
 import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.entity.system.User;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -49,7 +49,7 @@ public class ProfileAspect {
 	public void viewProfile(JoinPoint jp) throws Exception {
 		Project project = (Project) jp.getArgs()[0];
 		User user = (User) jp.getArgs()[1];
-		Map<Object, Object> context = new HashMap<Object, Object>();
+		Map<Object, Object> context = CollectionUtil.newHashMap();
 		context.put("projectId", project.getId());
 		context.put("user", user);
 		profileViewCountTask.doAsyncTask(context);
@@ -58,7 +58,7 @@ public class ProfileAspect {
 	@AfterReturning("execution(* org.osforce.connect.service.profile.ProfileService.createProfile(..))"
 			+ "execution(* org.osforce.connect.service.profile.ProfileService.updateProfile(..))")
 	public void updateProfile(JoinPoint jp) throws Exception {
-		Map<Object, Object> context = new HashMap<Object, Object>();
+		Map<Object, Object> context = CollectionUtil.newHashMap();
 		Profile profile = (Profile) jp.getArgs()[0];
 		context.put("profileId", profile.getId());
 		context.put("template", TEMPLATE_PROFILE_UPDATE);

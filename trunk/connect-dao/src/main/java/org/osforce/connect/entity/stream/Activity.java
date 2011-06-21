@@ -1,6 +1,5 @@
 package org.osforce.connect.entity.stream;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,12 +13,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.NotBlank;
 import org.osforce.connect.entity.commons.Comment;
 import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.entity.system.User;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.entity.IdEntity;
 
 /**
@@ -54,12 +52,12 @@ public class Activity extends IdEntity {
 	private Long projectId;
 	private Long parentId;
 	private String[] targets; // split by comma
-	private List<Comment> comments = new ArrayList<Comment>();
+	private List<Comment> comments = CollectionUtil.newArrayList();
 	// refer
 	private User enteredBy;
 	private Project project;
 	private Activity parent;
-	private List<Activity> children = new ArrayList<Activity>();
+	private List<Activity> children = CollectionUtil.newArrayList();
 
 	public Activity() {
 	}

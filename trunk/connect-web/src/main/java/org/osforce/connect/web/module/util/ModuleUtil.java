@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.osforce.connect.entity.system.ProjectFeature;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 
 /**
  *
@@ -17,7 +18,7 @@ import org.osforce.connect.entity.system.ProjectFeature;
 public abstract class ModuleUtil {
 
 	public static List<ProjectFeature> parseToModules(String featuresStr) {
-		List<ProjectFeature> modules = new ArrayList<ProjectFeature>();
+		List<ProjectFeature> modules = CollectionUtil.newArrayList();
 		String[] featureStrs = StringUtils.split(featuresStr, "\r\n");
 		for(String featureStr : featureStrs) {
 			int index = ArrayUtils.indexOf(featureStrs, featureStr);

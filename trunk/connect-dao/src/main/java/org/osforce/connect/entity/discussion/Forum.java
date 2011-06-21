@@ -1,6 +1,5 @@
 package org.osforce.connect.entity.discussion;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +16,7 @@ import javax.persistence.Transient;
 import org.hibernate.validator.constraints.NotBlank;
 import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.entity.system.User;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.entity.IdEntity;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -47,7 +47,7 @@ public class Forum extends IdEntity {
 	private Long projectId;
 	private Long enteredId;
 	private Long modifiedId;
-	private List<Topic> topics = new ArrayList<Topic>();
+	private List<Topic> topics = CollectionUtil.newArrayList();
 	// refer
 	private Project project;
 	private User enteredBy;

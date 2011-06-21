@@ -1,6 +1,5 @@
 package org.osforce.connect.task.discussion;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.aspectj.lang.JoinPoint;
@@ -9,6 +8,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.osforce.connect.entity.discussion.Forum;
 import org.osforce.connect.entity.discussion.Reply;
 import org.osforce.connect.entity.discussion.Topic;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -70,7 +70,7 @@ public class DiscussionAspect {
 	@AfterReturning("execution(* org.osforce.connect.service.discussion.TopicService.viewTopic(..))")
 	public void viewTopic(JoinPoint jp) {
 		Long topicId = (Long) jp.getArgs()[0];
-		Map<Object, Object> context = new HashMap<Object, Object>();
+		Map<Object, Object> context = CollectionUtil.newHashMap();
 		context.put("topicId", topicId);
 		topicViewCountTask.doAsyncTask(context);
 	}
@@ -79,7 +79,7 @@ public class DiscussionAspect {
 			+ "execution(* org.osforce.connect.service.discussion.ForumService.updateForum(..))")
 	public void updateForum(JoinPoint jp) {
 		Forum forum = (Forum) jp.getArgs()[0];
-		Map<Object, Object> context = new HashMap<Object, Object>();
+		Map<Object, Object> context = CollectionUtil.newHashMap();
 		context.put("forumId", forum.getId());
 		context.put("template", TEMPLATE_FORUM_UPDATE);
 		forumActivityStreamTask.doAsyncTask(context);
@@ -89,7 +89,7 @@ public class DiscussionAspect {
 			+ "execution(* org.osforce.connect.service.discussion.TopicService.updateTopic(..))")
 	public void updateTopic(JoinPoint jp) {
 		Topic topic = (Topic) jp.getArgs()[0];
-		Map<Object, Object> context = new HashMap<Object, Object>();
+		Map<Object, Object> context = CollectionUtil.newHashMap();
 		context.put("topicId", topic.getId());
 		context.put("template", TEMPLATE_TOPIC_UPDATE);
 		topicActivityStreamTask.doAsyncTask(context);
@@ -99,7 +99,7 @@ public class DiscussionAspect {
 			+ "execution(* org.osforce.connect.service.discussion.ReplyService.updateReply(..))")
 	public void updateReply(JoinPoint jp) {
 		Reply reply = (Reply) jp.getArgs()[0];
-		Map<Object, Object> context = new HashMap<Object, Object>();
+		Map<Object, Object> context = CollectionUtil.newHashMap();
 		context.put("replyId", reply.getId());
 		context.put("template", TEMPLATE_REPLY_UPDATE);
 		replyActivityStreamTask.doAsyncTask(context);

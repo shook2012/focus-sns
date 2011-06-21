@@ -1,6 +1,5 @@
 package org.osforce.connect.task.system;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -8,6 +7,7 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.osforce.connect.entity.system.Project;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -39,7 +39,7 @@ public class SystemAspect {
 	public void registerUser(JoinPoint jp) {
 		Project project = (Project) jp.getArgs()[1];
 		if(StringUtils.equals(project.getCategory().getCode(), "people")) {
-			Map<Object, Object> context = new HashMap<Object, Object>();
+			Map<Object, Object> context = CollectionUtil.newHashMap();
 			context.put("siteId", project.getCategory().getSiteId());
 			context.put("projectId", project.getId());
 			context.put("userId", project.getEnteredId());

@@ -1,6 +1,5 @@
 package org.osforce.connect.web.oauth;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -9,6 +8,7 @@ import org.osforce.connect.entity.oauth.Authorization;
 import org.osforce.connect.entity.system.Site;
 import org.osforce.connect.service.oauth.AuthorizationService;
 import org.osforce.connect.web.AttributeKeys;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.social.api.service.ApiService;
 import org.scribe.model.Token;
 import org.scribe.model.Verifier;
@@ -40,8 +40,8 @@ import org.springframework.web.context.request.WebRequest;
 @RequestMapping("/oauth")
 public class OAuthController implements ApplicationContextAware {
 
-	private Map<Token, OAuthService> oAuthServices = new HashMap<Token, OAuthService>();
-	private Map<String, Token> requestTokens = new HashMap<String, Token>();
+	private Map<Token, OAuthService> oAuthServices = CollectionUtil.newHashMap();
+	private Map<String, Token> requestTokens = CollectionUtil.newHashMap();
 
 	private ApplicationContext appContext;
 	private AuthorizationService authorizationService;
@@ -66,7 +66,7 @@ public class OAuthController implements ApplicationContextAware {
 		Long userId = (Long) session.getAttribute(AttributeKeys.USER_ID_KEY);
 		Authorization authorization = authorizationService.getAuthorization(target, userId);
 		//
-		Map<String, Object> model = new HashMap<String, Object>();
+		Map<String, Object> model = CollectionUtil.newHashMap();
 		model.put("authorized", authorization!=null);
     	return model;
     }
@@ -83,7 +83,7 @@ public class OAuthController implements ApplicationContextAware {
 		oAuthServices.put(requestToken, oAuthService);
 		requestTokens.put(requestToken.getToken(), requestToken);
 		String authUrl = oAuthService.getAuthorizationUrl(requestToken);
-		Map<String, Object> model = new HashMap<String, Object>();
+		Map<String, Object> model = CollectionUtil.newHashMap();
 		model.put("authUrl", authUrl);
 		return model;
 	}

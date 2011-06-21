@@ -1,6 +1,5 @@
 package org.osforce.connect.entity.blog;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Cacheable;
@@ -15,6 +14,7 @@ import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.osforce.connect.entity.system.Project;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.entity.IdEntity;
 
 /**
@@ -38,7 +38,7 @@ public class PostCategory extends IdEntity {
 	private Long projectId;
 	// refer
 	private Project project;
-	private List<Post> posts = new ArrayList<Post>();
+	private List<Post> posts = CollectionUtil.newArrayList();
 
 	public PostCategory() {
 	}

@@ -1,8 +1,6 @@
 package org.osforce.connect.web.module.gallery;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +19,7 @@ import org.osforce.connect.service.gallery.PhotoService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.module.util.AttachmentUtil;
 import org.osforce.connect.web.security.annotation.Permission;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.dao.Page;
 import org.osforce.spring4me.web.bind.annotation.RequestAttr;
 import org.osforce.spring4me.web.stereotype.Widget;
@@ -110,7 +109,7 @@ public class PhotoWidget {
 		}
 		//
 		List<Album> albums = albumService.getAlbumList(project.getId());
-		Map<String, String> albumOptions = new HashMap<String, String>();
+		Map<String, String> albumOptions = CollectionUtil.newHashMap();
 		for(Album album : albums) {
 			albumOptions.put(album.getId().toString(), album.getName());
 		}
@@ -174,7 +173,7 @@ public class PhotoWidget {
 	public void syncSessionPhotoList(Photo photo, WebRequest request, Boolean reverse) {
 		List<Photo> photos = (List<Photo>) request.getAttribute(
 				AttributeKeys.PHOTO_LIST_KEY_READABLE, WebRequest.SCOPE_SESSION);
-		List<Photo> tmp = new ArrayList<Photo>();
+		List<Photo> tmp = CollectionUtil.newArrayList();
 		if(reverse) {
 			for(Photo p : photos) {
 				if(NumberUtils.compare(p.getId(), photo.getId())!=0) {

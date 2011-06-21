@@ -42,3 +42,20 @@
 		</#if>
 	</div>
 </div>
+
+<#if page.totalPages gt 1>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#pagination${id}").pagination(${page.totalCount}, {
+        items_per_page: ${page.pageSize},
+        current_page: ${page.pageNo}-1,
+        callback: function(pageNo, container){
+            if((pageNo+1)!=${page.pageNo}) {
+				document.location.href='?pageNo=' + (pageNo+1);
+            }
+            return false;
+        }
+	});
+});
+</script>
+</#if>

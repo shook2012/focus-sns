@@ -1,8 +1,6 @@
 package org.osforce.connect.web.module.commons;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +12,7 @@ import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.entity.system.User;
 import org.osforce.connect.service.commons.CommentService;
 import org.osforce.connect.web.AttributeKeys;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.web.bind.annotation.PrefParam;
 import org.osforce.spring4me.web.bind.annotation.RequestAttr;
 import org.osforce.spring4me.web.stereotype.Widget;
@@ -79,9 +78,9 @@ public class CommentWidget {
 	public @ResponseBody List<Map<String, Object>> list(
 			@RequestParam Long linkedId, @RequestParam String entity) {
 		List<Comment> comments = commentService.getCommentList(linkedId, entity);
-		List<Map<String, Object>> commentList = new ArrayList<Map<String, Object>>();
+		List<Map<String, Object>> commentList = CollectionUtil.newArrayList();
 		for(Comment comment : comments) {
-			Map<String, Object> model = new HashMap<String, Object>();
+			Map<String, Object> model = CollectionUtil.newHashMap();
 			model.put("id", comment.getId());
 			model.put("linkedId", comment.getLinkedId());
 			model.put("content", comment.getContent());

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.osforce.connect.web.AttributeKeys;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.dao.Page;
 import org.osforce.spring4me.web.widget.WidgetConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ import org.springframework.web.context.request.WebRequest;
  */
 public class CustomArgumentResolver implements WebArgumentResolver {
 
-	private static List<Class<?>> classes = new ArrayList<Class<?>>();
+	private static List<Class<?>> classes = CollectionUtil.newArrayList();
 	private ConversionService conversionService;
 	
 	static {

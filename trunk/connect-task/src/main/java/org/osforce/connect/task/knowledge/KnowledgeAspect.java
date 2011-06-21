@@ -1,6 +1,5 @@
 package org.osforce.connect.task.knowledge;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.aspectj.lang.JoinPoint;
@@ -9,6 +8,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.osforce.connect.entity.commons.VoteRecord;
 import org.osforce.connect.entity.knowledge.Answer;
 import org.osforce.connect.entity.knowledge.Question;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -70,7 +70,7 @@ public class KnowledgeAspect {
 	@AfterReturning("execution(* org.osforce.connect.service.knowledge.QuestionService.viewQuestion(..))")
 	public void viewQuestion(JoinPoint jp) {
 		Long questionId = (Long) jp.getArgs()[0];
-		Map<Object, Object> context = new HashMap<Object, Object>();
+		Map<Object, Object> context = CollectionUtil.newHashMap();
 		context.put("questionId", questionId);
 		//
 		questionViewCountTask.doAsyncTask(context);
@@ -80,7 +80,7 @@ public class KnowledgeAspect {
 			+ "execution(* org.osforce.connect.service.knowledge.QuestionService.updateQuestion(..))")
 	public void updateQuestion(JoinPoint jp) {
 		Question question = (Question) jp.getArgs()[0];
-		Map<Object, Object> context = new HashMap<Object, Object>();
+		Map<Object, Object> context = CollectionUtil.newHashMap();
 		context.put("questionId", question.getId());
 		context.put("template", TEMPLATE_QUESTION_UPDATE);
 		questionActivityStreamTask.doAsyncTask(context);
@@ -90,7 +90,7 @@ public class KnowledgeAspect {
 			+ "execution(* org.osforce.connect.service.knowledge.AnswerService.updateAnswer(..))")
 	public void updateAnswer(JoinPoint jp) {
 		Answer answer = (Answer) jp.getArgs()[0];
-		Map<Object, Object> context = new HashMap<Object, Object>();
+		Map<Object, Object> context = CollectionUtil.newHashMap();
 		context.put("answerId", answer.getId());
 		context.put("template", TEMPLATE_ANSWER_UPDATE);
 		answerActivityStreamTask.doAsyncTask(context);
@@ -102,7 +102,7 @@ public class KnowledgeAspect {
 			+ "execution(* org.osforce.connect.service.commons.VoteRecordService.updateVoteRecord(..))")
 	public void updateVoteRecord(JoinPoint jp) {
 		VoteRecord voteRecord = (VoteRecord) jp.getArgs()[0];
-		Map<Object, Object> context = new HashMap<Object, Object>();
+		Map<Object, Object> context = CollectionUtil.newHashMap();
 		context.put("answerId", voteRecord.getLinkedId());
 		//
 		answerVoteCountTask.doAsyncTask(context);

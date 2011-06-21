@@ -1,7 +1,6 @@
 package org.osforce.connect.web.tag.freemarker;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -34,6 +33,7 @@ import org.osforce.connect.service.knowledge.AnswerService;
 import org.osforce.connect.service.knowledge.QuestionService;
 import org.osforce.connect.service.profile.ProfileService;
 import org.osforce.connect.service.team.MemberService;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.springframework.util.Assert;
@@ -103,7 +103,7 @@ public class ActivityRenderTag implements TemplateDirectiveModel {
 	}
 	
 	private Map<Object, Object> createModel(Activity activity) {
-		Map<Object, Object> model = new HashMap<Object, Object>();
+		Map<Object, Object> model = CollectionUtil.newHashMap();
 		if(StringUtils.equals(Profile.NAME, activity.getEntity())) {
 			Profile profile = profileService.getProfile(activity.getLinkedId());
 			model.put("profile", profile);

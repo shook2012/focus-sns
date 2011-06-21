@@ -1,6 +1,5 @@
 package org.osforce.connect.entity.gallery;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +15,7 @@ import javax.persistence.Transient;
 import org.hibernate.validator.constraints.NotBlank;
 import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.entity.system.User;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.entity.IdEntity;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -46,7 +46,7 @@ public class Album extends IdEntity {
 	private User enteredBy;
 	private User modifiedBy;
 	private Project project;
-	private List<Photo> photos = new ArrayList<Photo>();
+	private List<Photo> photos = CollectionUtil.newArrayList();
 
 	public Album() {
 	}

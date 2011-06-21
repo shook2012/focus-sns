@@ -1,14 +1,11 @@
 package org.osforce.connect.web.module.team;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
-import org.osforce.connect.entity.message.Message;
 import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.entity.system.Role;
 import org.osforce.connect.entity.system.User;
@@ -19,6 +16,7 @@ import org.osforce.connect.service.system.UserService;
 import org.osforce.connect.service.team.MemberService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.security.annotation.Permission;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.dao.Page;
 import org.osforce.spring4me.web.bind.annotation.PrefParam;
 import org.osforce.spring4me.web.bind.annotation.RequestAttr;
@@ -73,8 +71,7 @@ public class MemberWidget {
 	@Permission(value={"member-add"}, projectRequired=true, userRequired=true)
 	public String doInfoView(@RequestAttr User user, 
 			@RequestAttr Project project, Model model) {
-		TeamMember teamMember = memberService.getMember(
-				user.getId(), project.getId(), Boolean.TRUE);
+		TeamMember teamMember = memberService.getMember(project, user, Boolean.TRUE);
 		List<TeamMember> needApprove = Collections.emptyList();
 		List<TeamMember> needAccept = Collections.emptyList();
 		if(NumberUtils.compare(project.getId(), user.getProject().getId())==0 ||
@@ -87,10 +84,10 @@ public class MemberWidget {
 		}
 		model.addAttribute("needApprove", needApprove);
 		model.addAttribute("needAccept", needAccept);
-		if(!needApprove.isEmpty() || !needAccept.isEmpty()) {
-			return "team/member-info";
-		}
-		return "commons/blank";
+		//
+		List<Role> roles = roleService.getRoleList(project.getCategoryId());
+		model.addAttribute(AttributeKeys.ROLE_LIST_KEY_READABLE, roles);
+		return "team/member-info";
 	}
 	
 	@RequestMapping("/list-view")
@@ -98,8 +95,7 @@ public class MemberWidget {
 	public String doListView(Page<TeamMember> page, 
 			@RequestAttr User user, @RequestAttr Project project, Model model) {
 		if(user!=null) {
-			TeamMember teamMember = memberService.getMember(
-					user.getId(), project.getId(), Boolean.TRUE);
+			TeamMember teamMember = memberService.getMember(project, user, Boolean.TRUE);
 			List<TeamMember> needApprove = Collections.emptyList();
 			List<TeamMember> waitApprove = Collections.emptyList();
 			List<TeamMember> needAccept = Collections.emptyList();
@@ -140,29 +136,27 @@ public class MemberWidget {
 	
 	@RequestMapping("/invite-view")
 	@Permission(value={"member-add", "member-edit"}, userRequired=true, projectRequired=true)
-	public String doInviteView(
-			@RequestAttr Project project, @RequestAttr User user, Model model) {
-		Message message = new Message();
-		message.setFrom(project);
-		message.setEnteredBy(user);
-		model.addAttribute(AttributeKeys.MESSAGE_KEY_READABLE, message);
+	public String doInviteView(@RequestAttr Project project, Model model) {
+		List<Role> roles = roleService.getRoleList(project.getCategoryId());
+		model.addAttribute(AttributeKeys.ROLE_LIST_KEY_READABLE, roles);
 		return "team/member-invite";
 	}
 	
 	@RequestMapping(value="/invite-action", method=RequestMethod.POST)
 	@Permission(value={"member-add", "member-edit"}, userRequired=true, projectRequired=true)
-	public String doInviteAction(@RequestParam String emails,
-			Model model, @RequestAttr Project project, @RequestAttr User user) {
-		List<Long> memberList = new ArrayList<Long>();
+	public String doInviteAction(@RequestParam String emails, Model model, 
+			@RequestParam Long roleId, @RequestAttr Project project, @RequestAttr User user) {
 		String[] emailsArray = StringUtils.split(emails, "\n");
 		for(String email : emailsArray) {
 			User tmp = userService.getUser(StringUtils.trim(email));
 			if(tmp!=null && NumberUtils.compare(tmp.getId(), user.getId())!=0) {
-				Role defaultRole = roleService.getRole(project.getCategoryId(), 50);
-				TeamMember member = new TeamMember(project, tmp, defaultRole);
-				member.setStatus(TeamMember.STATUS_NEED_ACCEPT);
-				memberService.requestMember(member);
-				memberList.add(member.getId());
+				Role role = roleService.getRole(roleId);
+				TeamMember member = memberService.getMember(project, user);
+				if(member==null) {
+					member = new TeamMember(project, tmp, role);
+					member.setStatus(TeamMember.STATUS_NEED_ACCEPT);
+					memberService.requestMember(member);
+				} 
 			}
 		}
 		return String.format("redirect:/%s/team", project.getUniqueId());
@@ -173,10 +167,10 @@ public class MemberWidget {
 			@RequestParam String query) {
 		Page<User> page = new Page<User>(10);
 		page = userService.getUserPage(page, query);
-		Map<String, Object> model = new HashMap<String, Object>();
+		Map<String, Object> model = CollectionUtil.newHashMap();
 		model.put("query", query);
 		model.put("data", "");
-		List<String> suggestions = new ArrayList<String>();
+		List<String> suggestions = CollectionUtil.newArrayList();
 		for(User user : page.getResult()) {
 			suggestions.add(user.getUsername());
 		}
@@ -196,7 +190,7 @@ public class MemberWidget {
 	
 	@RequestMapping(value={"/approve"})
 	public @ResponseBody Object doApproveAction (
-			@RequestParam Long memberId) {
+			@RequestParam Long memberId, @RequestParam(required=false) Long roleId) {
 		memberService.approveMember(memberId);
 		return Collections.singletonMap("id", memberId);
 	}

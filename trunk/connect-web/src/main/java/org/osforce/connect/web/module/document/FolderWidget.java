@@ -1,8 +1,6 @@
 package org.osforce.connect.web.module.document;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +13,7 @@ import org.osforce.connect.entity.system.User;
 import org.osforce.connect.service.document.FolderService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.security.annotation.Permission;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.web.bind.annotation.RequestAttr;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,9 +56,9 @@ public class FolderWidget {
 	public @ResponseBody Object doTreeAction(
 			@RequestParam(required=false) Long id, @RequestAttr Project project) {
 		List<Folder> folders = Collections.emptyList();
-		List<Map<String, Object>> nodeList = new ArrayList<Map<String, Object>>();
+		List<Map<String, Object>> nodeList = CollectionUtil.newArrayList();
 		if(id==-1) {
-			Map<String, Object> node = new HashMap<String, Object>();
+			Map<String, Object> node = CollectionUtil.newHashMap();
 			node.put("id", "0");
 			node.put("data", "ROOT");
 			node.put("haschild", true);
@@ -70,7 +69,7 @@ public class FolderWidget {
 			folders = folderService.getFolderList(project.getId(), id);
 		}
 		for(Folder folder : folders) {
-			Map<String, Object> node = new HashMap<String, Object>();
+			Map<String, Object> node = CollectionUtil.newHashMap();
 			node.put("id", String.valueOf(folder.getId()));
 			node.put("data", folder.getName());
 			node.put("haschild", true);
