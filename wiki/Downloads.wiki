@@ -1,0 +1,5 @@
+FocusSNS SNAPSHOT 版本下载地址 http://www.opensourceforce.org:8081/nexus/content/repositories/snapshots/org/osforce/connect-web/
+
+FocusSNS RELEASE 版本下载地址
+Google Code 下载
+OpenSourceForce [下载 http://www.opensourceforce.org:8081/nexus/content/repositories/snapshots/org/osforce/connect-web/]
