@@ -17,6 +17,8 @@ connect
 
 额外工具：[http://m2eclipse.sonatype.org/sites/m2e-extras]
 
+插件安装：[http://m2eclipse.sonatype.org/installing-m2eclipse.html]
+
 插件使用：[http://www.sonatype.com/books/m2eclipse-book/reference/]
 
 ----
