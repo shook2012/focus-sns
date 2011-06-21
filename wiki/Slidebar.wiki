@@ -1,5 +1,6 @@
   
   * [Introduction Introduction]
+  * [Downloads Downloads]
   * [UserGuide User Guide]
   * [DeveloperGuide Developer Guide]
     * [ProjectImport Project Import]
