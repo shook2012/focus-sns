@@ -2,6 +2,8 @@ FocusSNS 使用Maven作为项目构建工具，其工程结构如下：
 {{{
 connect
   |
+  +---src    (该目录下存在初始化数据库脚本)
+  |
   +---connect-dao
   |
   +---connect-service
@@ -11,15 +13,15 @@ connect
   +---connect-web
 }}}
 
-如果想要将FocusSNS导入成 Eclipse工程，你需要安装M2Eclipse插件。安装地址如下：
+如果想要将FocusSNS导入成 Eclipse工程，你需要安装M2Eclipse插件。
 
 核心插件：[http://m2eclipse.sonatype.org/sites/m2e]
 
 额外工具：[http://m2eclipse.sonatype.org/sites/m2e-extras]
 
-插件安装：[http://m2eclipse.sonatype.org/installing-m2eclipse.html]
+插件安装指南：[http://m2eclipse.sonatype.org/installing-m2eclipse.html]
 
-插件使用：[http://www.sonatype.com/books/m2eclipse-book/reference/]
+插件使用指南：[http://www.sonatype.com/books/m2eclipse-book/reference/]
 
 ----
 
