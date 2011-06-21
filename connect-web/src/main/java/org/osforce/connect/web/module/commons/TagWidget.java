@@ -1,8 +1,6 @@
 package org.osforce.connect.web.module.commons;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +8,7 @@ import org.apache.commons.lang.math.NumberUtils;
 import org.osforce.connect.entity.commons.Tag;
 import org.osforce.connect.service.commons.TagService;
 import org.osforce.connect.web.AttributeKeys;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.dao.Page;
 import org.osforce.spring4me.web.bind.annotation.PrefParam;
 import org.osforce.spring4me.web.stereotype.Widget;
@@ -61,10 +60,10 @@ public class TagWidget {
 	public @ResponseBody Object autoComplete(@RequestParam String query) {
 		Page<Tag> page = new Page<Tag>(10);
 		page = tagService.getTagPage(page, query);
-		Map<String, Object> model = new HashMap<String, Object>();
+		Map<String, Object> model = CollectionUtil.newHashMap();
 		model.put("query", query);
 		model.put("data", "");
-		List<String> suggestions = new ArrayList<String>();
+		List<String> suggestions = CollectionUtil.newArrayList();
 		for(Tag tag : page.getResult()) {
 			suggestions.add(tag.getName());
 		}

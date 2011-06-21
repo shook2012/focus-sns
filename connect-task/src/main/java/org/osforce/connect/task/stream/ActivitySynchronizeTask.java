@@ -3,7 +3,6 @@
  */
 package org.osforce.connect.task.stream;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.osforce.connect.entity.oauth.Authorization;
@@ -11,6 +10,7 @@ import org.osforce.connect.entity.stream.Activity;
 import org.osforce.connect.entity.system.User;
 import org.osforce.connect.service.oauth.AuthorizationService;
 import org.osforce.connect.service.stream.ActivityService;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.social.api.service.ApiService;
 import org.osforce.spring4me.task.AbstractTask;
 import org.osforce.spring4me.task.annotation.Task;
@@ -62,7 +62,7 @@ public class ActivitySynchronizeTask extends AbstractTask
 			for(String target : targets) {
 				Token accessToken = getAccessToken(target, activity.getEnteredBy());
 				ApiService apiService = getApiService(target);
-				Map<String, Object> params = new HashMap<String, Object>();
+				Map<String, Object> params = CollectionUtil.newHashMap();
 				params.put("format", "json");
 				params.put("accessToken", accessToken);
 				params.put("status", activity.getDescription());

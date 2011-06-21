@@ -1,6 +1,5 @@
 package org.osforce.connect.task.gallery;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.aspectj.lang.JoinPoint;
@@ -8,6 +7,7 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.osforce.connect.entity.gallery.Album;
 import org.osforce.connect.entity.gallery.Photo;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -42,7 +42,7 @@ public class GalleryAspect {
 	"execution(* org.osforce.connect.service.gallery.AlbumService.updateAlbum(..))")
 	public void updateAlbum(JoinPoint jp) {
 		Album album = (Album) jp.getArgs()[0];
-		Map<Object, Object> context = new HashMap<Object, Object>();
+		Map<Object, Object> context = CollectionUtil.newHashMap();
 		context.put("albumId", album.getId());
 		context.put("template", TEMPLATE_ALBUM_UPDATE);
 		albumActivityStreamTask.doAsyncTask(context);
@@ -52,7 +52,7 @@ public class GalleryAspect {
 	"execution(* org.osforce.connect.service.gallery.PhotoService.updatePhoto(..))")
 	public void updatePhoto(JoinPoint jp) {
 		Photo photo = (Photo) jp.getArgs()[0];
-		Map<Object, Object> context = new HashMap<Object, Object>();
+		Map<Object, Object> context = CollectionUtil.newHashMap();
 		context.put("photoId", photo.getId());
 		context.put("template", TEMPLATE_PHOTO_UPDATE);
 		photoActivityStreamTask.doAsyncTask(context);

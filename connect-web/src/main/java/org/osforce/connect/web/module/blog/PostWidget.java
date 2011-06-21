@@ -1,7 +1,6 @@
 package org.osforce.connect.web.module.blog;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +21,7 @@ import org.osforce.connect.service.commons.StatisticService;
 import org.osforce.connect.service.list.LinkService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.security.annotation.Permission;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.dao.Page;
 import org.osforce.spring4me.web.bind.annotation.PrefParam;
 import org.osforce.spring4me.web.bind.annotation.RequestAttr;
@@ -163,7 +163,7 @@ public class PostWidget {
 		}
 		// post categories
 		List<PostCategory> categories = postCategoryService.getBlogCategoryList(project);
-		Map<String, String> categoryOptions = new HashMap<String, String>();
+		Map<String, String> categoryOptions = CollectionUtil.newHashMap();
 		for(PostCategory category : categories) {
 			categoryOptions.put(category.getId().toString(), category.getLabel());
 		}

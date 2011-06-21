@@ -1,6 +1,5 @@
 package org.osforce.connect.entity.system;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +18,7 @@ import javax.persistence.Transient;
 import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.validator.constraints.NotBlank;
 import org.osforce.connect.entity.profile.Profile;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.entity.IdEntity;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -61,7 +61,7 @@ public class Project extends IdEntity {
 	private ProjectCategory subCategory1;
 	private ProjectCategory subCategory2;
 	private ProjectCategory subCategory3;
-	private List<ProjectFeature> features = new ArrayList<ProjectFeature>();
+	private List<ProjectFeature> features = CollectionUtil.newArrayList();
 
 	public Project() {
 	}

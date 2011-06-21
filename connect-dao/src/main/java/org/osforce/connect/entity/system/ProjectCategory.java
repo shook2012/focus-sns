@@ -1,6 +1,5 @@
 package org.osforce.connect.entity.system;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Cacheable;
@@ -15,6 +14,7 @@ import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.osforce.connect.entity.support.SiteEntity;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 
 
 /**
@@ -43,7 +43,7 @@ public class ProjectCategory extends SiteEntity{
 	private Long parentId;
 	// refer
 	private ProjectCategory parent;
-	private List<ProjectCategory> children = new ArrayList<ProjectCategory>();
+	private List<ProjectCategory> children = CollectionUtil.newArrayList();
 
 	public ProjectCategory() {
 	}

@@ -1,6 +1,5 @@
 package org.osforce.connect.entity.document;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +17,7 @@ import javax.persistence.Transient;
 import org.hibernate.validator.constraints.NotBlank;
 import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.entity.system.User;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.entity.IdEntity;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -52,10 +52,10 @@ public class Folder extends IdEntity {
 	private User enteredBy;
 	private User modifiedBy;
 	private Project project;
-	private List<File> files = new ArrayList<File>();
+	private List<File> files = CollectionUtil.newArrayList();
 	// tree structure
 	private Folder parent;
-	private List<Folder> children = new ArrayList<Folder>();
+	private List<Folder> children = CollectionUtil.newArrayList();
 
 	public Folder() {
 	}

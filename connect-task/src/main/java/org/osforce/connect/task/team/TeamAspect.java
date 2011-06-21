@@ -1,6 +1,5 @@
 package org.osforce.connect.task.team;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.aspectj.lang.JoinPoint;
@@ -8,6 +7,7 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.osforce.connect.entity.team.TeamMember;
 import org.osforce.connect.service.team.MemberService;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -61,7 +61,7 @@ public class TeamAspect {
 			"execution(* org.osforce.connect.service.team.MemberService.updateMember(..))")
 	public void updateMember(JoinPoint jp) {
 		TeamMember member = (TeamMember) jp.getArgs()[0];
-		Map<Object, Object> context = new HashMap<Object, Object>();
+		Map<Object, Object> context = CollectionUtil.newHashMap();
 		context.put("memberId", member.getId());
 		context.put("template", TEMPLATE_MEMBER_UPDATE);
 		memberActivityStreamTask.doAsyncTask(context);
@@ -70,7 +70,7 @@ public class TeamAspect {
 	@AfterReturning("execution(* org.osforce.connect.service.team.MemberService.requestMember(..))")
 	public void requestMember(JoinPoint jp) {
 		TeamMember member = (TeamMember) jp.getArgs()[0];
-		Map<Object, Object> context = new HashMap<Object, Object>();
+		Map<Object, Object> context = CollectionUtil.newHashMap();
 		context.put("memberId", member.getId());
 		context.put("siteId", member.getProject().getCategory().getSiteId());
 		memberRequestEmailTask.doAsyncTask(context);
@@ -80,7 +80,7 @@ public class TeamAspect {
 	public void approveMember(JoinPoint jp) {
 		Long memberId = (Long) jp.getArgs()[0];
 		TeamMember member = memberService.getMember(memberId);
-		Map<Object, Object> context = new HashMap<Object, Object>();
+		Map<Object, Object> context = CollectionUtil.newHashMap();
 		context.put("memberId", memberId);
 		context.put("siteId", member.getProject().getCategory().getSiteId());
 		memberApproveEmailTask.doAsyncTask(context);

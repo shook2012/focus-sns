@@ -1,6 +1,5 @@
 package org.osforce.connect.task.document;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.aspectj.lang.JoinPoint;
@@ -8,6 +7,7 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.osforce.connect.entity.document.File;
 import org.osforce.connect.entity.document.Folder;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -49,7 +49,7 @@ public class DocumentAspect {
 			+ "execution(* org.osforce.connect.service.document.FileService.updateFile(..))")
 	public void updateFile(JoinPoint jp) {
 		File file = (File) jp.getArgs()[0];
-		Map<Object, Object> context = new HashMap<Object, Object>();
+		Map<Object, Object> context = CollectionUtil.newHashMap();
 		context.put("fileId", file.getId());
 		context.put("template", TEMPLATE_FILE_UPDATE);
 		fileActivityStreamTask.doAsyncTask(context);
@@ -59,7 +59,7 @@ public class DocumentAspect {
 			+ "execution(* org.osforce.connect.service.document.FolderService.updateFolder(..))")
 	public void updateFolder(JoinPoint jp) {
 		Folder folder = (Folder) jp.getArgs()[0];
-		Map<Object, Object> context = new HashMap<Object, Object>();
+		Map<Object, Object> context = CollectionUtil.newHashMap();
 		context.put("folderId", folder.getId());
 		context.put("template", TEMPLATE_FOLDER_UPDATE);
 		folderActivityStreamTask.doAsyncTask(context);

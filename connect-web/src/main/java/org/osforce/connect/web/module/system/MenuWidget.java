@@ -13,6 +13,7 @@ import org.osforce.connect.entity.team.TeamMember;
 import org.osforce.connect.service.system.PermissionService;
 import org.osforce.connect.service.system.ProjectCategoryService;
 import org.osforce.connect.web.AttributeKeys;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.web.bind.annotation.PrefParam;
 import org.osforce.spring4me.web.bind.annotation.RequestAttr;
 import org.osforce.spring4me.web.stereotype.Widget;
@@ -59,7 +60,7 @@ public class MenuWidget {
 			return "commons/blank";
 		}
 		List<ProjectFeature> features = project.getFeatures();
-		List<ProjectFeature> tmp = new ArrayList<ProjectFeature>();
+		List<ProjectFeature> tmp = CollectionUtil.newArrayList();
 		for(ProjectFeature feature : features) {
 			String resource = "project-" +  feature.getCode().toLowerCase() + "-view";
 			if(permissionService.hasPermission(project, user, resource)) {
@@ -83,7 +84,7 @@ public class MenuWidget {
 		}
 		//
 		if(StringUtils.isNotBlank(items)) {
-			List<String[]> itemList = new ArrayList<String[]>();
+			List<String[]> itemList = CollectionUtil.newArrayList();
 			for(String item : StringUtils.split(items, "\n")) {
 				if(StringUtils.contains(item, "=")) {
 					String key = StringUtils.substringBefore(item, "=");

@@ -1,8 +1,6 @@
 package org.osforce.connect.web.security.interceptor;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -12,8 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.entity.system.User;
-import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.connect.service.system.PermissionService;
+import org.osforce.connect.web.security.annotation.Permission;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.web.interceptor.WidgetInterceptorAdapter;
 import org.osforce.spring4me.web.widget.WidgetConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +33,7 @@ public class WidgetSecurityInterceptor extends WidgetInterceptorAdapter {
 
 	private PermissionService permissionService; 
 	
-	private Map<String, Permission> permissionMappings = new HashMap<String, Permission>();
+	private Map<String, Permission> permissionMappings = CollectionUtil.newHashMap();
 	
 	public WidgetSecurityInterceptor() {
 	}
@@ -102,7 +101,7 @@ public class WidgetSecurityInterceptor extends WidgetInterceptorAdapter {
 	}
 	
 	protected List<String> buildMappingPaths(String[] namespaces, String[] paths) {
-		List<String> mappingPaths = new ArrayList<String>();
+		List<String> mappingPaths = CollectionUtil.newArrayList();
 		for(String namespace : namespaces) {
 			for(String path : paths) {
 				if(!namespace.startsWith("/")) {

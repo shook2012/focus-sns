@@ -24,12 +24,14 @@ public class MemberDaoImpl extends AbstractDao<TeamMember>
 		super(TeamMember.class);
 	}
 	
-	static final String JPQL0 = "FROM TeamMember AS tm WHERE tm.project.id = ?1 AND tm.user.id = ?2 AND tm.enabled = ?3";
+	static final String JPQL0 = "FROM TeamMember AS tm WHERE tm.project.id = ?1 AND tm.user.id = ?2 %s";
 	public TeamMember findMember(Long projectId, Long userId, Boolean enabled) {
 		Assert.notNull(projectId, "Parameter project id can not be null!");
 		Assert.notNull(userId, "Parameter user id can not be null!");
-		Assert.notNull(enabled, "Parameter enabled can not be null!");
-		return findOne(JPQL0, projectId, userId, enabled);
+		if(enabled==null) {
+			return findOne(String.format(JPQL0, ""), projectId, userId);
+		}
+		return findOne(String.format(JPQL0, "AND tm.enabled = ?3"), projectId, userId, enabled);
 	}
 
 	static final String JPQL1 = "FROM TeamMember AS tm WHERE tm.project.id = ?1 AND tm.enabled = TRUE";

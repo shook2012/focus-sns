@@ -1,3 +1,4 @@
+<#if needApprove?size!=0 || needAccept?size!=0>
 <#assign id = widgetConfig.id />
 
 <div id="${widgetConfig.id}" class="widget">
@@ -24,6 +25,11 @@
 						</a>
 					</div>
 					<div>
+						<select id="selectRole${id}">
+							<#list roles as role>
+							<option value="${role.id}" <#if role.id == member.roleId>selected="selected"</#if> >${role.name}</option>
+							</#list>
+						</select>
 						<a class="ajaxAction" href="${base}/team/member/approve?memberId=${member.id}">同意</a>
 						|
 						<a class="ajaxAction" href="#">拒绝</a>
@@ -58,3 +64,12 @@
 		<div class="clear"></div>
 	</div>
 </div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#selectRole${id}').change(function(){
+		
+	});
+});
+</script>
+</#if>

@@ -20,6 +20,7 @@ import org.osforce.connect.service.document.FolderService;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.module.util.AttachmentUtil;
 import org.osforce.connect.web.security.annotation.Permission;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.web.bind.annotation.RequestAttr;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,7 +83,7 @@ public class FileWidget {
 			files = fileService.getFileList(folderId);
 			Folder folder = folderService.getFolder(folderId);
 			model.addAttribute(AttributeKeys.FOLDER_KEY_READABLE, folder);
-			List<Folder> pathFolders = new ArrayList<Folder>();
+			List<Folder> pathFolders = CollectionUtil.newArrayList();
 			do {
 				pathFolders.add(0, folder);
 			} while ((folder = folder.getParent())!=null);
@@ -167,7 +168,7 @@ public class FileWidget {
 	public void syncSessionFileList(File file, WebRequest request, Boolean reverse) {
 		List<File> files = (List<File>) request.getAttribute(
 				AttributeKeys.FILE_LIST_KEY_READABLE, WebRequest.SCOPE_SESSION);
-		List<File> tmp = new ArrayList<File>();
+		List<File> tmp = CollectionUtil.newArrayList();
 		if(reverse) {
 			for(File f : files) {
 				if(NumberUtils.compare(f.getId(), file.getId())!=0) {

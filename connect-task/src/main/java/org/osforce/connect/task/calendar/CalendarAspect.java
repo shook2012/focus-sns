@@ -1,12 +1,12 @@
 package org.osforce.connect.task.calendar;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.osforce.connect.entity.calendar.Event;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -46,7 +46,7 @@ public class CalendarAspect {
 	@AfterReturning("execution(* org.osforce.connect.service.calendar.EventService.notifyEvent(..))")
 	public void eventNotify(JoinPoint jp) {
 		Event event = (Event) jp.getArgs()[0];
-		Map<Object, Object> context = new HashMap<Object, Object>();
+		Map<Object, Object> context = CollectionUtil.newHashMap();
 		context.put("eventId", event.getId());
 		eventNotifyEmailTask.doAsyncTask(context);
 	}
@@ -55,7 +55,7 @@ public class CalendarAspect {
 			"execution(* org.osforce.connect.service.calendar.EventService.updateEvent(..))")
 	public void updateEvent(JoinPoint jp) {
 		Event event = (Event) jp.getArgs()[0];
-		Map<Object, Object> context = new HashMap<Object, Object>();
+		Map<Object, Object> context = CollectionUtil.newHashMap();
 		context.put("eventId", event.getId());
 		context.put("template", TEMPLATE_EVENT_UPDATE);
 		eventActivityStreamTask.doAsyncTask(context);

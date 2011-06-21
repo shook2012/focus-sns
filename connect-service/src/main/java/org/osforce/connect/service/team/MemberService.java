@@ -17,8 +17,10 @@ import org.osforce.spring4me.dao.Page;
 public interface MemberService {
 
 	TeamMember getMember(Long memberId);
+	
+	TeamMember getMember(Project project, User user);
 
-	TeamMember getMember(Long userId, Long projectId, Boolean enabled);
+	TeamMember getMember(Project project, User user, Boolean enabled);
 
 	void createMember(TeamMember member);
 

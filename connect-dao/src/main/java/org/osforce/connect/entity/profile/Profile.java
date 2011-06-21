@@ -1,6 +1,5 @@
 package org.osforce.connect.entity.profile;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +24,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.osforce.connect.entity.commons.Attachment;
 import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.entity.system.User;
+import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.entity.IdEntity;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -92,7 +92,7 @@ public class Profile extends IdEntity {
 	@Lob@Type(type="org.hibernate.type.StringClobType")
 	public String getAttributes() {
 		if(StringUtils.isBlank(attributes) && labels!=null && values!=null) {
-			List<String> attributeList = new ArrayList<String>();
+			List<String> attributeList = CollectionUtil.newArrayList();;
 			if(labels!=null && values!=null) {
 				for(int i=0; i<labels.length; i++) {
 					if(StringUtils.isNotBlank(labels[i]) &&
@@ -109,8 +109,7 @@ public class Profile extends IdEntity {
 
 	@Transient
 	public List<String[]> getAttributeList() {
-		List<String[]> tuplePairList =
-			new ArrayList<String[]>();
+		List<String[]> tuplePairList = CollectionUtil.newArrayList();
 		if(StringUtils.isNotBlank(attributes)) {
 			String[] items = StringUtils.split(attributes, "|");
 			for(String item : items) {

@@ -1,6 +1,5 @@
 package org.osforce.connect.dao.knowledge.impl;
 
-import org.apache.commons.lang.StringUtils;
 import org.osforce.connect.dao.knowledge.AnswerDao;
 import org.osforce.connect.entity.knowledge.Answer;
 import org.osforce.spring4me.dao.AbstractDao;
