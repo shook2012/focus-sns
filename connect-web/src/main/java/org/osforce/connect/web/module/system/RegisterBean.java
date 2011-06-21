@@ -1,6 +1,5 @@
 package org.osforce.connect.web.module.system;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;

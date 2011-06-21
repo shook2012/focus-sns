@@ -1,6 +1,5 @@
 package org.osforce.connect.web.module.system;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;

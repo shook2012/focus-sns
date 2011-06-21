@@ -1,7 +1,6 @@
 package org.osforce.connect.web.module.document;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 

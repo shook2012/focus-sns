@@ -1,6 +1,5 @@
 package org.osforce.connect.web.bind.support;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
