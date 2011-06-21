@@ -1,8 +1,8 @@
-FocusSNS SNAPSHOT 版本下载地址 
+=== FocusSNS SNAPSHOT 版本下载地址 ===
 
   * OpenSourceForce [http://www.opensourceforce.org:8081/nexus/content/repositories/snapshots/org/osforce/connect-web/ 下载]
 
-FocusSNS RELEASE 版本下载地址
+=== FocusSNS RELEASE 版本下载地址 ===
 
   * Google Code [http://code.google.com/p/focus-sns/downloads/list 下载]
 
