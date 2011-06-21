@@ -3,4 +3,4 @@ OpenSourceForce [http://www.opensourceforce.org:8081/nexus/content/repositories/
 
 FocusSNS RELEASE 版本下载地址
 Google Code 下载
-OpenSourceForce [http://www.opensourceforce.org:8081/nexus/content/repositories/snapshots/org/osforce/connect-web/ 下载]
+OpenSourceForce [http://www.opensourceforce.org:8081/nexus/content/repositories/releases/org/osforce/connect-web/ 下载]
