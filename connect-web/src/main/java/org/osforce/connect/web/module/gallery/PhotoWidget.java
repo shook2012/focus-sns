@@ -66,10 +66,21 @@ public class PhotoWidget {
 		this.attachmentService = attachmentService;
 	}
 	
+	@RequestMapping("/recent-view")
+	@Permission({"photo-view"})
+	public String doRecentView(Page<Photo> page, 
+			@RequestAttr Project project, Model model) {
+		page.desc("p.modified");
+		page = photoService.getPhotoPage(page, project);
+		model.addAttribute(AttributeKeys.PAGE_KEY_READABLE, page);
+		return "gallery/photo-recent";
+	}
+	
 	@RequestMapping("/list-view")
 	@Permission({"photo-view"})
 	public String doListView(@RequestParam Long albumId, 
 			Page<Photo> page, Model model) {
+		page.desc("p.entered");
 		page = photoService.getPhotoPage(page, albumId);
 		model.addAttribute(AttributeKeys.PAGE_KEY_READABLE, page);
 		return "gallery/photo-list";

@@ -21,6 +21,7 @@
 				<tr>
 					<th>ID</th>
 					<th>文档名</th>
+					<th>推荐</th>
 					<th>上传日期</th>
 					<th>修改日期</th>
 					<th>操作</th>
@@ -37,6 +38,7 @@
 						${file.realFile.fileName}
 						</#if>
 					</td>
+					<td><input type="checkbox" <#if file.featured!false>checked="checked"</#if> /></td>
 					<td>${file.entered!''}</td>
 					<td>${file.modified}</td>
 					<td>

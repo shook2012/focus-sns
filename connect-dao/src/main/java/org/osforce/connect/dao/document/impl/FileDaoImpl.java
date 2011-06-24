@@ -5,6 +5,7 @@ import java.util.List;
 import org.osforce.connect.dao.document.FileDao;
 import org.osforce.connect.entity.document.File;
 import org.osforce.spring4me.dao.AbstractDao;
+import org.osforce.spring4me.dao.Page;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -25,5 +26,10 @@ public class FileDaoImpl extends AbstractDao<File>
 	static final String JPQL0 = "FROM File AS f WHERE f.folder.id = ?1";
 	public List<File> findFileList(Long folderId) {
 		return findList(JPQL0, folderId);
+	}
+	
+	static final String JPQL1 = "FROM File AS f WHERE f.folder.project.id = ?1 AND f.featured = ?2";
+	public Page<File> findFilePage(Page<File> page, Long projectId, Boolean featured) {
+		return findPage(page, JPQL1, projectId, featured);
 	}
 }

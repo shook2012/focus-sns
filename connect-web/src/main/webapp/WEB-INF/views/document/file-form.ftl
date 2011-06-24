@@ -29,6 +29,11 @@
 				<@spring.formInput path="file.name" />
 			</div>
 			<div>
+				<label>推荐下载</label>
+				<br/>
+				<@spring.formCheckbox path="file.featured" />
+			</div>
+			<div>
 				<label>上传目录</label>
 				<br/>
 				<input id="folder" value="<#if file.folder??>${file.folder.name!''}</#if>" readonly="readonly"/>

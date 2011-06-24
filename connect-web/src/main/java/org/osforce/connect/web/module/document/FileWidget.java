@@ -20,6 +20,7 @@ import org.osforce.connect.web.AttributeKeys;
 import org.osforce.connect.web.module.util.AttachmentUtil;
 import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.spring4me.commons.collection.CollectionUtil;
+import org.osforce.spring4me.dao.Page;
 import org.osforce.spring4me.web.bind.annotation.RequestAttr;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,16 @@ public class FileWidget {
 	@Autowired
 	public void setAttachmentService(AttachmentService attachmentService) {
 		this.attachmentService = attachmentService;
+	}
+	
+	@RequestMapping("/featured-view")
+	@Permission({"file-download"})
+	public String doFeaturedView(Page<File> page, 
+			@RequestAttr Project project, Model model) {
+		page.desc("f.modified");
+		page = fileService.getFilePage(page, project, true);
+		model.addAttribute(AttributeKeys.PAGE_KEY_READABLE, page);
+		return "document/file-featured";
 	}
 	
 	@RequestMapping("/list-view")

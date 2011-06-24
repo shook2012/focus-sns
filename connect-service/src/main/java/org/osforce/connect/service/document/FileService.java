@@ -3,6 +3,8 @@ package org.osforce.connect.service.document;
 import java.util.List;
 
 import org.osforce.connect.entity.document.File;
+import org.osforce.connect.entity.system.Project;
+import org.osforce.spring4me.dao.Page;
 
 /**
  * 
@@ -22,4 +24,6 @@ public interface FileService {
 	void deleteFile(Long fileId);
 
 	List<File> getFileList(Long folderId);
+
+	Page<File> getFilePage(Page<File> page, Project project, Boolean featured);
 }

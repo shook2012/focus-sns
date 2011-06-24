@@ -5,7 +5,6 @@
 		<groupId>org.osforce</groupId>
 		<version>1.1.2-SNAPSHOT</version>
 	</parent>
-	<groupId>org.osforce</groupId>
 	<artifactId>connect-dao</artifactId>
 	<name>Connect Dao</name>
 

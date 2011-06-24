@@ -2,8 +2,8 @@ package org.osforce.connect.web;
 
 import javax.servlet.jsp.tagext.Tag;
 
-import org.osforce.connect.entity.blog.PostCategory;
 import org.osforce.connect.entity.blog.Post;
+import org.osforce.connect.entity.blog.PostCategory;
 import org.osforce.connect.entity.calendar.Event;
 import org.osforce.connect.entity.commons.Attachment;
 import org.osforce.connect.entity.commons.Comment;
@@ -20,6 +20,7 @@ import org.osforce.connect.entity.knowledge.Question;
 import org.osforce.connect.entity.list.Link;
 import org.osforce.connect.entity.message.Message;
 import org.osforce.connect.entity.profile.Profile;
+import org.osforce.connect.entity.review.Rating;
 import org.osforce.connect.entity.stream.Activity;
 import org.osforce.connect.entity.system.MailSettings;
 import org.osforce.connect.entity.system.Permission;
@@ -180,4 +181,7 @@ public  abstract  class AttributeKeys {
 	public static final String FILE_KEY = "_" + File.class.getName();
 	public static final String FILE_KEY_READABLE = "file";
 	public static final String FILE_LIST_KEY_READABLE = "files";
+	
+	public static final String RATING_KEY = "_" + Rating.class.getName();
+	public static final String RATING_KEY_READABLE = "rating";
 }

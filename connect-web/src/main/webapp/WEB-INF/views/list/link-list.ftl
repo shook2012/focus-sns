@@ -15,15 +15,64 @@
 			<#list page.result as link>
 			<#if link.entity=='Question'>
 			<li class="question">
-				<a href="${base}/${link.linkedEntity.project.uniqueId}/knowledge/question/detail?questionId=${link.toId}">${link.linkedEntity.title}</a>
+				<#assign question = link.linkedEntity />
+				<span class="span-1 answers">
+					<div class="counts">
+						${question.answers?size}
+					</div>
+					<div>
+						回答
+					</div>
+				</span>
+				<span class="span-1 views">
+					<div class="counts">
+						${question.views}
+					</div>
+					<div>
+						浏览
+					</div>
+				</span>
+				<span>
+					<div class="title">
+						<a href="${base}/${project.uniqueId}/knowledge/question/detail?questionId=${question.id}">${question.title}</a>
+					</div>
+					<div>
+						<span class="right">
+							<@prettyTime date=question.entered />
+							<a href="${base}/${question.enteredBy.project.uniqueId}/profile">${question.enteredBy.nickname}</a>
+						</span>
+						<#if question.tags??>
+						<ul class="tags-list">
+							<#list question.tags as tag>
+							<li>
+							<a>${tag.name}</a>
+							</li>
+							</#list>
+						</ul>
+						</#if>
+					</div>
+				<span>
+				<br class="clear"/>
 			</li>
 			<#elseif link.entity=='Post'>
 			<li class="post">
+				<#assign post = link.linkedEntity/>
+				<span class="top right">${post.views} 阅</span>
 				<a href="${base}/${link.linkedEntity.project.uniqueId}/blog/post/detail?postId=${link.toId}">${link.linkedEntity.title}</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="${base}/${post.enteredBy.project.uniqueId}/profile">${post.enteredBy.nickname}</a>
+				发表于
+				${post.entered?string('yyyy-MM-dd HH:mm')}
 			</li>
 			<#elseif link.entity=='Topic'>
 			<li class="topic">
-				<a href="${base}/${link.linkedEntity.forum.project.uniqueId}/discussion/reply/list?topicId=${link.toId}">${link.linkedEntity.subject}</a>
+				<#assign topic = link.linkedEntity/>
+				<span class="top right">${topic.views} 阅</span>
+				<a href="${base}/${topic.forum.project.uniqueId}/discussion/reply/list?topicId=${topic.id}">${topic.subject}</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="${base}/${topic.enteredBy.project.uniqueId}/profile">${topic.enteredBy.nickname}</a>
+				发表于
+				${topic.entered?string('yyyy-MM-dd HH:mm')}
 			</li>
 			</#if>
 			</#list>
