@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.osforce.connect.entity.blog.Post;
+import org.osforce.connect.entity.commons.Statistic;
 import org.osforce.connect.entity.discussion.Topic;
 import org.osforce.connect.entity.document.File;
 import org.osforce.connect.entity.gallery.Photo;
@@ -13,6 +14,7 @@ import org.osforce.connect.entity.knowledge.Question;
 import org.osforce.connect.entity.list.Link;
 import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.service.blog.PostService;
+import org.osforce.connect.service.commons.StatisticService;
 import org.osforce.connect.service.discussion.TopicService;
 import org.osforce.connect.service.document.FileService;
 import org.osforce.connect.service.gallery.PhotoService;
@@ -48,6 +50,7 @@ public class LinkWidget {
 	private TopicService topicService;
 	private PhotoService photoService;
 	private QuestionService questionService;
+	private StatisticService statisticService;
 	
 	public LinkWidget() {
 	}
@@ -82,6 +85,11 @@ public class LinkWidget {
 		this.questionService = questionService;
 	}
 	
+	@Autowired
+	public void setStatisticService(StatisticService statisticService) {
+		this.statisticService = statisticService;
+	}
+	
 	@RequestMapping("/recent-view")
 	@Permission(value={"link-view"}, projectRequired=true)
 	public String doRecentView(Page<Link> page, Model model,
@@ -114,10 +122,19 @@ public class LinkWidget {
 			Object entity = null;
 			if(StringUtils.equals(link.getEntity(), Question.NAME)) {
 				entity = questionService.getQuestion(link.getToId());
+				Statistic statistic = statisticService.getStatistic(Statistic.TYPE_VIEW, link.getToId(), Question.NAME);
+				Long views = statistic!=null ? statistic.getCount() : 0L;
+				((Question)entity).setViews(views);
 			} else if (StringUtils.equals(link.getEntity(), Post.NAME)) {
 				entity = postService.getPost(link.getToId());
+				Statistic statistic = statisticService.getStatistic(Statistic.TYPE_VIEW, link.getToId(), Post.NAME);
+				Long views = statistic!=null ? statistic.getCount() : 0L;
+				((Post)entity).setViews(views);
 			} else if (StringUtils.equals(link.getEntity(), Topic.NAME)) {
 				entity = topicService.getTopic(link.getToId());
+				Statistic statistic = statisticService.getStatistic(Statistic.TYPE_VIEW, link.getToId(), Topic.NAME);
+				Long views = statistic!=null ? statistic.getCount() : 0L;
+				((Topic)entity).setViews(views);
 			} else if (StringUtils.equals(link.getEntity(), Photo.NAME)) {
 				entity = photoService.getPhoto(link.getToId());
 			} else if (StringUtils.equals(link.getEntity(), File.NAME)) {

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.osforce.connect.entity.document.File;
 import org.osforce.spring4me.dao.BaseDao;
+import org.osforce.spring4me.dao.Page;
 
 /**
  * 
@@ -20,5 +21,7 @@ public interface FileDao extends BaseDao<File> {
 	 * @return
 	 */
 	List<File> findFileList(Long folderId);
+
+	Page<File> findFilePage(Page<File> page, Long projectId, Boolean featured);
 
 }

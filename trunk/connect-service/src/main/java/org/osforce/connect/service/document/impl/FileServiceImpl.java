@@ -10,8 +10,10 @@ import org.osforce.connect.dao.system.UserDao;
 import org.osforce.connect.entity.commons.Attachment;
 import org.osforce.connect.entity.document.File;
 import org.osforce.connect.entity.document.Folder;
+import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.entity.system.User;
 import org.osforce.connect.service.document.FileService;
+import org.osforce.spring4me.dao.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -96,5 +98,10 @@ public class FileServiceImpl implements FileService {
 	
 	public List<File> getFileList(Long folderId) {
 		return fileDao.findFileList(folderId);
+	}
+	
+	public Page<File> getFilePage(Page<File> page, Project project,
+			Boolean featured) {
+		return fileDao.findFilePage(page, project.getId(), featured);
 	}
 }

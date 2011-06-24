@@ -361,10 +361,29 @@ table.calendar tbody tr td a {
 	height: 100px;
 }
 /* link widget */
-.concerns-list li {
-	float: left;
-	margin-right: 5px;
-	margin-bottom: 5px;
+.link-list li.question {
+	margin: 5px 0;
+	padding: 5px 0;
+	border-bottom: 1px dashed #CCC;
+}
+.link-list li.question .answers,
+.link-list li.question .views {
+	padding: 5px 10px;
+	text-align: center;
+	background-color: #DDD;
+}
+.link-list li.question .counts {
+	font-size: large;	
+}
+.link-list li.question .title {
+	font-size: large;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+.link-list li.post,
+.link-list li.topic {
+	border-bottom: 1px dashed #DDD;		
 }
 /* tag widget */
 .tags-list li {

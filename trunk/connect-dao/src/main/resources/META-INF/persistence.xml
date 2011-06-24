@@ -46,10 +46,11 @@
 		<class>org.osforce.connect.entity.oauth.Authorization</class>
 		<!-- list -->
 		<class>org.osforce.connect.entity.list.Link</class>
+		<!-- review -->
+		<class>org.osforce.connect.entity.review.Rating</class>
 		<!-- commons -->
 		<class>org.osforce.connect.entity.commons.Attachment</class>
 		<class>org.osforce.connect.entity.commons.Comment</class>
-		<class>org.osforce.connect.entity.commons.Rating</class>
 		<class>org.osforce.connect.entity.commons.Statistic</class>
 		<class>org.osforce.connect.entity.commons.Template</class>
 		<class>org.osforce.connect.entity.commons.Keyword</class>

@@ -37,7 +37,8 @@ public class File extends IdEntity {
 	@DateTimeFormat(iso=ISO.DATE_TIME)
 	private Date entered;
 	private Date modified;
-	private Boolean enabled;
+	private Boolean featured = Boolean.FALSE;
+	private Boolean enabled = Boolean.FALSE;
 	// helper
 	private Long modifiedId;
 	private Long enteredId;
@@ -86,6 +87,14 @@ public class File extends IdEntity {
 
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
+	}
+	
+	public Boolean getFeatured() {
+		return featured;
+	}
+	
+	public void setFeatured(Boolean featured) {
+		this.featured = featured;
 	}
 
 	@Transient

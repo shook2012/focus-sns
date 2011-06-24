@@ -35,6 +35,7 @@ public class ProjectFeature extends IdEntity {
 	public static final String FEATURE_MESSAGE = "message";
 	public static final String FEATURE_ADMIN = "admin";
 	public static final String FEATURE_LIST = "list";
+	public static final String FEATURE_REVIEW = "review";
 
 	private String label;
 	private String code;

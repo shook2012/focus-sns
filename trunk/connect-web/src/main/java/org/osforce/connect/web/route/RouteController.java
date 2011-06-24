@@ -410,4 +410,25 @@ public class RouteController {
 		return "page:list/link-list";
 	}
 	//  ---------------------------------------------- List Module -------------------------------------------------  //
+	
+	//  ---------------------------------------------- Review Module -------------------------------------------------  //
+	@RequestMapping(value={"/{uniqueId}/review"})
+	public String route340(@PathVariable String uniqueId, WebRequest webRequest) {
+		webRequest.setAttribute(AttributeKeys.PROJECT_UNIQUE_KEY_READABLE, 
+				uniqueId, WebRequest.SCOPE_REQUEST);
+		webRequest.setAttribute(AttributeKeys.FEATURE_CODE_KEY_READABLE, 
+				ProjectFeature.FEATURE_REVIEW, WebRequest.SCOPE_REQUEST);
+		return "page:review/rating-list";
+	}
+	
+	@RequestMapping(value={"/{uniqueId}/review/rating/{mode}"})
+	public String route340(@PathVariable String uniqueId, 
+			@PathVariable String mode, WebRequest webRequest) {
+		webRequest.setAttribute(AttributeKeys.PROJECT_UNIQUE_KEY_READABLE, 
+				uniqueId, WebRequest.SCOPE_REQUEST);
+		webRequest.setAttribute(AttributeKeys.FEATURE_CODE_KEY_READABLE, 
+				ProjectFeature.FEATURE_REVIEW, WebRequest.SCOPE_REQUEST);
+		return String.format("page:review/rating-%s", mode);
+	}
+	//  ---------------------------------------------- List Module -------------------------------------------------  //
 }

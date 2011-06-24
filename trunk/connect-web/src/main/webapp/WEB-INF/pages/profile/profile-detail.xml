@@ -23,6 +23,12 @@
 				<userRequired>true</userRequired>
 			</prefs>
 		</widget>
+		<widget name="photoWidget" path="/gallery/photo/recent-view">
+			<title>最新相片</title>
+			<prefs>
+				<limit>20</limit>
+			</prefs>
+		</widget>
 		<widget name="memberWidget" path="/team/member/info-view">
 			<title>邀请</title>
 		</widget>
@@ -31,6 +37,12 @@
 		</widget>
 		<widget name="postWidget" path="/blog/post/recent-view">
 			<title>最新博文</title>
+		</widget>
+		<widget name="fileWidget" path="/document/file/featured-view">
+			<title>推荐下载</title>
+			<prefs>
+				<limit>5</limit>
+			</prefs>
 		</widget>
 	</placeholder>
 </page>

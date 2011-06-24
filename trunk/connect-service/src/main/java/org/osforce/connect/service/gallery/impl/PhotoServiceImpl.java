@@ -10,6 +10,7 @@ import org.osforce.connect.dao.system.UserDao;
 import org.osforce.connect.entity.commons.Attachment;
 import org.osforce.connect.entity.gallery.Album;
 import org.osforce.connect.entity.gallery.Photo;
+import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.entity.system.User;
 import org.osforce.connect.service.gallery.PhotoService;
 import org.osforce.spring4me.dao.Page;
@@ -102,6 +103,10 @@ public class PhotoServiceImpl implements PhotoService {
 	
 	public Page<Photo> getPhotoPage(Page<Photo> page, Long albumId) {
 		return photoDao.findPhotoPage(page, albumId);
+	}
+	
+	public Page<Photo> getPhotoPage(Page<Photo> page, Project project) {
+		return photoDao.findPhotoPage(page, project);
 	}
 	
 }

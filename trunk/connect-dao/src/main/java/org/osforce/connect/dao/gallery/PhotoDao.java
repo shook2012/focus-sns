@@ -3,6 +3,7 @@ package org.osforce.connect.dao.gallery;
 import java.util.List;
 
 import org.osforce.connect.entity.gallery.Photo;
+import org.osforce.connect.entity.system.Project;
 import org.osforce.spring4me.dao.BaseDao;
 import org.osforce.spring4me.dao.Page;
 
@@ -29,5 +30,7 @@ public interface PhotoDao extends BaseDao<Photo> {
 	 * @return
 	 */
 	Page<Photo> findPhotoPage(Page<Photo> page, Long albumId);
+
+	Page<Photo> findPhotoPage(Page<Photo> page, Project project);
 
 }
