@@ -394,7 +394,13 @@ table.calendar tbody tr td a {
 	border-bottom: 1px solid #DDD;
 	background-color: #F6F6F6;
 }
-
+/* rating widget */
+.rating-list li {
+	margin-bottom: 10px;
+}
+.rating-list li .rating-detail {
+	margin-left: 50px;
+}
 /* project widget */
 .project {
 	padding-left: 1em;

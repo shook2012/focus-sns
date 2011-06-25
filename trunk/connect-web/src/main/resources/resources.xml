@@ -84,4 +84,10 @@
 	<!-- List Module -->
 	<resource name="List模块浏览" code="project-list-view" enabled="true"/>
 	<resource name="链接查看" code="link-view" enabled="true"/>
+	
+	<!-- Review Module -->
+	<resource name="Review模块浏览" code="project-review-view" enabled="true"/>
+	<resource name="评论查看" code="rating-view" enabled="true"/>
+	<resource name="评论编辑" code="rating-edit" enabled="true"/>
+	<resource name="评论添加" code="rating-add" enabled="true"/>
 </resources>

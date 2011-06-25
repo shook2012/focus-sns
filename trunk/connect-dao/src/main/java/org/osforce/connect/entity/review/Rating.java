@@ -30,7 +30,7 @@ public class Rating extends IdEntity {
 	private static final long serialVersionUID = 1934844229876756104L;
 	@NotBlank
 	private String comment;
-	private Integer rating;
+	private Float rating;
 	private Date entered;
 	private Date modified;
 	// helper
@@ -55,11 +55,11 @@ public class Rating extends IdEntity {
 	}
 
 	@Column(nullable=false)
-	public Integer getRating() {
+	public Float getRating() {
 		return rating;
 	}
 	
-	public void setRating(Integer rating) {
+	public void setRating(Float rating) {
 		this.rating = rating;
 	}
 	
