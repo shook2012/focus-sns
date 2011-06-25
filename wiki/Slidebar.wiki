@@ -1,5 +1,6 @@
   
   * [Introduction Introduction]
+  * [Demo Demo]
   * [Downloads Downloads]
   * [UserGuide User Guide]
   * [DeveloperGuide Developer Guide]
