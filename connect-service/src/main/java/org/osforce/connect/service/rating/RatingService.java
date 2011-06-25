@@ -1,6 +1,8 @@
 package org.osforce.connect.service.rating;
 
 import org.osforce.connect.entity.review.Rating;
+import org.osforce.connect.entity.system.Project;
+import org.osforce.spring4me.dao.Page;
 
 /**
  * 
@@ -18,4 +20,6 @@ public interface RatingService {
 	void updateRating(Rating rating);
 
 	void deleteRating(Long ratingId);
+
+	Page<Rating> getRatingPage(Page<Rating> page, Project project);
 }

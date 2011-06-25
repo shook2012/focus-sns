@@ -9,6 +9,7 @@ import org.osforce.connect.entity.review.Rating;
 import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.entity.system.User;
 import org.osforce.connect.service.rating.RatingService;
+import org.osforce.spring4me.dao.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -80,6 +81,10 @@ public class RatingServiceImpl implements RatingService {
 	
 	public void deleteRating(Long ratingId) {
 		ratingDao.delete(ratingId);
+	}
+	
+	public Page<Rating> getRatingPage(Page<Rating> page, Project project) {
+		return ratingDao.findRatingPage(page, project.getId());
 	}
 	
 }

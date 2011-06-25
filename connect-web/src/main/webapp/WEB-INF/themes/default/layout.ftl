@@ -19,8 +19,7 @@
 	<!-- plugins -->
     <link rel="stylesheet" href="${base}/themes/default/css/plugins/buttons/screen.css" type="text/css" media="screen, projection"/>
 
-
-    <script type="text/javascript" src="${base}/static/components/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="${base}/static/components/jquery/jquery.js"></script>
     <script type="text/javascript" src="${base}/static/components/global.js"></script>
 
     <script type="text/javascript" src="${base}/static/components/jquery-xheditor/xheditor-1.1.6-en.min.js"></script>
@@ -51,6 +50,9 @@
     <link rel="stylesheet" type="text/css" href="${base}/static/components/jquery-autocomplete/jquery.autocomplete.css"/>
     <script type="text/javascript" src="${base}/static/components/jquery-autocomplete/jquery.autocomplete.js"></script>
 
+	
+    <script type="text/javascript" src="${base}/static/components/jquery-raty/jquery.raty.js"></script>
+    
     <link rel="stylesheet" type="text/css" href="${base}/static/components/jquery-pagination/pagination.css"/>
     <script type="text/javascript" src="${base}/static/components/jquery-pagination/jquery.pagination.js"></script>
     

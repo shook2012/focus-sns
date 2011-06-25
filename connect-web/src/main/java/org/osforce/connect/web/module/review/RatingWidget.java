@@ -8,6 +8,8 @@ import org.osforce.connect.entity.system.ProjectFeature;
 import org.osforce.connect.entity.system.User;
 import org.osforce.connect.service.rating.RatingService;
 import org.osforce.connect.web.AttributeKeys;
+import org.osforce.connect.web.security.annotation.Permission;
+import org.osforce.spring4me.dao.Page;
 import org.osforce.spring4me.web.bind.annotation.RequestAttr;
 import org.osforce.spring4me.web.stereotype.Widget;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,11 +40,16 @@ public class RatingWidget {
 	}
 
 	@RequestMapping("/list-view")
-	public String doListView() {
+	@Permission(value={"rating-view"}, projectRequired=true)
+	public String doListView(Page<Rating> page, 
+			@RequestAttr Project project, Model model) {
+		page = ratingService.getRatingPage(page, project);
+		model.addAttribute(AttributeKeys.PAGE_KEY_READABLE, page);
 		return "review/rating-list";
 	}
 	
 	@RequestMapping("/form-view")
+	@Permission(value={"rating-add", "rating-edit"}, projectRequired=true)
 	public String doFormView(@Valid @ModelAttribute Rating rating,
 			BindingResult result, Model model, Boolean showErrors,
 			@RequestAttr Project project, @RequestAttr User user) {
@@ -57,6 +64,7 @@ public class RatingWidget {
 	}
 	
 	@RequestMapping("/form-action")
+	@Permission(value={"rating-add", "rating-edit"})
 	public String doFormAction(@Valid @ModelAttribute Rating rating, 
 			BindingResult result, Model model) {
 		if(result.hasErrors()) {

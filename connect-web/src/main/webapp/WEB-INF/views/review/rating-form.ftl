@@ -10,14 +10,17 @@
 		<@spring.bind "rating"/>
 		<form class="rating-form" action="${base}/review/rating/form-action" method="post">
 			<div>
-				<label>评论</label>
+				<label>内容</label>
 				<br/>
-				<@spring.formTextarea path="rating.comment" attributes='class="xheditor-mini"'/>	
+				<@spring.formTextarea path="rating.comment" attributes='class="xheditor-mini"'/>
+				<#if showErrors!false>
+				<@spring.showErrors separator="<br/>" classOrStyle="error"/>
+				</#if>
 			</div>
 			<div>
 				<label>星级</label>
 				<br/>
-				<input name="rating"/>
+				<div class="rating"></div>
 			</div>
 			<div>
 				<button type="submit">提交</button>
@@ -29,3 +32,13 @@
 		</form>
 	</div>
 </div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.rating').raty({
+		path: '${base}/static/components/jquery-raty/img',
+		scoreName: 'rating',
+		half:  true
+	});
+});
+</script>

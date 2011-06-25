@@ -2,6 +2,7 @@ package org.osforce.connect.dao.review;
 
 import org.osforce.connect.entity.review.Rating;
 import org.osforce.spring4me.dao.BaseDao;
+import org.osforce.spring4me.dao.Page;
 
 /**
  * 
@@ -11,5 +12,7 @@ import org.osforce.spring4me.dao.BaseDao;
  * <a href="http://www.opensourceforce.org">开源力量</a>
  */
 public interface RatingDao extends BaseDao<Rating> {
+
+	Page<Rating> findRatingPage(Page<Rating> page, Long projectId);
 
 }
