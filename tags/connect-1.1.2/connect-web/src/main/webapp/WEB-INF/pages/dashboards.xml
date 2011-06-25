@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages>
+	<page parent="parent/global" path="/home">
+		<placeholder name="mainColumn">
+			<widget name="eventWidget" path="/calendar/event/upcoming-view"
+				cache="60">
+				<title>即将到来的活动</title>
+				<prefs>
+					<limit>10</limit>
+					<categoryCodes>people,groups</categoryCodes>
+				</prefs>
+			</widget>
+			<widget name="topicWidget" path="/discussion/topic/recent-view">
+				<title>最新讨论</title>
+				<prefs>
+					<limit>10</limit>
+					<categoryCodes>people,groups</categoryCodes>
+				</prefs>
+			</widget>
+			<widget name="postWidget" path="/blog/post/recent-view">
+				<title>最新博文</title>
+				<prefs>
+					<limit>10</limit>
+					<categoryCodes>people,groups</categoryCodes>
+				</prefs>
+			</widget>
+		</placeholder>
+		<placeholder name="rightColumn">
+			<widget name="contentWidget" path="/commons/content/detail-view">
+				<title>公告</title>
+				<prefs>
+					<content><![CDATA[
+					QQ讨论群 144832020
+					]]></content>
+				</prefs>
+			</widget>
+			<widget name="activityWidget" path="/stream/activity/recent-view">
+				<title>说了些什么...</title>
+				<prefs>
+					<limit>5</limit>
+					<activityTypes>user-input</activityTypes>
+				</prefs>
+			</widget>
+			<widget name="questionWidget" path="/knowledge/question/recent-view">
+				<title>问了些什么...</title>
+				<prefs>
+					<limit>5</limit>
+					<categoryCodes>people,groups</categoryCodes>
+				</prefs>
+			</widget>
+		</placeholder>
+	</page>
+
+	<page parent="parent/global" path="/people">
+		<placeholder name="leftColumn">
+			<widget name="menuWidget" path="/system/menu/custom-menu">
+				<prefs>
+					<userRequired>true</userRequired>
+					<items><![CDATA[
+					${base}/people/all=所有成员
+					]]></items>
+				</prefs>
+			</widget>
+			<widget name="profileSearchWidget" path="/search/profile/form-view">
+				<title>搜索</title>
+			</widget>
+		</placeholder>
+		<placeholder name="mainColumn">
+			<widget name="profileWidget" path="/profile/profile/list-view">
+				<title>成员列表</title>
+				<prefs>
+					<categoryCode>people</categoryCode>
+				</prefs>
+			</widget>
+		</placeholder>
+	</page>
+
+	<page parent="parent/global" path="/groups">
+		<placeholder name="leftColumn">
+			<widget name="menuWidget" path="/system/menu/custom-menu">
+				<prefs>
+					<userRequired>true</userRequired>
+					<items><![CDATA[
+					${base}/groups/form=添加圈子
+					${base}/groups/all=所有圈子
+					]]></items>
+				</prefs>
+			</widget>
+			<widget name="profileSearchWidget" path="/search/profile/form-view">
+				<title>搜索</title>
+			</widget>
+		</placeholder>
+		<placeholder name="mainColumn">
+			<widget name="profileWidget" path="/profile/profile/list-view">
+				<title>圈子列表</title>
+				<prefs>
+					<categoryCode>groups</categoryCode>
+				</prefs>
+			</widget>
+		</placeholder>
+	</page>
+</pages>

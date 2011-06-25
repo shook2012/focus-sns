@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<!-- profile module -->
+	<resource name="Profile模块浏览" code="project-profile-view" enabled="true" />
+	<resource name="主页添加" code="profile-add" enabled="true" />
+	<resource name="主页编辑" code="profile-edit" enabled="true" />
+	<resource name="主页查看" code="profile-view" enabled="true" />
+
+	<!-- calendar module -->
+	<resource name="Calendar模块浏览" code="project-calendar-view" enabled="true" />
+	<resource name="日历添加" code="event-add" enabled="true" />
+	<resource name="日历编辑" code="event-edit" enabled="true" />
+	<resource name="日历查看" code="event-view" enabled="true" />
+
+	<!-- blog module -->
+	<resource name="Blog模块浏览" code="project-blog-view" enabled="true" />
+	<resource name="博文添加" code="post-add" enabled="true" />
+	<resource name="博文编辑" code="post-edit" enabled="true" />
+	<resource name="博文查看" code="post-view" enabled="true" />
+	<resource name="博客分类添加" code="post-category-add" enabled="true" />
+	<resource name="博客分类编辑" code="post-category-edit" enabled="true" />
+	<resource name="博客分类查看" code="post-category-view" enabled="true" />
+
+	<!-- discussion module -->
+	<resource name="Discussion模块浏览" code="project-discussion-view" enabled="true" />
+	<resource name="讨论版块添加" code="forum-add" enabled="true" />
+	<resource name="讨论版块编辑" code="forum-edit" enabled="true" />
+	<resource name="讨论版块查看" code="forum-view" enabled="true" />
+	<resource name="讨论话题添加" code="topic-add" enabled="true" />
+	<resource name="讨论话题编辑" code="topic-edit" enabled="true" />
+	<resource name="讨论话题查看" code="topic-view" enabled="true" />
+	<resource name="讨论回复添加" code="reply-add" enabled="true" />
+	<resource name="讨论回复编辑" code="reply-edit" enabled="true" />
+	<resource name="讨论回复查看" code="reply-view" enabled="true" />
+
+	<!-- Document Module -->
+	<resource name="Document模块浏览" code="project-document-view" enabled="true" />
+	<resource name="文档文件编辑" code="file-edit" enabled="true" />
+	<resource name="文档文件查看" code="file-view" enabled="true" />
+	<resource name="文档文件上载" code="file-upload" enabled="true" />
+	<resource name="文档文件下载" code="file-download" enabled="true" />
+	<resource name="文档目录添加" code="folder-add" enabled="true" />
+	<resource name="文档目录编辑" code="folder-edit" enabled="true" />
+	<resource name="文档目录查看" code="folder-view" enabled="true" />
+
+	<!-- Team Module -->
+	<resource name="Team模块浏览" code="project-team-view" enabed="true" />
+	<resource name="团队成员添加" code="member-add" enabled="true" />
+	<resource name="团队成员编辑" code="member-edit" enabled="true" />
+	<resource name="团队成员查看" code="member-view" enabled="true" />
+	
+	<!-- Message Module -->
+	<resource name="Message模块浏览" code="project-message-view" enabled="true" />
+	<resource name="消息添加" code="message-add" enabled="true" />
+	<resource name="消息编辑" code="message-edit" enabled="true" />
+	<resource name="消息查看" code="message-view" enabled="true" />
+	
+	<!-- Admin Module -->
+	<resource name="Admin模块浏览" code="project-admin-view" enabled="true"/>
+
+	<!-- Stream Module -->
+	<resource name="微薄添加" code="activity-add" enabled="true" />
+	<resource name="微薄编辑" code="activity-edit" enabled="true" />
+	<resource name="微薄查看" code="activity-view" enabled="true" />
+
+	<!-- Gallery Module -->
+	<resource name="Gallery模块浏览" code="project-gallery-view" enabled="true" />
+	<resource name="相册添加" code="album-add" enabled="true" />
+	<resource name="相册编辑" code="album-edit" enabled="true" />
+	<resource name="相册查看" code="album-view" enabled="true" />
+	<resource name="相片上传" code="photo-add" enabled="true" />
+	<resource name="相片编辑" code="photo-edit" enabled="true" />
+	<resource name="相片查看" code="photo-view" enabled="true" />
+
+	<!-- Knowledge Module -->
+	<resource name="Knowledge模块浏览" code="project-knowledge-view" enabled="true" />
+	<resource name="问题添加" code="question-add" enabled="true" />
+	<resource name="问题编辑" code="question-edit" enabled="true" />
+	<resource name="问题查看" code="question-view" enabled="true" />
+	<resource name="答案添加" code="answer-add" enabled="true" />
+	<resource name="答案编辑" code="answer-edit" enabled="true" />
+	<resource name="答案查看" code="answer-view" enabled="true" />
+	
+	<!-- List Module -->
+	<resource name="List模块浏览" code="project-list-view" enabled="true"/>
+	<resource name="链接查看" code="link-view" enabled="true"/>
+	
+	<!-- Review Module -->
+	<resource name="Review模块浏览" code="project-review-view" enabled="true"/>
+	<resource name="评论查看" code="rating-view" enabled="true"/>
+	<resource name="评论编辑" code="rating-edit" enabled="true"/>
+	<resource name="评论添加" code="rating-add" enabled="true"/>
+</resources>

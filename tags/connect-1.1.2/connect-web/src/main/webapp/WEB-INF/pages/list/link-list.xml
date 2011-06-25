@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page parent="parent/global">
+	<placeholder name="mainColumn">
+		<widget name="linkWidget" path="/list/link/list-view">
+			<title>收藏列表</title>
+		</widget>
+	</placeholder>
+	<placeholder name="rightColumn">
+		<widget name="menuWidget" path="/list/link/recent-view">
+			<title>最近收藏</title>
+			<prefs>
+				<linkTypes>favorite</linkTypes>
+			</prefs>
+		</widget>
+	</placeholder>
+</page>

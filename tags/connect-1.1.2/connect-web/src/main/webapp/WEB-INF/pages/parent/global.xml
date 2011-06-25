@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page>
+	<placeholder name="userMenu">
+		<widget name="menuWidget" path="/system/menu/user-menu"/>
+	</placeholder>
+	<placeholder name="mainMenu">
+		<widget name="menuWidget" path="/system/menu/main-menu"/>
+	</placeholder>
+	<placeholder name="subMenu">
+		<widget name="menuWidget" path="/system/menu/project-menu"/>
+	</placeholder>
+	<placeholder name="subMenu1">
+		<widget name="projectWidget" path="/system/project/title-view"/>		
+	</placeholder>
+	<placeholder name="copyright">
+		<widget name="siteWidget" path="/system/site/copyright-view"/>
+	</placeholder>
+</page>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page>
+	<placeholder name="mainColumn">
+		<widget name="messageWidget" path="/message/message/form-view">
+			<title>消息编辑</title>
+		</widget>
+	</placeholder>
+</page>
