@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>connect</artifactId>
 		<groupId>org.osforce</groupId>
-		<version>1.1.2-SNAPSHOT</version>
+		<version>1.1.2</version>
 	</parent>
 	<artifactId>connect-dao</artifactId>
 	<name>Connect Dao</name>
