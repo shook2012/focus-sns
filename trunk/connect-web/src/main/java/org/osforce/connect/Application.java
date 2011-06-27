@@ -14,7 +14,7 @@ public class Application {
 	// application properties
 	public static final String PRODUCT_NAME = "Focus SNS";
 	public static final String CODE_NAME = "connect";
-	public static final String VERSION = "1.1.0";
+	public static final String VERSION = "1.1.2";
 	public static final String LICENSE = "GNU Affero Genral Public License (AGPL3)";
 	public static final String RUNTIME = SystemUtils.getUserHome().getAbsolutePath() + "/.connect"; 
 	// operating system properties
