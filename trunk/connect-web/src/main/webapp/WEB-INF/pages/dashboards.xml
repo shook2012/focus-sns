@@ -26,13 +26,8 @@
 			</widget>
 		</placeholder>
 		<placeholder name="rightColumn">
-			<widget name="contentWidget" path="/commons/content/detail-view">
-				<title>公告</title>
-				<prefs>
-					<content><![CDATA[
-					QQ讨论群 144832020
-					]]></content>
-				</prefs>
+			<widget name="userWidget" path="/system/user/login-view">
+				<title>登录</title>
 			</widget>
 			<widget name="activityWidget" path="/stream/activity/recent-view">
 				<title>说了些什么...</title>
