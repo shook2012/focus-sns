@@ -30,10 +30,11 @@
 		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
 		<!-- Object expose interceptor -->
 		<bean class="org.osforce.connect.web.interceptor.ObjectExposeInterceptor"/>
-		<!-- Url security interceptor -->
+		<!-- Url security interceptor 
 		<bean class="org.osforce.connect.web.security.interceptor.UrlSecurityInterceptor">
 			<property name="administrators" value="gavin.hu@opensourceforce.org"/>
 		</bean>
+		-->
 		<!-- Remember Me Interceptor -->
 		<bean class="org.osforce.connect.web.interceptor.RememberMeInterceptor"/>
 		<!-- Object not found interceptor -->
