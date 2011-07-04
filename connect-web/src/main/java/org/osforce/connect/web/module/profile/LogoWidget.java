@@ -50,7 +50,8 @@ public class LogoWidget {
 	@RequestMapping(value="/form-action", method=RequestMethod.POST)
 	@Permission(value={"profile-add", "profile-edit"}, userRequired=true)
 	public @ResponseBody Object doFormAction(
-			MultipartFile file, @RequestParam Long profileId) throws IOException {
+			@RequestParam MultipartFile file, 
+			@RequestParam Long profileId) throws IOException {
 		Attachment attachment = AttachmentUtil.parse(file);
 		attachmentService.createAttachment(attachment);
 		// write attachment content to local file
