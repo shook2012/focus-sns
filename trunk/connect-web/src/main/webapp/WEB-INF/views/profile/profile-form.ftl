@@ -56,7 +56,7 @@
 				<@spring.formHiddenInput path="profile.projectId" />
 				<input type="hidden" name="uniqueId" value="${project.uniqueId}"/>
 			</div>
-		</form:form>
+		</form>
 	</div>
 </div>
 

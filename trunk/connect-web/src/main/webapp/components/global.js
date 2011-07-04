@@ -6,7 +6,7 @@ var settings = {
 	              ["link", "unlink", "|", "image"]
 	          ]
 	}
-}
+};
 
 $(document).ready(function(){
 	$('.ajaxAction').click(function(){
@@ -26,20 +26,4 @@ function showModalWindow(url, options) {
 	} else {
 		window.open(url, '', 'height='+options.width+',width='+options.height+',toolbar=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no ,modal=yes');
 	}
-}
-
-function openModalWindow(url, options) {
-	$.modal('', {
-		minHeight: options!=null?options.height : 'auto',
-		minWidth: options!=null?options.width : 'auto',
-		onOpen: function(dialog){
-			dialog.overlay.fadeIn('slow', function () {
-				dialog.container.slideDown('fast', function () {
-					$(this).find('.simplemodal-data').load(url, function(){
-						dialog.data.fadeIn('slow');
-					});
-				});
-			});
-		}
-	});
 }

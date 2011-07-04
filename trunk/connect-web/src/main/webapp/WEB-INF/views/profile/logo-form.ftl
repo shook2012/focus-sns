@@ -13,7 +13,7 @@
 			action="${base}/profile/logo/form-action">
 			<div>
 			<#if profile.logo??>
-				<img class="thumbnail" src="${base}/logo/download/${profile.logo.id}/75x75"/>			
+				<img class="thumbnail" src="${base}/commons/attachment/download/${profile.logo.id}/75x75"/>			
 			<#else>
 				<img class="thumbnail" src="${base}/themes/${theme}/stock/${project.category.code}.png"/>
 			</#if>
@@ -26,7 +26,6 @@
 	</div>
 </div>
 
-<#-- FIXME -->
 <script type="text/javascript">
 $(document).ready(function(){
 	$('#select-file${id}').change(function(){
