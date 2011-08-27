@@ -7,6 +7,7 @@
 	<version>1.1.3-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Connect</name>
+
 	<modules>
 		<module>connect-web</module>
 		<module>connect-task</module>
@@ -19,36 +20,17 @@
 		<url>http://www.opensourceforce.org</url>
 	</organization>
 
-	<distributionManagement>
-		<repository>
-			<id>releases</id>
-			<url>http://www.opensourceforce.org:8081/nexus/content/repositories/releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<url>http://www.opensourceforce.org:8081/nexus/content/repositories/snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
-
 	<scm>
 		<connection>scm:svn:http://focus-sns.googlecode.com/svn/trunk/</connection>
 		<developerConnection>scm:svn:https://focus-sns.googlecode.com/svn/trunk/</developerConnection>
 	</scm>
 
-	<repositories>
-		<repository>
-			<id>osforce</id>
-			<name>Open Source Force</name>
-			<url>http://www.opensourceforce.org:8081/nexus/content/groups/public/</url>
-		</repository>
-	</repositories>
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.version>3.0.5.RELEASE</spring.version>
+		<spring.version>3.0.6.RELEASE</spring.version>
 		<hibernate.version>3.6.2.Final</hibernate.version>
 		<hibernate.search.version>3.3.0.Final</hibernate.search.version>
-		<aspectj.version>1.6.10</aspectj.version>
+		<aspectj.version>1.6.11</aspectj.version>
 		<slf4j.version>1.6.1</slf4j.version>
 		<spring4me.version>0.2.3-SNAPSHOT</spring4me.version>
 	</properties>
@@ -327,13 +309,6 @@
 				<version>1.0.7</version>
 			</dependency>
 			<!-- Pretty Time End -->
-			<!-- Wiki Model Begin -->
-			<dependency>
-				<groupId>org.wikimodel</groupId>
-				<artifactId>wem</artifactId>
-				<version>2.0.7</version>
-			</dependency>
-			<!-- Wiki Model End -->
 			<!-- Joda Time Begin -->
 			<dependency>
 				<groupId>joda-time</groupId>
@@ -355,7 +330,6 @@
 				<version>2.4</version>
 				<type>jar</type>
 				<classifier>jdk15</classifier>
-				<scope>compile</scope>
 			</dependency>
 			<!-- Json End -->
 			<!-- Database Pool Begin -->
@@ -416,8 +390,9 @@
 			<!-- JUnit End -->
 		</dependencies>
 	</dependencyManagement>
-	
+
 	<profiles>
+		<!-- 
 		<profile>
 			<id>mysql</id>
 			<activation>
@@ -469,19 +444,20 @@
 				</dependency>
 			</dependencies>
 		</profile>
+		 -->
 	</profiles>
 
 	<build>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
+				<filtering>false</filtering>
 			</resource>
 		</resources>
 		<testResources>
 			<testResource>
 				<directory>src/test/resources</directory>
-				<filtering>true</filtering>
+				<filtering>false</filtering>
 			</testResource>
 		</testResources>
 
@@ -531,5 +507,15 @@
 				</configuration>
 			</plugin>
 		</plugins>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.mortbay.jetty</groupId>
+					<artifactId>jetty-maven-plugin</artifactId>
+					<version>7.4.5.v20110725</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 </project>
