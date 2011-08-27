@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.osforce.connect.entity.system.Project;
 import org.osforce.connect.entity.system.User;
@@ -14,7 +13,9 @@ import org.osforce.connect.service.system.PermissionService;
 import org.osforce.connect.web.security.annotation.Permission;
 import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.web.interceptor.WidgetInterceptorAdapter;
-import org.osforce.spring4me.web.widget.WidgetConfig;
+import org.osforce.spring4me.web.widget.config.WidgetConfig;
+import org.osforce.spring4me.web.widget.core.HttpWidgetRequest;
+import org.osforce.spring4me.web.widget.core.HttpWidgetResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,9 +45,8 @@ public class WidgetSecurityInterceptor extends WidgetInterceptorAdapter {
 	}
 	
 	@Override
-	public boolean preHandleWidget(HttpServletRequest request,
-			HttpServletResponse response, Object handler) throws Exception {
-		//
+	protected boolean preHandleWidget(HttpWidgetRequest request,
+			HttpWidgetResponse response, Object handler) throws Exception {
 		resolveHandlerMethodPermission(request, handler);
 		//
 		return validatePermissions(request);

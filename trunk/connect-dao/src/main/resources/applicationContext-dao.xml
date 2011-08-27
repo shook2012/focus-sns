@@ -28,6 +28,11 @@
 		<property name="timeBetweenEvictionRunsMillis" value="3600000" />
 		<property name="minEvictableIdleTimeMillis" value="3600000" />
 	</bean>
+	
+	<!-- user  -->
+	<jdbc:initialize-database data-source="dataSource" enabled="true">
+		<jdbc:script location="classpath*:/dbscripts/connect_mysql_20110625.sql"/>
+	</jdbc:initialize-database>
 
 	<!-- persistence exception translator -->
 	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
@@ -38,7 +43,7 @@
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 				<property name="showSql" value="false"/>
-				<property name="generateDdl" value="true"/>
+				<property name="generateDdl" value="false"/>
 				<property name="database">
 					<util:constant static-field="${jpa.dialect}"/>
 				</property>

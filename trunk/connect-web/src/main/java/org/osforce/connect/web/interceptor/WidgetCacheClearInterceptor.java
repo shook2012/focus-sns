@@ -1,10 +1,9 @@
 package org.osforce.connect.web.interceptor;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.osforce.spring4me.web.interceptor.WidgetInterceptorAdapter;
+import org.osforce.spring4me.web.widget.core.HttpWidgetRequest;
+import org.osforce.spring4me.web.widget.core.HttpWidgetResponse;
 
 /**
  * 
@@ -19,8 +18,8 @@ public class WidgetCacheClearInterceptor extends WidgetInterceptorAdapter {
 	}
 	
 	@Override
-	public void afterHandleCompletion(HttpServletRequest request,
-			HttpServletResponse response, Object handler, Exception ex)
+	public void afterCompletionWidget(HttpWidgetRequest request,
+			HttpWidgetResponse response, Object handler, Exception ex)
 			throws Exception {
 		if(request.getRequestURI().endsWith("-action")) {
 			String widgetName = StringUtils.uncapitalize(handler.getClass().getSimpleName());

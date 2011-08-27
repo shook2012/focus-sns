@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.osforce.connect.web.AttributeKeys;
 import org.osforce.spring4me.commons.collection.CollectionUtil;
 import org.osforce.spring4me.dao.Page;
-import org.osforce.spring4me.web.widget.WidgetConfig;
+import org.osforce.spring4me.web.widget.config.WidgetConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.convert.ConversionService;
