@@ -29,7 +29,7 @@
 		<property name="minEvictableIdleTimeMillis" value="3600000" />
 	</bean>
 	
-	<!-- user  -->
+	<!-- please disable initialize database after first running -->
 	<jdbc:initialize-database data-source="dataSource" enabled="true">
 		<jdbc:script location="classpath*:/dbscripts/connect_mysql_20110625.sql"/>
 	</jdbc:initialize-database>
